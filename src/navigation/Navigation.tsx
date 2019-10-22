@@ -18,112 +18,112 @@ import Search from '../assets/svg/Search'
 
 const MapStackNavigator = createStackNavigator({
   Map: {
-      screen: Map,
-      navigationOptions: {
-          header: null,
-        },
-    },
+    screen: Map,
+    navigationOptions: {
+        header: null,
+      },
+  },
   Nearly: {
-      screen: Map,
-      navigationOptions: {
-          title: 'Nearly',
-        },
-    },
+    screen: Map,
+    navigationOptions: {
+        title: 'Nearly',
+      },
+  },
 })
 
 const TabNavigator = createBottomTabNavigator({
   Menu: {
-      screen: MapStackNavigator,
-      navigationOptions: {
-          tabBarIcon: () => {
-              return <Menu
+    screen: MapStackNavigator,
+    navigationOptions: {
+        tabBarIcon: () => {
+            return <Menu
                 width='25'
                 height='25'
                 fill='#1F3044'/>
-            },
-        },
-    },
+          },
+      },
+  },
   Map: {
-      screen: MapStackNavigator,
-      navigationOptions: {
-          tabBarIcon: () => {
-              return <Globe
+    screen: MapStackNavigator,
+    navigationOptions: {
+        tabBarIcon: () => {
+            return <Globe
                 width='25'
                 height='25'
                 fill='#1F3044'/>
-            },
-        },
-    },
+          },
+      },
+  },
   Search: {
-      screen: MapStackNavigator,
-      navigationOptions: {
-          tabBarIcon: () => {
-              return <Search
+    screen: MapStackNavigator,
+    navigationOptions: {
+        tabBarIcon: () => {
+            return <Search
                 width='25'
                 height='25'
                 fill='#1F3044'/>
-            },
-        },
-    },
+          },
+      },
+  },
   Camera: {
-      screen: MapStackNavigator,
-      navigationOptions: {
-          tabBarIcon: () => {
-              return <Camera
+    screen: MapStackNavigator,
+    navigationOptions: {
+        tabBarIcon: () => {
+            return <Camera
                 width='50'
                 height='50'
                 fill='#1F3044'
                 style={{ marginBottom: 10 }}/>
-            },
-        },
-    },
+          },
+      },
+  },
   Heat: {
-      screen: MapStackNavigator,
-      navigationOptions: {
-          tabBarIcon: () => {
-              return <Heat
+    screen: MapStackNavigator,
+    navigationOptions: {
+        tabBarIcon: () => {
+            return <Heat
                 width='25'
                 height='25'
                 fill='#1F3044'/>
-            },
-        },
-    },
+          },
+      },
+  },
   Bell: {
-      screen: MapStackNavigator,
-      navigationOptions: {
-          tabBarIcon: () => {
-              return <Bell
+    screen: MapStackNavigator,
+    navigationOptions: {
+        tabBarIcon: () => {
+            return <Bell
                 width='25'
                 height='25'
                 fill='#1F3044'/>
-            },
-        },
-    },
+          },
+      },
+  },
   Person: {
-      screen: MapStackNavigator,
-      navigationOptions: {
-          tabBarIcon: () => {
-              return <Person
+    screen: MapStackNavigator,
+    navigationOptions: {
+        tabBarIcon: () => {
+            return <Person
                 width='25'
                 height='25'
                 fill='#1F3044'/>
-            },
-        },
-    },
+          },
+      },
+  },
 }, {
   tabBarOptions: {
-      activeBackgroundColor: '#DDDDDD',
-      inactiveBackgroundColor: '#FFFFFF',
-      showLabel: false,
-      showIcon: true,
-    },
+    activeBackgroundColor: '#DDDDDD',
+    inactiveBackgroundColor: '#FFFFFF',
+    showLabel: false,
+    showIcon: true,
+  },
 })
 
 const styles = StyleSheet.create({
   icon: {
-      width: 30,
-      height: 30,
-    },
+    width: 30,
+    height: 30,
+  },
 })
 
 export default createAppContainer(TabNavigator)

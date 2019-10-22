@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1003006342874",
+    "firebase_url": "https://wilderness-2138c.firebaseio.com",
+    "project_id": "wilderness-2138c",
+    "storage_bucket": "wilderness-2138c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1003006342874:android:00268259fc9047bddb57e3",
+        "android_client_info": {
+          "package_name": "com.wilderness"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1003006342874-fsvgekquub0qp4tof0ofme960612dl68.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUCA5yLPSMRgd7GGYIg_9MGj70IUivxh8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1003006342874-fsvgekquub0qp4tof0ofme960612dl68.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
