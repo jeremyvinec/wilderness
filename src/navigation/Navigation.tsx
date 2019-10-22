@@ -5,7 +5,7 @@ import { createStackNavigator } from 'react-navigation-stack'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 
 // page
-import Map from '../components/Map'
+import Map from '../components/screens/Map'
 
 // svg
 import Bell from '../assets/svg/Bell'
@@ -19,15 +19,11 @@ import Search from '../assets/svg/Search'
 const MapStackNavigator = createStackNavigator({
   Map: {
     screen: Map,
-    navigationOptions: {
-        header: null,
-      },
+    navigationOptions: { header: null },
   },
   Nearly: {
     screen: Map,
-    navigationOptions: {
-        title: 'Nearly',
-      },
+    navigationOptions: { title: 'Nearly' },
   },
 })
 
@@ -35,80 +31,87 @@ const TabNavigator = createBottomTabNavigator({
   Menu: {
     screen: MapStackNavigator,
     navigationOptions: {
-        tabBarIcon: () => {
-            return <Menu
-                width='25'
-                height='25'
-                fill='#1F3044'/>
-          },
+      tabBarIcon: () => {
+        return <Menu
+          width='25'
+          height='25'
+          fill='#1F3044'
+        />
       },
+    },
   },
   Map: {
     screen: MapStackNavigator,
     navigationOptions: {
-        tabBarIcon: () => {
-            return <Globe
-                width='25'
-                height='25'
-                fill='#1F3044'/>
-          },
+      tabBarIcon: () => {
+        return <Globe
+          width='25'
+          height='25'
+          fill='#1F3044'
+        />
       },
+    },
   },
   Search: {
     screen: MapStackNavigator,
     navigationOptions: {
-        tabBarIcon: () => {
-            return <Search
-                width='25'
-                height='25'
-                fill='#1F3044'/>
-          },
+      tabBarIcon: () => {
+        return <Search
+            width='25'
+            height='25'
+            fill='#1F3044'
+        />
       },
+    },
   },
   Camera: {
     screen: MapStackNavigator,
     navigationOptions: {
-        tabBarIcon: () => {
-            return <Camera
-                width='50'
-                height='50'
-                fill='#1F3044'
-                style={{ marginBottom: 10 }}/>
-          },
+      tabBarIcon: () => {
+        return <Camera
+          width='50'
+          height='50'
+          fill='#1F3044'
+          style={{ marginBottom: 10 }}
+        />
       },
+    },
   },
   Heat: {
     screen: MapStackNavigator,
     navigationOptions: {
-        tabBarIcon: () => {
-            return <Heat
-                width='25'
-                height='25'
-                fill='#1F3044'/>
-          },
+      tabBarIcon: () => {
+        return <Heat
+          width='25'
+          height='25'
+          fill='#1F3044'
+        />
       },
+    },
   },
   Bell: {
     screen: MapStackNavigator,
     navigationOptions: {
-        tabBarIcon: () => {
-            return <Bell
-                width='25'
-                height='25'
-                fill='#1F3044'/>
-          },
+      tabBarIcon: () => {
+        return <Bell
+          width='25'
+          height='25'
+          fill='#1F3044'
+        />
       },
+    },
   },
   Person: {
     screen: MapStackNavigator,
     navigationOptions: {
-        tabBarIcon: () => {
-            return <Person
-                width='25'
-                height='25'
-                fill='#1F3044'/>
-          },
+      tabBarIcon: () => {
+        return <Person
+          width='25'
+          height='25'
+          fill='#1F3044'
+        />
       },
+    },
   },
 }, {
   tabBarOptions: {
