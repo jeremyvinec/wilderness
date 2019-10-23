@@ -1,45 +1,47 @@
 import MapboxGL from '@react-native-mapbox-gl/maps'
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, TouchableOpacity } from 'react-native'
+import Geolocate from '../../assets/svg/Geolocate'
 import config from '../../utils/config.js'
-import Bubble from '../common/Bubble'
 
 MapboxGL.setAccessToken(config.get('accessToken'))
 
 interface State {
-  showUserLocation: boolean,
+  followUserLocation: boolean,
 }
 
 interface Props { }
-export default class Map extends React.Component<State, Props>{
+export default class Map extends React.Component<State, Props> {
 
   constructor(props: Props) {
     super(props)
     this.state = {
-      showUserLocation: true,
-
+      followUserLocation: true,
     }
   }
 
   onToggleUserLocation() {
-    this.setState({showUserLocation: !this.state.showUserLocation});
+    this.setState({followUserLocation: !this.state.followUserLocation})
   }
 
   render() {
-    const { showUserLocation } = this.state
+    const { followUserLocation } = this.state
     return (
       <View style={styles.map}>
         <MapboxGL.MapView
           style={styles.map}
           styleURL={MapboxGL.StyleURL.Outdoors}
         >
-          <MapboxGL.UserLocation visible={showUserLocation}/>
+          <MapboxGL.UserLocation visible={followUserLocation}/>
           <MapboxGL.Camera
-              centerCoordinate={[6.075870, 44.559860]}
               zoomLevel={12}
+              followUserLocation={followUserLocation}
+              followUserMode={MapboxGL.UserTrackingModes.FollowWithHeading || 'normal'}
           />
         </MapboxGL.MapView>
-        <Bubble onPress={this.onToggleUserLocation} style={{bottom: 180}}/>
+        <TouchableOpacity onPress={this.onToggleUserLocation} style={{bottom: 100}}>
+          <Geolocate width='40' height='40' fill='#000'/>
+        </TouchableOpacity>
       </View>
     )
   }
