@@ -1,16 +1,20 @@
 import MapboxGL from '@react-native-mapbox-gl/maps'
 import React, { Component } from 'react'
 import { StyleSheet } from 'react-native'
+import config from '../../utils/config.js'
 
-const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN || ''
-MapboxGL.setAccessToken(MAPBOX_TOKEN)
+MapboxGL.setAccessToken(config.get('accessToken'))
 export default class Map extends Component {
   render() {
     return (
       <MapboxGL.MapView
         style={styles.map}
-        //styleURL='asset://style.json'
+        styleURL={MapboxGL.StyleURL.Outdoors}
       >
+         <MapboxGL.Camera
+            centerCoordinate={[6.075870, 44.559860]}
+            zoomLevel={12}
+          />
       </MapboxGL.MapView>
     )
   }
