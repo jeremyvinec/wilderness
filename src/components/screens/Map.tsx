@@ -1,5 +1,6 @@
 import MapboxGL from '@react-native-mapbox-gl/maps'
 import React, { Component } from 'react'
+// import SetUserTrackingModes from './SetUserTrackingModes'
 import { StyleSheet } from 'react-native'
 import config from '../../utils/config.js'
 
@@ -14,7 +15,7 @@ export default class Map extends Component {
          <MapboxGL.Camera
             centerCoordinate={[6.075870, 44.559860]}
             zoomLevel={12}
-          />
+         />
       </MapboxGL.MapView>
     )
   }
