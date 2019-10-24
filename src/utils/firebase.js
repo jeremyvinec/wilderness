@@ -1,9 +1,8 @@
 import firebase from 'react-native-firebase'
-import 'react-native-firebase/firestore'
 
 import { API_KEY, APP_ID, AUTH_DOMAIN, DATABASE_URL, MESSAGING_SENDER_ID, PROJECT_ID, STORAGE_BUCKET } from 'react-native-dotenv'
 
-const config = {
+const firebaseConfig = {
   apiKey: API_KEY,
   authDomain: AUTH_DOMAIN,
   databaseURL: DATABASE_URL,
@@ -13,6 +12,7 @@ const config = {
   appId: APP_ID
 }
 
-firebase.initializeApp(config)
+// Initialize Firebase
+const Firebase = firebase.initializeApp(firebaseConfig)
 
-export default firebase = firebase.firestore()
+export default Firebase

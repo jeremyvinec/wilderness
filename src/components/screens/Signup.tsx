@@ -1,5 +1,6 @@
 import React from 'react'
-import { View, TextInput, StyleSheet, TouchableOpacity, Text } from 'react-native'
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import Firebase from '../../utils/Firebase'
 
 interface Props { }
 
@@ -10,13 +11,21 @@ interface State {
 }
 export default class Signup extends React.Component<Props, State> {
 
-  constructor(props: Props){
+  constructor(props: Props) {
     super(props)
     this.state = {
       name: '',
       email: '',
       password: '',
     }
+  }
+
+  handleSignup = () => {
+    const { email, password } = this.state
+    Firebase.auth()
+    .createUserWithEmailAndPassword(email, password)
+    .then(() => this.props.navigation.navigate('Profile'))
+    .catch(error => console.log(error))
   }
 
   render() {
@@ -42,7 +51,7 @@ export default class Signup extends React.Component<Props, State> {
           placeholder='Password'
           secureTextEntry={true}
         />
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={this.handleSignup}>
           <Text style={styles.buttonText}>Singup</Text>
         </TouchableOpacity>
       </View>
