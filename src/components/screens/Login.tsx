@@ -1,3 +1,4 @@
+import auth from '@react-native-firebase/auth'
 import React from 'react'
 import { Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 
@@ -18,6 +19,16 @@ export default class Login extends React.Component<Props, State> {
     }
   }
 
+  handleLogin = () => {
+    const { email, password } = this.state
+    try {
+      auth().signInWithEmailAndPassword(email, password)
+      .then(() => this.props.navigation.navigate('Profile'))
+    } catch (e) {
+      console.error(e.message)
+    }
+  }
+
   render() {
     return(
         <View style={styles.container}>
@@ -35,10 +46,13 @@ export default class Login extends React.Component<Props, State> {
               placeholder='Password'
               secureTextEntry={true}
             />
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={this.handleLogin}>
               <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
-            <Button title="Vous n'avez pas encore de compte ? S'inscrire" />
+            <Button
+              title="Vous n'avez pas encore de compte ? S'inscrire"
+              onPress={this.props.navigation.navigate('Signup')}
+            />
         </View>
     )
   }
