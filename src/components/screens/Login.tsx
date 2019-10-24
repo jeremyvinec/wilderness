@@ -1,6 +1,8 @@
-import auth from '@react-native-firebase/auth'
 import React from 'react'
 import { Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { login, updateEmail, updatePassword } from '../../actions/actionUser'
 
 interface Props { }
 
@@ -9,7 +11,7 @@ interface State {
   password: String
 }
 
-export default class Login extends React.Component<Props, State> {
+class Login extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props)
@@ -20,13 +22,8 @@ export default class Login extends React.Component<Props, State> {
   }
 
   handleLogin = () => {
-    const { email, password } = this.state
-    try {
-      auth().signInWithEmailAndPassword(email, password)
-      .then(() => this.props.navigation.navigate('Profile'))
-    } catch (e) {
-      console.error(e.message)
-    }
+    this.props.login()
+    this.props.navigation.navigate('Profile')
   }
 
   render() {
@@ -35,14 +32,14 @@ export default class Login extends React.Component<Props, State> {
             <TextInput
               style={styles.inputBox}
               value={this.state.email}
-              onChangeText={email => this.setState({ email })}
+              onChangeText={email => this.props.updateEmail(email)}
               placeholder='Email'
               autoCapitalize='none'
             />
             <TextInput
               style={styles.inputBox}
               value={this.state.password}
-              onChangeText={password => this.setState({ password })}
+              onChangeText={password => this.props.updatePassword(password)}
               placeholder='Password'
               secureTextEntry={true}
             />
@@ -51,7 +48,7 @@ export default class Login extends React.Component<Props, State> {
             </TouchableOpacity>
             <Button
               title="Vous n'avez pas encore de compte ? S'inscrire"
-              onPress={this.props.navigation.navigate('Signup')}
+              onPress={() => this.props.navigation.navigate('Signup')}
             />
         </View>
     )
@@ -94,3 +91,15 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
 })
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({ updateEmail, updatePassword, login }, dispatch)
+}
+
+const mapStateToProps = state => {
+  return {
+    user: state.user,
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)
