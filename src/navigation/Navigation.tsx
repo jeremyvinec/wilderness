@@ -33,7 +33,7 @@ const MapStackNavigator = createStackNavigator({
 }, {
   navigationOptions: {
     headerTransparent: true,
-  }
+  },
 })
 
 const TabNavigator = createBottomTabNavigator({
