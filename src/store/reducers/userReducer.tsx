@@ -1,6 +1,6 @@
-import { LOGIN, SIGNUP, UPDATE_EMAIL, UPDATE_PASSWORD } from '../../actions/actionUser'
+import { LOGIN, SIGNUP, UPDATE_EMAIL, UPDATE_PASSWORD } from '../../actions/actionTypes'
 
-export const user = (state = {}, action: any) => {
+const user = (state = {}, action: any) => {
   switch (action.type) {
     case LOGIN:
       return action.playload
@@ -14,3 +14,5 @@ export const user = (state = {}, action: any) => {
       return state
   }
 }
+
+export default user

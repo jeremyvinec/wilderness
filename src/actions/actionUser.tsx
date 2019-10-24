@@ -1,14 +1,14 @@
 import auth from '@react-native-firebase/auth'
 import { LOGIN, SIGNUP, UPDATE_EMAIL, UPDATE_PASSWORD } from './actionTypes'
 
-export const updateEmail = email => {
+export const updateEmail = (email: String) => {
   return {
     type: UPDATE_EMAIL,
     playload: email,
   }
 }
 
-export const updatePassword = password => {
+export const updatePassword = (password: String) => {
   return {
     type: UPDATE_PASSWORD,
     playload: password,

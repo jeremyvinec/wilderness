@@ -9,7 +9,7 @@ const rootPersistConfig = {
 }
 
 const rootReducer = persistCombineReducers(rootPersistConfig, {
-  user
+  user,
 })
 
 export default rootReducer
