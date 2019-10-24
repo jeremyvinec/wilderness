@@ -1,6 +1,6 @@
 import MapboxGL from '@react-native-mapbox-gl/maps'
 import React from 'react'
-import { StyleSheet, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import Geolocate from '../../assets/svg/Geolocate'
 import config from '../../utils/config.js'
 

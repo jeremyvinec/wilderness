@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs'
 
 // page
 import Map from '../components/screens/Map'
+import Nearly from '../components/screens/Nearly'
 
 // svg
 import Bell from '../assets/svg/Bell'
@@ -19,12 +20,20 @@ import Search from '../assets/svg/Search'
 const MapStackNavigator = createStackNavigator({
   Map: {
     screen: Map,
-    navigationOptions: { header: null },
+    navigationOptions: {
+      title: 'Map',
+    },
   },
   Nearly: {
-    screen: Map,
-    navigationOptions: { title: 'Nearly' },
+    screen: Nearly,
+    navigationOptions: {
+      title: 'Nearly',
+    },
   },
+}, {
+  navigationOptions: {
+    headerTransparent: true,
+  }
 })
 
 const TabNavigator = createBottomTabNavigator({
