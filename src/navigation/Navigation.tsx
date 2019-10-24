@@ -7,6 +7,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs'
 // page
 import Map from '../components/screens/Map'
 import Nearly from '../components/screens/Nearly'
+import Login from '../components/screens/Login'
 
 // svg
 import Bell from '../assets/svg/Bell'
@@ -111,7 +112,7 @@ const TabNavigator = createBottomTabNavigator({
     },
   },
   Person: {
-    screen: MapStackNavigator,
+    screen: Login,
     navigationOptions: {
       tabBarIcon: () => {
         return <Person
