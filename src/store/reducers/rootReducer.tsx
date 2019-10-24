@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage'
 import { persistCombineReducers } from 'redux-persist'
-import test from './testReducer'
+import user from './userReducer'
 
 // configuration de la persistance du state global
 const rootPersistConfig = {
@@ -9,7 +9,7 @@ const rootPersistConfig = {
 }
 
 const rootReducer = persistCombineReducers(rootPersistConfig, {
-  test,
+  user
 })
 
 export default rootReducer
