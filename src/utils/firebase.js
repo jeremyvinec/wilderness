@@ -1,4 +1,4 @@
-import firebase from 'react-native-firebase'
+import firebase from '@react-native-firebase/app'
 
 import { API_KEY, APP_ID, AUTH_DOMAIN, DATABASE_URL, MESSAGING_SENDER_ID, PROJECT_ID, STORAGE_BUCKET } from 'react-native-dotenv'
 
