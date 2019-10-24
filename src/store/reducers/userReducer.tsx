@@ -1,6 +1,6 @@
 import { LOGIN, SIGNUP, UPDATE_EMAIL, UPDATE_PASSWORD } from '../../actions/actionUser'
 
-const user = (state = {}, action) => {
+export const user = (state = {}, action: any) => {
   switch (action.type) {
     case LOGIN:
       return action.playload

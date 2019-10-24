@@ -1,6 +1,10 @@
 import auth from '@react-native-firebase/auth'
 import React from 'react'
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { bindActionCreators } from 'redux'
+// tslint:disable-next-line:ordered-imports
+import { connect } from 'react-redux'
+import { updateEmail, updatePassword, signup } from '../../actions/actionUser'
 
 interface Props { }
 
@@ -9,7 +13,7 @@ interface State {
   email: String,
   password: String
 }
-export default class Signup extends React.Component<Props, State> {
+class Signup extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props)
@@ -20,14 +24,9 @@ export default class Signup extends React.Component<Props, State> {
     }
   }
 
-  handleSignup = () => {
-    const { email, password } = this.state
-    try {
-      auth().createUserWithEmailAndPassword(email, password)
-      .then(() => this.props.navigation.navigate('Profile'))
-    } catch (e) {
-      console.error(e.message)
-    }
+  handleSignUp = () => {
+    this.props.signup()
+    this.props.navigation.navigate('Profile')
   }
 
   render() {
@@ -35,21 +34,15 @@ export default class Signup extends React.Component<Props, State> {
       <View style={styles.container}>
         <TextInput
           style={styles.inputBox}
-          value={this.state.name}
-          onChange={name => this.setState({ name })}
-          placeholder='Nom complet'
-        />
-        <TextInput
-          style={styles.inputBox}
           value={this.state.email}
-          onChange={email => this.setState({ email })}
+          onChange={email => this.props.updateEmail(email)}
           placeholder='Email'
           autoCapitalize='none'
         />
         <TextInput
           style={styles.inputBox}
           value={this.state.password}
-          onChange={password => this.setState({ password })}
+          onChange={password => this.props.updatePassword(password)}
           placeholder='Password'
           secureTextEntry={true}
         />
@@ -97,3 +90,15 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
 })
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({ updateEmail, updatePassword, signup }, dispatch)
+}
+
+const mapStateToProps = state => {
+  return{
+    user: state.user,
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Signup)
