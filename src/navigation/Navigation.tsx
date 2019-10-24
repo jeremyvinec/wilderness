@@ -1,13 +1,15 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
-import { createAppContainer } from 'react-navigation'
+import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 
 // page
+import Login from '../components/screens/Login'
 import Map from '../components/screens/Map'
 import Nearly from '../components/screens/Nearly'
-import Login from '../components/screens/Login'
+import Profile from '../components/screens/Profile'
+import Signup from '../components/screens/Signup'
 
 // svg
 import Bell from '../assets/svg/Bell'
@@ -34,6 +36,18 @@ const MapStackNavigator = createStackNavigator({
 }, {
   navigationOptions: {
     headerTransparent: true,
+  },
+})
+
+const SwitchNavigator = createSwitchNavigator({
+  Login: {
+    screen: Login,
+  },
+  Signup: {
+    screen: Signup,
+  },
+  Profile: {
+    screen: Profile,
   },
 })
 
@@ -112,7 +126,7 @@ const TabNavigator = createBottomTabNavigator({
     },
   },
   Person: {
-    screen: Login,
+    screen: SwitchNavigator,
     navigationOptions: {
       tabBarIcon: () => {
         return <Person
