@@ -6,12 +6,12 @@ import config from '../../utils/config.js'
 
 MapboxGL.setAccessToken(config.get('accessToken'))
 
+interface Props { }
+
 interface State {
   followUserLocation: boolean,
 }
-
-interface Props { }
-export default class Map extends React.Component<State, Props> {
+export default class Map extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props)
@@ -39,7 +39,7 @@ export default class Map extends React.Component<State, Props> {
               followUserMode={MapboxGL.UserTrackingModes.FollowWithHeading || 'normal'}
           />
         </MapboxGL.MapView>
-        <TouchableOpacity onPress={this.onToggleUserLocation} style={{bottom: 100}}>
+        <TouchableOpacity onPress={this.onToggleUserLocation} style={styles.onToggleUserLocation}>
           <Geolocate width='40' height='40' fill='#000'/>
         </TouchableOpacity>
       </View>
@@ -51,4 +51,9 @@ const styles = StyleSheet.create({
   map: {
     flex: 1,
   },
+  onToggleUserLocation: {
+    position: 'absolute',
+    top: '5%',
+    right: '1%',
+  }
 })
