@@ -1,10 +1,10 @@
 import auth from '@react-native-firebase/auth'
 import React from 'react'
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import { bindActionCreators } from 'redux'
 // tslint:disable-next-line:ordered-imports
 import { connect } from 'react-redux'
-import { updateEmail, updatePassword, signup } from '../../actions/actionUser'
+import { bindActionCreators } from 'redux'
+import { signup, updateEmail, updatePassword } from '../../actions/actionUser'
 
 interface Props { }
 
