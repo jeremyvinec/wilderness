@@ -3,7 +3,7 @@ import React from 'react'
 import { Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { getUser, login, updateEmail, updatePassword  } from '../../actions/actionUser'
+import { getUser, login, updateEmail, updatePassword } from '../../actions/actionUser'
 
 interface Props { }
 
