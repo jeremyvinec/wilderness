@@ -1,6 +1,6 @@
 import auth from '@react-native-firebase/auth'
-import { LOGIN, SIGNUP, UPDATE_EMAIL, UPDATE_PASSWORD } from './actionTypes'
 import firestore from '@react-native-firebase/firestore'
+import { LOGIN, SIGNUP, UPDATE_EMAIL, UPDATE_PASSWORD } from './actionTypes'
 
 export const updateEmail = (email: String) => {
   return {
@@ -33,10 +33,10 @@ export const signup = () => {
     try {
       const { email, password } = getState().user
       const response = await auth().createUserWithEmailAndPassword(email, password)
-      if (response.user.id){
+      if (response.user.id) {
         const user = {
           uid: response.user.uid,
-          email: email,
+          email,
         }
 
         firestore().collection('users')
