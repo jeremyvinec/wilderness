@@ -1,4 +1,3 @@
-import auth from '@react-native-firebase/auth'
 import React from 'react'
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 // tslint:disable-next-line:ordered-imports
@@ -6,7 +5,11 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { signup, updateEmail, updatePassword } from '../../actions/actionUser'
 
-interface Props { }
+interface Props {
+  signup: String,
+  updateEmail: String,
+  updatePassword: String
+}
 
 interface State {
   name: String,
@@ -30,11 +33,13 @@ class Signup extends React.Component<Props, State> {
   }
 
   render() {
+    console.log(this.props)
     return(
       <View style={styles.container}>
         <TextInput
           style={styles.inputBox}
           value={this.state.email}
+          // tslint:disable-next-line:jsx-no-lambda
           onChange={email => this.props.updateEmail(email)}
           placeholder='Email'
           autoCapitalize='none'
@@ -42,6 +47,7 @@ class Signup extends React.Component<Props, State> {
         <TextInput
           style={styles.inputBox}
           value={this.state.password}
+          // tslint:disable-next-line:jsx-no-lambda
           onChange={password => this.props.updatePassword(password)}
           placeholder='Password'
           secureTextEntry={true}
@@ -91,11 +97,11 @@ const styles = StyleSheet.create({
   },
 })
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch: any) => {
   return bindActionCreators({ updateEmail, updatePassword, signup }, dispatch)
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: any) => {
   return{
     user: state.user,
   }

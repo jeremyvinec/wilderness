@@ -17,7 +17,7 @@ export const updatePassword = (password: String) => {
 }
 
 export const login = () => {
-  return async (dispatch, getState) => {
+  return async (dispatch: any, getState: any) => {
     try {
       const { email, password } = getState().user
       const response = await auth().signInWithEmailAndPassword(email, password)
@@ -29,11 +29,11 @@ export const login = () => {
 }
 
 export const signup = () => {
-  return async (dispatch, getState) => {
+  return async (dispatch: any, getState: any) => {
     try {
       const { email, password } = getState().user
       const response = await auth().createUserWithEmailAndPassword(email, password)
-      if (response.user.id) {
+      if (response.user.uid) {
         const user = {
           uid: response.user.uid,
           email,
