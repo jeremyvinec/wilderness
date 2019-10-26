@@ -1,8 +1,9 @@
+import auth from '@react-native-firebase/auth'
 import React from 'react'
 import { Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { login, updateEmail, updatePassword } from '../../actions/actionUser'
+import { getUser, login, updateEmail, updatePassword  } from '../../actions/actionUser'
 
 interface Props { }
 
@@ -21,9 +22,15 @@ class Login extends React.Component<Props, State> {
     }
   }
 
-  handleLogin = () => {
-    this.props.login()
-    this.props.navigation.navigate('Profile')
+  componentDidMount = () => {
+    auth().onAuthStateChanged(user => {
+      if (user) {
+        this.props.getUser(user.uid)
+        if (this.props.user != null) {
+          this.props.navigation.navigate('Profile')
+        }
+      }
+    })
   }
 
   render() {
@@ -43,7 +50,7 @@ class Login extends React.Component<Props, State> {
               placeholder='Password'
               secureTextEntry={true}
             />
-            <TouchableOpacity style={styles.button} onPress={this.handleLogin}>
+            <TouchableOpacity style={styles.button} onPress={() => this.props.login()}>
               <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
             <Button
@@ -92,11 +99,11 @@ const styles = StyleSheet.create({
   },
 })
 
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ updateEmail, updatePassword, login }, dispatch)
+const mapDispatchToProps = (dispatch: any) => {
+  return bindActionCreators({ getUser, updateEmail, updatePassword, login }, dispatch)
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: any) => {
   return {
     user: state.user,
   }
