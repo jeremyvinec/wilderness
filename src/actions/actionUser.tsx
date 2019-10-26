@@ -21,7 +21,21 @@ export const login = () => {
     try {
       const { email, password } = getState().user
       const response = await auth().signInWithEmailAndPassword(email, password)
-      dispatch({ type: LOGIN, playload: response.user })
+      dispatch(getUser(response.user.uid))
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}
+
+export const getUser = uid => {
+  return async (dispatch: any, getState: any) => {
+    try {
+      const user = await firestore().collection('users')
+        .doc('uid')
+        .get()
+
+      dispatch({ type: LOGIN, playload: user.data() })
     } catch (e) {
       console.log(e)
     }
