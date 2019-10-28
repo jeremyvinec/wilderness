@@ -1,5 +1,4 @@
 import React from 'react'
-import { StyleSheet } from 'react-native'
 import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
@@ -22,37 +21,6 @@ import Menu from '../assets/svg/Menu'
 import Person from '../assets/svg/Person'
 import Search from '../assets/svg/Search'
 
-const MapStackNavigator = createStackNavigator({
-  Map: {
-    screen: Map,
-    navigationOptions: {
-      title: 'Map',
-    },
-  },
-  Nearly: {
-    screen: Nearly,
-    navigationOptions: {
-      title: 'Nearly',
-    },
-  },
-  Discover: {
-    screen: Discover,
-    navigationOptions: {
-      title: 'Discover',
-    },
-  },
-  Suggestions: {
-    screen: Suggestions,
-    navigationOptions: {
-      title: 'Suggestions',
-    },
-  },
-}, {
-  navigationOptions: {
-    headerTransparent: true,
-  },
-})
-
 const AuthSwitchNavigator = createSwitchNavigator({
   Login: {
     screen: Login,
@@ -65,9 +33,9 @@ const AuthSwitchNavigator = createSwitchNavigator({
   },
 })
 
-const TabNavigator = createBottomTabNavigator({
+const BottomTabNavigator = createBottomTabNavigator({
   Menu: {
-    screen: MapStackNavigator,
+    screen: Map,
     navigationOptions: {
       tabBarIcon: () => {
         return <Menu
@@ -79,7 +47,7 @@ const TabNavigator = createBottomTabNavigator({
     },
   },
   Map: {
-    screen: MapStackNavigator,
+    screen: Map,
     navigationOptions: {
       tabBarIcon: () => {
         return <Globe
@@ -91,7 +59,7 @@ const TabNavigator = createBottomTabNavigator({
     },
   },
   Search: {
-    screen: MapStackNavigator,
+    screen: Map,
     navigationOptions: {
       tabBarIcon: () => {
         return <Search
@@ -103,7 +71,7 @@ const TabNavigator = createBottomTabNavigator({
     },
   },
   Camera: {
-    screen: MapStackNavigator,
+    screen: Map,
     navigationOptions: {
       tabBarIcon: () => {
         return <Camera
@@ -116,7 +84,7 @@ const TabNavigator = createBottomTabNavigator({
     },
   },
   Heat: {
-    screen: MapStackNavigator,
+    screen: Map,
     navigationOptions: {
       tabBarIcon: () => {
         return <Heat
@@ -128,7 +96,7 @@ const TabNavigator = createBottomTabNavigator({
     },
   },
   Bell: {
-    screen: MapStackNavigator,
+    screen: Map,
     navigationOptions: {
       tabBarIcon: () => {
         return <Bell
@@ -160,11 +128,36 @@ const TabNavigator = createBottomTabNavigator({
   },
 })
 
-const styles = StyleSheet.create({
-  icon: {
-    width: 30,
-    height: 30,
+const StackNavigator = createStackNavigator({
+  Tabs: BottomTabNavigator,
+  Map: {
+    screen: Map,
+    navigationOptions: {
+      title: 'Map',
+    },
+  },
+  Nearly: {
+    screen: Nearly,
+    navigationOptions: {
+      title: 'Nearly',
+    },
+  },
+  Discover: {
+    screen: Discover,
+    navigationOptions: {
+      title: 'Discover',
+    },
+  },
+  Suggestions: {
+    screen: Suggestions,
+    navigationOptions: {
+      title: 'Suggestions',
+    },
+  },
+}, {
+  navigationOptions: {
+    headerTransparent: true,
   },
 })
 
-export default createAppContainer(TabNavigator)
+export default createAppContainer(StackNavigator)

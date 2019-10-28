@@ -20,7 +20,7 @@ export default class Map extends React.Component<Props, State> {
     }
   }
 
-  onToggleUserLocation() {
+  onToggleUserLocation = () => {
     this.setState({followUserLocation: !this.state.followUserLocation})
   }
 
@@ -36,7 +36,7 @@ export default class Map extends React.Component<Props, State> {
           <MapboxGL.Camera
               zoomLevel={12}
               followUserLocation={followUserLocation}
-              followUserMode={MapboxGL.UserTrackingModes.FollowWithHeading || 'normal'}
+              followUserMode={MapboxGL.UserTrackingModes.FollowWithHeading}
           />
         </MapboxGL.MapView>
         <TouchableOpacity onPress={this.onToggleUserLocation} style={styles.onToggleUserLocation}>
