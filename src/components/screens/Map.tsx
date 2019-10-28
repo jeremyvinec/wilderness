@@ -61,6 +61,7 @@ export default class Map extends React.Component<Props, State> {
 
     // start download
     MapboxGL.offlineManager.createPack(options, this.onDownloadProgress)
+
   }
 
   onDownloadProgress(offlineRegion: any, offlineRegionStatus: any) {
@@ -75,7 +76,7 @@ export default class Map extends React.Component<Props, State> {
     this.state.offlineRegion.resume()
   }
 
-  _getRegionDownloadState(downloadState) {
+  _getRegionDownloadState(downloadState: any) {
     switch (downloadState) {
       case MapboxGL.OfflinePackDownloadState.Active:
         return 'Active'
@@ -110,7 +111,7 @@ export default class Map extends React.Component<Props, State> {
           <CloudDownload width='30' height='30' fill='#1F3044'/>
         </TouchableOpacity>
         { offlineRegionStatus !== null ? (
-          <View>
+          <View style={styles.offlineRegionStatus}>
             <Text>
               Download State:{' '}
               {this._getRegionDownloadState(offlineRegionStatus.state)}
@@ -144,5 +145,17 @@ const styles = StyleSheet.create({
   percentageText: {
     padding: 8,
     textAlign: 'center',
+  },
+  offlineRegionStatus: {
+    position: 'absolute',
+    bottom: 16,
+    left: 48,
+    right: 48,
+    paddingVertical: 16,
+    minHeight: 60,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    borderRadius: 30,
   },
 })
