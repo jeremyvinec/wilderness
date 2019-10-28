@@ -1,22 +1,23 @@
+import geoViewport from '@mapbox/geo-viewport'
 import MapboxGL from '@react-native-mapbox-gl/maps'
 import React from 'react'
-import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { Dimensions, StyleSheet, TouchableOpacity, View, Text } from 'react-native'
 import CloudDownload from '../../assets/svg/CloudDownload'
 import Geolocate from '../../assets/svg/Geolocate'
 import config from '../../utils/config.js'
-import geoViewport from '@mapbox/geo-viewport'
 
 MapboxGL.setAccessToken(config.get('accessToken'))
 
+const CENTER_COORD = [-73.970895, 40.723279]
 const MAPBOX_VECTOR_TILE_SIZE = 512
 
 interface Props { }
 
 interface State {
   followUserLocation: boolean,
-  name: {},
-  offlineRegion: null,
-  offlineRegionStatus: null,
+  name: String,
+  offlineRegion: {},
+  offlineRegionStatus: {},
 }
 export default class Map extends React.Component<Props, State> {
 
@@ -24,10 +25,12 @@ export default class Map extends React.Component<Props, State> {
     super(props)
     this.state = {
       followUserLocation: true,
-      name: `test-${Date.now()}`,
+      name: 'offline',
       offlineRegion: null,
       offlineRegionStatus: null,
     }
+    this.onDownloadProgress = this.onDownloadProgress.bind(this)
+    this.onDidFinishLoadingStyle = this.onDidFinishLoadingStyle.bind(this)
   }
 
   componentWillUnmount(){
@@ -42,6 +45,7 @@ export default class Map extends React.Component<Props, State> {
   async onDidFinishLoadingStyle() {
     const {width, height} = Dimensions.get('window')
     const bounds = geoViewport.bounds(
+      CENTER_COORD,
       12,
       [width, height],
       MAPBOX_VECTOR_TILE_SIZE,
@@ -67,7 +71,11 @@ export default class Map extends React.Component<Props, State> {
     })
   }
 
-  _getRegionDownloadState(downloadState: any) {
+  onResume = () => {
+    this.state.offlineRegion.resume()
+  }
+
+  _getRegionDownloadState(downloadState) {
     switch (downloadState) {
       case MapboxGL.OfflinePackDownloadState.Active:
         return 'Active'
@@ -79,7 +87,7 @@ export default class Map extends React.Component<Props, State> {
   }
 
   render() {
-    const { followUserLocation } = this.state
+    const { followUserLocation, offlineRegionStatus } = this.state
     return (
       <View style={styles.map}>
         <MapboxGL.MapView
@@ -91,15 +99,25 @@ export default class Map extends React.Component<Props, State> {
           <MapboxGL.Camera
               zoomLevel={12}
               followUserLocation={followUserLocation}
+              centerCoordinate={CENTER_COORD}
               followUserMode={MapboxGL.UserTrackingModes.FollowWithHeading}
           />
         </MapboxGL.MapView>
         <TouchableOpacity onPress={this.onToggleUserLocation} style={styles.onToggleUserLocation}>
           <Geolocate width='30' height='30' fill='#1F3044'/>
         </TouchableOpacity>
-        <TouchableOpacity onPress={this.offlineRegion} style={styles.offlineRegion}>
+        <TouchableOpacity onPress={this.onResume} style={styles.offlineRegion}>
           <CloudDownload width='30' height='30' fill='#1F3044'/>
         </TouchableOpacity>
+        { offlineRegionStatus !== null ? (
+          <View>
+            <Text>
+              Download State:{' '}
+              {this._getRegionDownloadState(offlineRegionStatus.state)}
+            </Text>
+            <Text>Download Percent: {offlineRegionStatus.percentage} </Text>
+          </View>
+        ) : null }
       </View>
     )
   }
