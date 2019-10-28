@@ -15,7 +15,7 @@ interface Props { }
 
 interface State {
   followUserLocation: boolean,
-  name: String,
+  name: {},
   offlineRegion: {},
   offlineRegionStatus: {},
 }
@@ -25,15 +25,13 @@ export default class Map extends React.Component<Props, State> {
     super(props)
     this.state = {
       followUserLocation: true,
-      name: 'offline',
+      name: `${Date.now()}`,
       offlineRegion: null,
       offlineRegionStatus: null,
     }
-    this.onDownloadProgress = this.onDownloadProgress.bind(this)
-    this.onDidFinishLoadingStyle = this.onDidFinishLoadingStyle.bind(this)
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     MapboxGL.offlineManager.deletePack(this.state.name)
     MapboxGL.offlineManager.unsubscribe('test')
   }
@@ -42,7 +40,7 @@ export default class Map extends React.Component<Props, State> {
     this.setState({followUserLocation: !this.state.followUserLocation})
   }
 
-  async onDidFinishLoadingStyle() {
+  onDidFinishLoadingStyle = () => {
     const {width, height} = Dimensions.get('window')
     const bounds = geoViewport.bounds(
       CENTER_COORD,
@@ -64,7 +62,7 @@ export default class Map extends React.Component<Props, State> {
 
   }
 
-  onDownloadProgress(offlineRegion: any, offlineRegionStatus: any) {
+  onDownloadProgress = (offlineRegion: any, offlineRegionStatus: any) => {
     this.setState({
       name: offlineRegion.name,
       offlineRegion,
@@ -72,11 +70,7 @@ export default class Map extends React.Component<Props, State> {
     })
   }
 
-  onResume = () => {
-    this.state.offlineRegion.resume()
-  }
-
-  _getRegionDownloadState(downloadState: any) {
+  _getRegionDownloadState = (downloadState: any) => {
     switch (downloadState) {
       case MapboxGL.OfflinePackDownloadState.Active:
         return 'Active'
@@ -94,7 +88,6 @@ export default class Map extends React.Component<Props, State> {
         <MapboxGL.MapView
           style={styles.map}
           styleURL={MapboxGL.StyleURL.Outdoors}
-          onDidFinishLoadingMap={this.onDidFinishLoadingStyle}
         >
           <MapboxGL.UserLocation visible={followUserLocation}/>
           <MapboxGL.Camera
@@ -107,7 +100,7 @@ export default class Map extends React.Component<Props, State> {
         <TouchableOpacity onPress={this.onToggleUserLocation} style={styles.onToggleUserLocation}>
           <Geolocate width='30' height='30' fill='#1F3044'/>
         </TouchableOpacity>
-        <TouchableOpacity onPress={this.onResume} style={styles.offlineRegion}>
+        <TouchableOpacity onPress={this.onDidFinishLoadingStyle} style={styles.offlineRegion}>
           <CloudDownload width='30' height='30' fill='#1F3044'/>
         </TouchableOpacity>
         { offlineRegionStatus !== null ? (
