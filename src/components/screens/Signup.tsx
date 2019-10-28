@@ -1,13 +1,12 @@
 import React from 'react'
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-// tslint:disable-next-line:ordered-imports
+import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { signup, updateEmail, updatePassword } from '../../actions/actionUser'
 
 interface Props {
-  navigation: {},
-  navigate: () => void,
+  navigation: NavigationScreenProp<NavigationState, NavigationParams>,
   signup: () => void,
   updateEmail: (email: String) => void,
   updatePassword: (password: String) => void,
@@ -16,21 +15,8 @@ interface Props {
   password: String
 }
 
-interface State {
-  name: String,
-  email: String,
-  password: String
-}
+interface State { }
 class Signup extends React.Component<Props, State> {
-
-  constructor(props: Props) {
-    super(props)
-    this.state = {
-      name: '',
-      email: '',
-      password: '',
-    }
-  }
 
   handleSignUp = () => {
     this.props.signup()
@@ -46,7 +32,7 @@ class Signup extends React.Component<Props, State> {
   }
 
   render() {
-    console.log(this.props)
+    console.log(this.props.user)
     return(
       <View style={styles.container}>
         <TextInput

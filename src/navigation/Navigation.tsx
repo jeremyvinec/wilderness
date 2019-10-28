@@ -5,11 +5,13 @@ import { createStackNavigator } from 'react-navigation-stack'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 
 // page
+import Discover from '../components/screens/Discover'
 import Login from '../components/screens/Login'
 import Map from '../components/screens/Map'
 import Nearly from '../components/screens/Nearly'
 import Profile from '../components/screens/Profile'
 import Signup from '../components/screens/Signup'
+import Suggestions from '../components/screens/Suggestions'
 
 // svg
 import Bell from '../assets/svg/Bell'
@@ -33,13 +35,25 @@ const MapStackNavigator = createStackNavigator({
       title: 'Nearly',
     },
   },
+  Discover: {
+    screen: Discover,
+    navigationOptions: {
+      title: 'Discover',
+    },
+  },
+  Suggestions: {
+    screen: Suggestions,
+    navigationOptions: {
+      title: 'Suggestions',
+    },
+  },
 }, {
   navigationOptions: {
     headerTransparent: true,
   },
 })
 
-const SwitchNavigator = createSwitchNavigator({
+const AuthSwitchNavigator = createSwitchNavigator({
   Login: {
     screen: Login,
   },
@@ -126,7 +140,7 @@ const TabNavigator = createBottomTabNavigator({
     },
   },
   Person: {
-    screen: SwitchNavigator,
+    screen: AuthSwitchNavigator,
     navigationOptions: {
       tabBarIcon: () => {
         return <Person

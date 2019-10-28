@@ -8,7 +8,7 @@ import { getUser, login, updateEmail, updatePassword } from '../../actions/actio
 
 interface Props {
   getUser: (user: String) => void,
-  login: () => {},
+  login: () => void,
   updateEmail: (email: String) => void,
   updatePassword: (password: String) => void,
   user: String,
@@ -17,20 +17,9 @@ interface Props {
   password: String
 }
 
-interface State {
-  email: String,
-  password: String
-}
+interface State { }
 
 class Login extends React.Component<Props, State> {
-
-  constructor(props: Props) {
-    super(props)
-    this.state = {
-      email: '',
-      password: '',
-    }
-  }
 
   componentDidMount = () => {
     auth().onAuthStateChanged(user => {
