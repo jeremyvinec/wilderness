@@ -3,7 +3,13 @@ import React from 'react'
 import { Button, StyleSheet, Text, View } from 'react-native'
 import { connect } from 'react-redux'
 
-class Profile extends React.Component {
+interface Props {
+  navigation: {},
+  user: String
+}
+
+interface State { }
+class Profile extends React.Component<Props, State> {
 
   handleSignout = () => {
     auth().signOut()

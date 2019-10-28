@@ -5,7 +5,14 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { getUser, login, updateEmail, updatePassword } from '../../actions/actionUser'
 
-interface Props { }
+interface Props {
+  getUser: () => {},
+  login: () => {},
+  updateEmail: () => {},
+  updatePassword: () => {},
+  user: String,
+  navigation: {}
+}
 
 interface State {
   email: String,
@@ -26,7 +33,7 @@ class Login extends React.Component<Props, State> {
     auth().onAuthStateChanged(user => {
       if (user) {
         this.props.getUser(user.uid)
-        if (this.props.user != null) {
+        if (this.props.user !== null) {
           this.props.navigation.navigate('Profile')
         }
       }
@@ -38,14 +45,16 @@ class Login extends React.Component<Props, State> {
         <View style={styles.container}>
             <TextInput
               style={styles.inputBox}
-              value={this.state.email}
+              value={this.props.user.email}
+              // tslint:disable-next-line:jsx-no-lambda
               onChangeText={email => this.props.updateEmail(email)}
               placeholder='Email'
               autoCapitalize='none'
             />
             <TextInput
               style={styles.inputBox}
-              value={this.state.password}
+              value={this.props.user.password}
+              // tslint:disable-next-line:jsx-no-lambda
               onChangeText={password => this.props.updatePassword(password)}
               placeholder='Password'
               secureTextEntry={true}
@@ -55,6 +64,7 @@ class Login extends React.Component<Props, State> {
             </TouchableOpacity>
             <Button
               title="Vous n'avez pas encore de compte ? S'inscrire"
+              // tslint:disable-next-line:jsx-no-lambda
               onPress={() => this.props.navigation.navigate('Signup')}
             />
         </View>

@@ -28,7 +28,7 @@ export const login = () => {
   }
 }
 
-export const getUser = uid => {
+export const getUser = (uid: any) => {
   return async (dispatch: any, getState: any) => {
     try {
       const user = await firestore().collection('users')

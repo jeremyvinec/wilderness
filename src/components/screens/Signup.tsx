@@ -6,9 +6,12 @@ import { bindActionCreators } from 'redux'
 import { signup, updateEmail, updatePassword } from '../../actions/actionUser'
 
 interface Props {
-  signup: String,
-  updateEmail: String,
-  updatePassword: String
+  signup: () => void,
+  updateEmail: (email: String) => void,
+  updatePassword: (password: String) => void,
+  user: String,
+  email: String,
+  password: String
 }
 
 interface State {
@@ -32,23 +35,29 @@ class Signup extends React.Component<Props, State> {
     this.props.navigation.navigate('Profile')
   }
 
+  private updateEmail = () => {
+    this.props.updateEmail(this.props.email)
+  }
+
+  private updatePassword = () => {
+    this.props.updatePassword(this.props.password)
+  }
+
   render() {
     console.log(this.props)
     return(
       <View style={styles.container}>
         <TextInput
           style={styles.inputBox}
-          value={this.state.email}
-          // tslint:disable-next-line:jsx-no-lambda
-          onChange={email => this.props.updateEmail(email)}
+          value={this.props.user.email}
+          onChange={this.updateEmail}
           placeholder='Email'
           autoCapitalize='none'
         />
         <TextInput
           style={styles.inputBox}
-          value={this.state.password}
-          // tslint:disable-next-line:jsx-no-lambda
-          onChange={password => this.props.updatePassword(password)}
+          value={this.props.user.password}
+          onChange={this.updatePassword}
           placeholder='Password'
           secureTextEntry={true}
         />

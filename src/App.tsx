@@ -11,12 +11,12 @@ import { persistStore } from 'redux-persist'
 // Ce component se charge de réhydrater ses components enfants, c'est-à-dire toute notre application ici
 import { PersistGate } from 'redux-persist/es/integration/react'
 
-export interface State {
-  isFetchingAndroidPermission: () => {},
-  isAndroidPermissionGranted: boolean,
-}
-
 export interface Props { }
+
+export interface State {
+  isFetchingAndroidPermission: {},
+  isAndroidPermissionGranted: boolean
+}
 
 const store = configureStore()
 
