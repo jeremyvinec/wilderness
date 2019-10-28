@@ -23,12 +23,12 @@ class Signup extends React.Component<Props, State> {
     this.props.navigation.navigate('Profile')
   }
 
-  private updateEmail = () => {
-    this.props.updateEmail(this.props.email)
+  private updateEmail = (email: String) => {
+    this.props.updateEmail(email)
   }
 
-  private updatePassword = () => {
-    this.props.updatePassword(this.props.password)
+  private updatePassword = (password: String) => {
+    this.props.updatePassword(password)
   }
 
   render() {
@@ -38,14 +38,14 @@ class Signup extends React.Component<Props, State> {
         <TextInput
           style={styles.inputBox}
           value={this.props.user.email}
-          onChange={this.updateEmail}
+          onChangeText={this.updateEmail}
           placeholder='Email'
           autoCapitalize='none'
         />
         <TextInput
           style={styles.inputBox}
           value={this.props.user.password}
-          onChange={this.updatePassword}
+          onChangeText={this.updatePassword}
           placeholder='Password'
           secureTextEntry={true}
         />

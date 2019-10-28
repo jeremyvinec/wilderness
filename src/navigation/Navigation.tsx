@@ -9,6 +9,7 @@ import Login from '../components/screens/Login'
 import Map from '../components/screens/Map'
 import Menu from '../components/screens/Menu'
 import Nearly from '../components/screens/Nearly'
+import Notification from '../components/screens/Notification'
 import Profile from '../components/screens/Profile'
 import Signup from '../components/screens/Signup'
 import Suggestions from '../components/screens/Suggestions'
@@ -93,11 +94,10 @@ const BottomTabNavigator = createBottomTabNavigator({
           height='25'
           fill='#1F3044'
         />
-      },
-    },
+      },    },
   },
   Bell: {
-    screen: Map,
+    screen: Notification,
     navigationOptions: {
       tabBarIcon: () => {
         return <Bell
@@ -121,6 +121,7 @@ const BottomTabNavigator = createBottomTabNavigator({
     },
   },
 }, {
+  initialRouteName: 'Map',
   tabBarOptions: {
     activeBackgroundColor: '#DDDDDD',
     inactiveBackgroundColor: '#FFFFFF',

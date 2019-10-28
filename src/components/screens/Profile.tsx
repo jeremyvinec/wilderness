@@ -1,11 +1,13 @@
 import auth from '@react-native-firebase/auth'
 import React from 'react'
 import { Button, StyleSheet, Text, View } from 'react-native'
+import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation'
 import { connect } from 'react-redux'
 
 interface Props {
-  navigation: {},
-  user: String
+  navigation: NavigationScreenProp<NavigationState, NavigationParams>,
+  user: String,
+  email: String
 }
 
 interface State { }

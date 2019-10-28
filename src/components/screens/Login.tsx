@@ -32,12 +32,12 @@ class Login extends React.Component<Props, State> {
     })
   }
 
-  private updateEmail = () => {
-    this.props.updateEmail(this.props.email)
+  private updateEmail = (email: String) => {
+    this.props.updateEmail(email)
   }
 
-  private updatePassword = () => {
-    this.props.updatePassword(this.props.password)
+  private updatePassword = (password: String) => {
+    this.props.updatePassword(password)
   }
 
   private login = () => {
