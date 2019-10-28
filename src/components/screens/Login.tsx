@@ -1,17 +1,20 @@
 import auth from '@react-native-firebase/auth'
 import React from 'react'
 import { Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { getUser, login, updateEmail, updatePassword } from '../../actions/actionUser'
 
 interface Props {
-  getUser: () => {},
+  getUser: (user: String) => void,
   login: () => {},
-  updateEmail: () => {},
-  updatePassword: () => {},
+  updateEmail: (email: String) => void,
+  updatePassword: (password: String) => void,
   user: String,
-  navigation: {}
+  navigation: NavigationScreenProp<NavigationState, NavigationParams>,
+  email: String,
+  password: String
 }
 
 interface State {
@@ -40,32 +43,45 @@ class Login extends React.Component<Props, State> {
     })
   }
 
+  private updateEmail = () => {
+    this.props.updateEmail(this.props.email)
+  }
+
+  private updatePassword = () => {
+    this.props.updatePassword(this.props.password)
+  }
+
+  private login = () => {
+    this.props.login()
+  }
+
+  private Signup = () => {
+    this.props.navigation.navigate('Signup')
+  }
+
   render() {
     return(
         <View style={styles.container}>
             <TextInput
               style={styles.inputBox}
               value={this.props.user.email}
-              // tslint:disable-next-line:jsx-no-lambda
-              onChangeText={email => this.props.updateEmail(email)}
+              onChangeText={this.updateEmail}
               placeholder='Email'
               autoCapitalize='none'
             />
             <TextInput
               style={styles.inputBox}
               value={this.props.user.password}
-              // tslint:disable-next-line:jsx-no-lambda
-              onChangeText={password => this.props.updatePassword(password)}
+              onChangeText={this.updatePassword}
               placeholder='Password'
               secureTextEntry={true}
             />
-            <TouchableOpacity style={styles.button} onPress={() => this.props.login()}>
+            <TouchableOpacity style={styles.button} onPress={this.login}>
               <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
             <Button
               title="Vous n'avez pas encore de compte ? S'inscrire"
-              // tslint:disable-next-line:jsx-no-lambda
-              onPress={() => this.props.navigation.navigate('Signup')}
+              onPress={this.Signup}
             />
         </View>
     )

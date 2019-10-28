@@ -6,6 +6,8 @@ import { bindActionCreators } from 'redux'
 import { signup, updateEmail, updatePassword } from '../../actions/actionUser'
 
 interface Props {
+  navigation: {},
+  navigate: () => void,
   signup: () => void,
   updateEmail: (email: String) => void,
   updatePassword: (password: String) => void,
@@ -61,7 +63,7 @@ class Signup extends React.Component<Props, State> {
           placeholder='Password'
           secureTextEntry={true}
         />
-        <TouchableOpacity style={styles.button} onPress={this.handleSignup}>
+        <TouchableOpacity style={styles.button} onPress={this.handleSignUp}>
           <Text style={styles.buttonText}>Singup</Text>
         </TouchableOpacity>
       </View>
