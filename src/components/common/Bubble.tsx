@@ -4,9 +4,8 @@ import {StyleSheet, TouchableOpacity, View} from 'react-native'
 interface State { }
 
 interface Props {
-  onPress: () => {},
+  onPress: () => void,
   children: any,
-  style: any
 }
 
 export default class Bubble extends React.PureComponent<State, Props> {
@@ -23,7 +22,7 @@ export default class Bubble extends React.PureComponent<State, Props> {
     }
 
     return (
-      <View style={[styles.container, this.props.style]}>{innerChildView}</View>
+      <View style={styles.container}>{innerChildView}</View>
     )
   }
 }

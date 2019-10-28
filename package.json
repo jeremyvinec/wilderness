@@ -10,6 +10,7 @@
     "lint": "tslint -p \".\" -t stylish"
   },
   "dependencies": {
+    "@mapbox/geo-viewport": "^0.4.0",
     "@react-native-community/async-storage": "^1.6.2",
     "@react-native-firebase/app": "^6.0.3",
     "@react-native-firebase/auth": "^6.0.3",
