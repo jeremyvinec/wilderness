@@ -40,7 +40,7 @@ export default class Map extends React.Component<Props, State> {
           />
         </MapboxGL.MapView>
         <TouchableOpacity onPress={this.onToggleUserLocation} style={styles.onToggleUserLocation}>
-          <Geolocate width='40' height='40' fill='#000'/>
+          <Geolocate width='40' height='40' fill='#fff'/>
         </TouchableOpacity>
       </View>
     )
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
   onToggleUserLocation: {
     position: 'absolute',
-    top: '5%',
+    top: '10%',
     right: '1%',
   },
 })

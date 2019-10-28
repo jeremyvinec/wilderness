@@ -7,6 +7,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs'
 import Discover from '../components/screens/Discover'
 import Login from '../components/screens/Login'
 import Map from '../components/screens/Map'
+import Menu from '../components/screens/Menu'
 import Nearly from '../components/screens/Nearly'
 import Profile from '../components/screens/Profile'
 import Signup from '../components/screens/Signup'
@@ -17,7 +18,7 @@ import Bell from '../assets/svg/Bell'
 import Camera from '../assets/svg/Camera'
 import Globe from '../assets/svg/Globe'
 import Heat from '../assets/svg/Heart'
-import Menu from '../assets/svg/Menu'
+import MenuIcon from '../assets/svg/Menu'
 import Person from '../assets/svg/Person'
 import Search from '../assets/svg/Search'
 
@@ -35,10 +36,10 @@ const AuthSwitchNavigator = createSwitchNavigator({
 
 const BottomTabNavigator = createBottomTabNavigator({
   Menu: {
-    screen: Map,
+    screen: Menu,
     navigationOptions: {
       tabBarIcon: () => {
-        return <Menu
+        return <MenuIcon
           width='25'
           height='25'
           fill='#1F3044'
