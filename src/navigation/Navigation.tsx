@@ -94,7 +94,8 @@ const BottomTabNavigator = createBottomTabNavigator({
           height='25'
           fill='#1F3044'
         />
-      }    },
+      },
+    },
   },
   Bell: {
     screen: Notification,

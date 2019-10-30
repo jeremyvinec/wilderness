@@ -1,7 +1,7 @@
 import geoViewport from '@mapbox/geo-viewport'
 import MapboxGL from '@react-native-mapbox-gl/maps'
 import React from 'react'
-import { Dimensions, StyleSheet, TouchableOpacity, View, Text } from 'react-native'
+import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import CloudDownload from '../../assets/svg/CloudDownload'
 import Geolocate from '../../assets/svg/Geolocate'
 import config from '../../utils/config.js'
