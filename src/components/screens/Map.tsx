@@ -2,6 +2,9 @@ import geoViewport from '@mapbox/geo-viewport'
 import MapboxGL from '@react-native-mapbox-gl/maps'
 import React from 'react'
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation'
+
+// Icons
 import ArrowDown from '../../assets/svg/ArrowDown'
 import Compass from '../../assets/svg/Compass'
 import Download from '../../assets/svg/Download'
@@ -9,6 +12,8 @@ import Geolocate from '../../assets/svg/Geolocate'
 import Info from '../../assets/svg/Info'
 import Layers from '../../assets/svg/Layers'
 import Search from '../../assets/svg/Search'
+
+import { onSortOptions } from '../../utils'
 import config from '../../utils/config.js'
 
 MapboxGL.setAccessToken(config.get('accessToken'))
@@ -16,7 +21,9 @@ MapboxGL.setAccessToken(config.get('accessToken'))
 const CENTER_COORD = [-73.970895, 40.723279]
 const MAPBOX_VECTOR_TILE_SIZE = 512
 
-interface Props { }
+interface Props {
+  navigation: NavigationScreenProp<NavigationState, NavigationParams>,
+}
 
 interface State {
   followUserLocation: boolean,
@@ -25,15 +32,28 @@ interface State {
   offlineRegionStatus: {},
 }
 export default class Map extends React.Component<Props, State> {
+  _mapOptions: string[]
 
   constructor(props: Props) {
     super(props)
+
+    this._mapOptions = Object.keys(MapboxGL.StyleURL)
+      .map(key => {
+        return {
+          label: key,
+          data: MapboxGL.StyleURL[key],
+        }
+      })
+      .sort(onSortOptions)
+
     this.state = {
       followUserLocation: true,
       name: `${Date.now()}`,
       offlineRegion: null,
       offlineRegionStatus: null,
+      StyleURL: this._mapOptions[0].data,
     }
+    this.onMapChange = this.onMapChange.bind(this)
   }
 
   componentWillUnmount() {
@@ -90,6 +110,16 @@ export default class Map extends React.Component<Props, State> {
     this.props.navigation.navigate('Info')
   }
 
+  onMapChange = (index: any, styleURL: any) => {
+    return(
+      <View style={styles.offlineRegionStatus}>
+        <Text>Type de carte</Text>
+        <Text>Par défault</Text>
+      </View>
+    )
+    //this.setState({styleURL})
+  }
+
   render() {
     const { followUserLocation, offlineRegionStatus } = this.state
     return (
@@ -119,7 +149,7 @@ export default class Map extends React.Component<Props, State> {
           <TouchableOpacity onPress={this.onDidFinishLoadingStyle} style={styles.toggle}>
             <Download width='22' height='22' fill='#1F3044'/>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.onDidFinishLoadingStyle} style={styles.toggle}>
+          <TouchableOpacity onPress={this.onMapChange} style={styles.toggle}>
             <Layers width='22' height='22' fill='#1F3044'/>
           </TouchableOpacity>
           <TouchableOpacity onPress={this.onToggleInfo} style={styles.toggle}>

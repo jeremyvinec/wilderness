@@ -3,6 +3,7 @@ import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 
 // page
+import Info from '../components/screens/Info'
 import Login from '../components/screens/Login'
 import Map from '../components/screens/Map'
 import Profile from '../components/screens/Profile'
@@ -25,6 +26,13 @@ const StackNavigator = createStackNavigator({
     screen: Map,
     navigationOptions: {
       title: 'Map',
+      header: null,
+    },
+  },
+  Info: {
+    screen: Info,
+    navigationOptions: {
+      title: 'Info',
       header: null,
     },
   },
