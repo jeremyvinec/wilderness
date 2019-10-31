@@ -2,8 +2,13 @@ import geoViewport from '@mapbox/geo-viewport'
 import MapboxGL from '@react-native-mapbox-gl/maps'
 import React from 'react'
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import CloudDownload from '../../assets/svg/CloudDownload'
+import Download from '../../assets/svg/Download'
 import Geolocate from '../../assets/svg/Geolocate'
+import Compass from '../../assets/svg/Compass'
+import Search from '../../assets/svg/Search'
+import Layers from '../../assets/svg/Layers'
+import Info from '../../assets/svg/Info'
+import ArrowDown from '../../assets/svg/ArrowDown'
 import config from '../../utils/config.js'
 
 MapboxGL.setAccessToken(config.get('accessToken'))
@@ -97,12 +102,29 @@ export default class Map extends React.Component<Props, State> {
               followUserMode={MapboxGL.UserTrackingModes.FollowWithHeading}
           />
         </MapboxGL.MapView>
-        <TouchableOpacity onPress={this.onToggleUserLocation} style={styles.onToggleUserLocation}>
-          <Geolocate width='30' height='30' fill='#1F3044'/>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={this.onDidFinishLoadingStyle} style={styles.offlineRegion}>
-          <CloudDownload width='30' height='30' fill='#1F3044'/>
-        </TouchableOpacity>
+        <View style={styles.bar}>
+          <TouchableOpacity onPress={this.onToggleUserLocation} style={styles.onToggleUserLocation}>
+            <Compass width='22' height='22' fill='#1F3044'/>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this.onDidFinishLoadingStyle} style={styles.offlineRegion}>
+            <Geolocate width='22' height='22' fill='#1F3044'/>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this.onDidFinishLoadingStyle} style={styles.offlineRegion}>
+            <Search width='22' height='22' fill='#1F3044'/>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this.onDidFinishLoadingStyle} style={styles.offlineRegion}>
+            <Download width='22' height='22' fill='#1F3044'/>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this.onDidFinishLoadingStyle} style={styles.offlineRegion}>
+            <Layers width='22' height='22' fill='#1F3044'/>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this.onDidFinishLoadingStyle} style={styles.offlineRegion}>
+            <Info width='22' height='22' fill='#1F3044'/>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this.onDidFinishLoadingStyle} style={styles.offlineRegion}>
+            <ArrowDown width='22' height='22' fill='#1F3044'/>
+          </TouchableOpacity>
+        </View>
         { offlineRegionStatus !== null ? (
           <View style={styles.offlineRegionStatus}>
             <Text>
@@ -121,19 +143,16 @@ const styles = StyleSheet.create({
   map: {
     flex: 1,
   },
-  onToggleUserLocation: {
+  bar: {
     backgroundColor: '#fff',
     borderRadius: 4,
     position: 'absolute',
-    top: '10%',
+    bottom: '5%',
     right: '5%',
-  },
-  offlineRegion: {
-    backgroundColor: '#fff',
-    borderRadius: 4,
-    position: 'absolute',
-    top: '15%',
-    right: '5%',
+    width: 30,
+    height: 253,
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   percentageText: {
     padding: 8,
