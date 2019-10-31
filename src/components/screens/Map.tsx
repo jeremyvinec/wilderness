@@ -106,6 +106,10 @@ export default class Map extends React.Component<Props, State> {
     }
   }
 
+  onToggleSearch = () => {
+    this.props.navigation.navigate('Search')
+  }
+
   onToggleInfo = () => {
     this.props.navigation.navigate('Info')
   }
@@ -117,7 +121,7 @@ export default class Map extends React.Component<Props, State> {
         <Text>Par défault</Text>
       </View>
     )
-    //this.setState({styleURL})
+    // this.setState({styleURL})
   }
 
   render() {
@@ -143,7 +147,7 @@ export default class Map extends React.Component<Props, State> {
           <TouchableOpacity onPress={this.onToggleUserLocation} style={styles.toggle}>
             <Geolocate width='22' height='22' fill='#1F3044'/>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.onDidFinishLoadingStyle} style={styles.toggle}>
+          <TouchableOpacity onPress={this.onToggleSearch} style={styles.toggle}>
             <Search width='22' height='22' fill='#1F3044'/>
           </TouchableOpacity>
           <TouchableOpacity onPress={this.onDidFinishLoadingStyle} style={styles.toggle}>

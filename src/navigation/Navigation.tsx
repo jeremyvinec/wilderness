@@ -7,6 +7,7 @@ import Info from '../components/screens/Info'
 import Login from '../components/screens/Login'
 import Map from '../components/screens/Map'
 import Profile from '../components/screens/Profile'
+import Search from '../components/screens/Search'
 import Signup from '../components/screens/Signup'
 
 const AuthSwitchNavigator = createSwitchNavigator({
@@ -26,6 +27,13 @@ const StackNavigator = createStackNavigator({
     screen: Map,
     navigationOptions: {
       title: 'Map',
+      header: null,
+    },
+  },
+  Search: {
+    screen: Search,
+    navigationOptions: {
+      title: 'Search',
       header: null,
     },
   },
