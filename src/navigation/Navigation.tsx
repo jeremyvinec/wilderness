@@ -34,14 +34,12 @@ const StackNavigator = createStackNavigator({
     screen: Search,
     navigationOptions: {
       title: 'Search',
-      header: null,
     },
   },
   Info: {
     screen: Info,
     navigationOptions: {
       title: 'Info',
-      header: null,
     },
   },
 })

@@ -131,6 +131,7 @@ export default class Map extends React.Component<Props, State> {
         <MapboxGL.MapView
           style={styles.map}
           styleURL={MapboxGL.StyleURL.Outdoors}
+          // compassEnabled={false}
         >
           <MapboxGL.UserLocation visible={followUserLocation}/>
           <MapboxGL.Camera
