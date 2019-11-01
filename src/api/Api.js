@@ -4,8 +4,8 @@ const KEY = config.get('accessToken')
 
 class Api {
 
-    static getCities(text) {
-      return fetch('https://api.mapbox.com/geocoding/v5/mapbox.places/' + text + '.json?access_token=' + KEY, {
+    static getCities(search) {
+      return fetch('https://api.mapbox.com/geocoding/v5/mapbox.places/' + search + '.json?access_token=' + KEY, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',

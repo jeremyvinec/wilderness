@@ -1,8 +1,8 @@
 import { SEARCHED_TEXT } from './actionTypes'
 
-export const searchedText = (text: String) => {
+export const searchedText = (search: String) => {
   return{
     type: SEARCHED_TEXT,
-    playload: text,
+    playload: search,
   }
 }

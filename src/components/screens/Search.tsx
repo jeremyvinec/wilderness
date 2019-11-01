@@ -1,86 +1,65 @@
 import React from 'react'
-import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native'
-import { ListItem, SearchBar } from 'react-native-elements'
+import { ActivityIndicator, FlatList, StyleSheet, Text, TextInput, View } from 'react-native'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { searchedText } from '../../actions/actionSearch'
 import Api from '../../api/Api'
 
+interface Props {
+  searchedText: (search: String) => void,
+  search: String,
+}
 interface State {
-  data: [],
-  loading: boolean,
-  error: null,
-  searchedText: [],
+  isLoading: boolean,
+  data: []
 }
 
-interface Props { }
+class Search extends React.Component<Props, State> {
 
-export default class Search extends React.Component<Props, State> {
+  private searchedText = (search: String) => {
+    this.props.searchedText(search)
+    this.loadCities()
+  }
 
   constructor(props: Props) {
     super(props)
     this.state = {
-      loading: false,
+      isLoading: false,
       data: [],
-      error: null,
-      searchedText: [],
     }
   }
 
-  componentDidMount() {
-    this.makeRemoteRequest()
+  loadCities = () => {
+    const { search } = this.props
+    if (search.length > 0) {
+      this.setState({ isLoading: true })
+      Api.getCities(search).then((res: any) => {
+        console.log(res)
+        this.setState({ isLoading: false })
+      })
+      .catch((err: any) => {
+        console.log(err)
+      })
+    }
   }
 
-  makeRemoteRequest = () => {
-    this.setState({ loading: true })
-
-    Api.getCities(this.state.searchedText)
-    .then(res => {
-      console.log(res)
-      this.setState({
-        data: res.results,
-        error: res.error || null,
-        loading: false,
-        searchedText: res.results,
-      })
-    })
-    .catch(error => {
-      this.setState({ error, loading: false })
-    })
-  }
-
-  /*makeRemoteRequest = () => {
-    const url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?access_token=pk.eyJ1IjoiamVyZW15dmluZWMiLCJhIjoiY2sxb2xhbDYxMGxxMDNjdGlrN2x5dmJyZyJ9.jZPR-A0GRnUbttmIdeQ2QA'
-    this.setState({ loading: true })
-
-    fetch(url)
-    .then(res => res.json())
-    .then(res => {
-      console.log(res)
-      this.setState({
-        data: res.results,
-        error: res.error || null,
-        loading: false,
-        searchedText: res.results,
-      })
-    })
-    .catch(error => {
-      this.setState({ error, loading: false })
-    })
-  }*/
-
-  searchFilterFunction = (text: String) => {
-    const newData = this.state.searchedText.filter(item => {
+  searchFilterFunction = (search: String) => {
+    /*const newData = this.state.searchedText.filter(item => {
       const itemData = `${item.name.title.toUpperCase()}
       ${item.name.first.toUpperCase()} ${item.name.last.toUpperCase()}`
       const textData = text.toUpperCase()
       return itemData.indexOf(textData) > - 1
     })
-    this.setState({ data: newData })
+    this.setState({ data: newData })*/
   }
 
   renderHeader = () => {
     return (
-      <SearchBar
+      <TextInput
+        style={styles.inputBox}
         placeholder='Try "Gap"'
-        onChangeText={this.searchFilterFunction}
+        value={this.props.search}
+        onChangeText={this.searchedText}
         autoCorrect={false}
       />
     )
@@ -89,45 +68,53 @@ export default class Search extends React.Component<Props, State> {
   renderItem = ({item}) => {
     return(
       <ListItem
-        leftAvatar={{ source: { uri: item.picture.thumbnail } }}
         title={`${item.name.first} ${item.name.last}`}
         subtitle={item.email}
       />
     )
   }
 
-  render() {
-    if (this.state.loading) {
+  displayLoading() {
+    if (this.state.isLoading) {
       return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <ActivityIndicator />
+        <View style={styles.loading_container}>
+          <ActivityIndicator size='large' />
         </View>
       )
     }
-    return (
-      <View style={{ flex: 1 }}>
+  }
+
+  render() {
+    console.log(this.props.search)
+    return(
+      <View style={styles.container}>
         <FlatList
           data={this.state.data}
           renderItem={this.renderItem}
           keyExtractor={item => item.email}
           ListHeaderComponent={this.renderHeader}
         />
+        {this.displayLoading()}
       </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  main_container: {
+  container: {
     flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  textinput: {
-    marginLeft: 5,
-    marginRight: 5,
-    height: 50,
-    borderColor: '#000000',
-    borderWidth: 1,
-    paddingLeft: 5,
+  inputBox: {
+    width: '85%',
+    margin: 10,
+    padding: 15,
+    fontSize: 16,
+    borderColor: '#d3d3d3',
+    borderBottomWidth: 1,
+    textAlign: 'center',
   },
   loading_container: {
     position: 'absolute',
@@ -139,3 +126,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 })
+
+const mapDispatchToProps = (dispatch: any) => {
+  return bindActionCreators({ searchedText }, dispatch)
+}
+
+const mapStateToProps = (state: any) => {
+  return{
+    search: state.search,
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search)
