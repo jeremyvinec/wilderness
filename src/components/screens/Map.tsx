@@ -160,7 +160,7 @@ export default class Map extends React.Component<Props, State> {
           <TouchableOpacity onPress={this.onToggleInfo} style={styles.toggle}>
             <Info width='22' height='22' fill='#1F3044'/>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.onDidFinishLoadingStyle} style={styles.toggle}>
+          <TouchableOpacity onPress={this.onClose} style={styles.toggle}>
             <ArrowDown width='22' height='22' fill='#1F3044'/>
           </TouchableOpacity>
         </View>
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
     bottom: '5%',
     right: '5%',
     width: 30,
-    height: 253,
+    height: 268,
     alignItems: 'center',
   },
   toggle: {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native'
 import { ListItem, SearchBar } from 'react-native-elements'
-//import { getCities } from '../../api/Api'
+import Api from '../../api/Api'
 
 interface State {
   data: [],
@@ -29,12 +29,11 @@ export default class Search extends React.Component<Props, State> {
   }
 
   makeRemoteRequest = () => {
-    const url = 'https://randomuser.me/api/?&results=20'
     this.setState({ loading: true })
 
-    fetch(url)
-    .then(res => res.json())
+    Api.getCities(this.state.searchedText)
     .then(res => {
+      console.log(res)
       this.setState({
         data: res.results,
         error: res.error || null,
@@ -46,6 +45,26 @@ export default class Search extends React.Component<Props, State> {
       this.setState({ error, loading: false })
     })
   }
+
+  /*makeRemoteRequest = () => {
+    const url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?access_token=pk.eyJ1IjoiamVyZW15dmluZWMiLCJhIjoiY2sxb2xhbDYxMGxxMDNjdGlrN2x5dmJyZyJ9.jZPR-A0GRnUbttmIdeQ2QA'
+    this.setState({ loading: true })
+
+    fetch(url)
+    .then(res => res.json())
+    .then(res => {
+      console.log(res)
+      this.setState({
+        data: res.results,
+        error: res.error || null,
+        loading: false,
+        searchedText: res.results,
+      })
+    })
+    .catch(error => {
+      this.setState({ error, loading: false })
+    })
+  }*/
 
   searchFilterFunction = (text: String) => {
     const newData = this.state.searchedText.filter(item => {
@@ -60,9 +79,7 @@ export default class Search extends React.Component<Props, State> {
   renderHeader = () => {
     return (
       <SearchBar
-        placeholder='Type Here...'
-        lightTheme
-        round
+        placeholder='Try "Gap"'
         onChangeText={this.searchFilterFunction}
         autoCorrect={false}
       />
