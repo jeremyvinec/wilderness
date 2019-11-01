@@ -69,6 +69,16 @@ export default class Search extends React.Component<Props, State> {
     )
   }
 
+  renderItem = ({item}) => {
+    return(
+      <ListItem
+        leftAvatar={{ source: { uri: item.picture.thumbnail } }}
+        title={`${item.name.first} ${item.name.last}`}
+        subtitle={item.email}
+      />
+    )
+  }
+
   render() {
     if (this.state.loading) {
       return (
@@ -81,13 +91,7 @@ export default class Search extends React.Component<Props, State> {
       <View style={{ flex: 1 }}>
         <FlatList
           data={this.state.data}
-          renderItem={({ item }) => (
-            <ListItem
-              leftAvatar={{ source: { uri: item.picture.thumbnail } }}
-              title={`${item.name.first} ${item.name.last}`}
-              subtitle={item.email}
-            />
-          )}
+          renderItem={this.renderItem}
           keyExtractor={item => item.email}
           ListHeaderComponent={this.renderHeader}
         />
