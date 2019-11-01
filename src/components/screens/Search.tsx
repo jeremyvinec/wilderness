@@ -1,8 +1,7 @@
 import React from 'react'
-import { ActivityIndicator, Button, FlatList, StyleSheet, Text, TextInput, View } from 'react-native'
-import { SearchBar } from 'react-native-elements'
-import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation'
-import { getCities } from '../../api/Api'
+import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native'
+import { ListItem, SearchBar } from 'react-native-elements'
+//import { getCities } from '../../api/Api'
 
 interface State {
   data: [],
@@ -11,9 +10,7 @@ interface State {
   searchedText: [],
 }
 
-interface Props {
-  navigation: NavigationScreenProp<NavigationState, NavigationParams>,
-}
+interface Props { }
 
 export default class Search extends React.Component<Props, State> {
 
@@ -27,8 +24,12 @@ export default class Search extends React.Component<Props, State> {
     }
   }
 
-  _loadCities() {
-    const url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + text + '.json?access_token=' + KEY
+  componentDidMount() {
+    this.makeRemoteRequest()
+  }
+
+  makeRemoteRequest = () => {
+    const url = 'https://randomuser.me/api/?&results=20'
     this.setState({ loading: true })
 
     fetch(url)
@@ -46,44 +47,50 @@ export default class Search extends React.Component<Props, State> {
     })
   }
 
+  searchFilterFunction = (text: String) => {
+    const newData = this.state.searchedText.filter(item => {
+      const itemData = `${item.name.title.toUpperCase()}
+      ${item.name.first.toUpperCase()} ${item.name.last.toUpperCase()}`
+      const textData = text.toUpperCase()
+      return itemData.indexOf(textData) > - 1
+    })
+    this.setState({ data: newData })
+  }
+
   renderHeader = () => {
     return (
       <SearchBar
         placeholder='Type Here...'
         lightTheme
         round
-        onChangeText={text => this.searchFilterFunction(text)}
+        onChangeText={this.searchFilterFunction}
         autoCorrect={false}
       />
     )
   }
 
-  _displayLoading() {
-    if (this.state.isLoading) {
-      return(
-        <View style={styles.loading_container}>
-          <ActivityIndicator size='large' />
+  render() {
+    if (this.state.loading) {
+      return (
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <ActivityIndicator />
         </View>
       )
     }
-  }
-
-  render() {
     return (
-      <View style={styles.main_container}>
-        <TextInput
-          style={styles.textinput}
-          placeholder='Ville'
-          onChangeText={this._searchedTextInputChanged}
-          onSubmitEditing={this._searchedCities}
+      <View style={{ flex: 1 }}>
+        <FlatList
+          data={this.state.data}
+          renderItem={({ item }) => (
+            <ListItem
+              leftAvatar={{ source: { uri: item.picture.thumbnail } }}
+              title={`${item.name.first} ${item.name.last}`}
+              subtitle={item.email}
+            />
+          )}
+          keyExtractor={item => item.email}
+          ListHeaderComponent={this.renderHeader}
         />
-        <Button title='Rechercher' onPress={this._searchedCities}/>
-        <CitiesList
-          cities={this.state.cities}
-          navigation={this.props.navigation}
-          loadCities={this._loadCities}
-        />
-        {this._displayLoading()}
       </View>
     )
   }
@@ -109,5 +116,5 @@ const styles = StyleSheet.create({
     bottom: 0,
     alignItems: 'center',
     justifyContent: 'center',
-  }
+  },
 })
