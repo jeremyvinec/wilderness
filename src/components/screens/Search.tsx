@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { searchedText } from '../../actions/actionUser'
 import Api from '../../api/Api'
+import CitiesItem from '../common/CitiesItem'
 
 interface Props {
   searchedText: (search: String) => void,
@@ -37,7 +38,7 @@ class Search extends React.Component<Props, State> {
       console.log(res)
       this.setState({
         isLoading: false,
-        data: res.results,
+        data: res.features,
       })
     })
       .catch((err: any) => {
@@ -58,7 +59,7 @@ class Search extends React.Component<Props, State> {
 
   renderItem = ({item}) => {
     return(
-      <ListItem
+      <CitiesItem
         title={`${item.name.first} ${item.name.last}`}
         subtitle={item.email}
       />
@@ -76,6 +77,7 @@ class Search extends React.Component<Props, State> {
   }
 
   render() {
+    console.log(this.state.data)
     return(
       <View style={styles.container}>
         <FlatList

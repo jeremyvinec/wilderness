@@ -47,7 +47,7 @@ const StackNavigator = createStackNavigator({
   },
   Menu: {
     screen: Menu,
-  }
+  },
 })
 
 export default createAppContainer(StackNavigator)
