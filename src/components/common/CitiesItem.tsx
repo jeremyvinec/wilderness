@@ -3,7 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Pin from '../../assets/svg/Pin'
 
 interface Props {
-  data: String
+  data: {},
 }
 
 interface State {
@@ -11,19 +11,18 @@ interface State {
 }
 export default class CitiesItem extends React.Component<Props, State> {
   render() {
-    console.log(this.props.data)
     const { data } = this.props
     return(
-        <TouchableOpacity>
+        <TouchableOpacity style={styles.main_container}>
             <View>
-                <Pin/>
+                <Pin width='22' height='22' fill='#1F3044'/>
             </View>
-            <View>e
-              <View>
+            <View style={styles.content_container}>
+              <View style={styles.citie_container}>
                 <Text>{data.text}</Text>
               </View>
-              <View>
-                <Text></Text>
+              <View style={styles.region_container}>
+                <Text>{data.place_name}</Text>
               </View>
             </View>
         </TouchableOpacity>
@@ -32,5 +31,22 @@ export default class CitiesItem extends React.Component<Props, State> {
 }
 
 const styles = StyleSheet.create({
-
+  main_container: {
+    flexDirection: 'row',
+    marginTop: 15,
+  },
+  content_container: {
+    flex: 1,
+  },
+  citie_container: {
+    flexDirection: 'row',
+    marginTop: 1,
+    justifyContent: 'space-between',
+  },
+  region_container: {
+    flexDirection: 'row',
+    marginTop: 1,
+    justifyContent: 'space-between',
+    opacity: 0.4,
+  },
 })

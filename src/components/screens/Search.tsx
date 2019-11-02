@@ -78,10 +78,11 @@ class Search extends React.Component<Props, State> {
   }
 
   render() {
-    console.log(this.state.data)
+    console.log(this.props.user.search)
     return(
       <View style={styles.container}>
         <FlatList
+          style={styles.list}
           data={this.state.data}
           renderItem={this.renderItem}
           keyExtractor={item => item.id}
@@ -105,7 +106,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     borderColor: '#d3d3d3',
     borderBottomWidth: 1,
-    textAlign: 'center',
   },
   loading_container: {
     position: 'absolute',
@@ -115,6 +115,9 @@ const styles = StyleSheet.create({
     bottom: 0,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  list: {
+    flex: 1,
   },
 })
 

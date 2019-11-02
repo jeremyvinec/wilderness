@@ -22,6 +22,7 @@ interface State {
   name: {},
   offlineRegion: {},
   offlineRegionStatus: {},
+  isOpen: boolean,
 }
 export default class Map extends React.Component<Props, State> {
   _mapOptions: string[]
@@ -43,6 +44,7 @@ export default class Map extends React.Component<Props, State> {
       offlineRegion: null,
       offlineRegionStatus: null,
       StyleURL: this._mapOptions[0].data,
+      isOpen: false,
     }
   }
 
@@ -115,8 +117,8 @@ export default class Map extends React.Component<Props, State> {
     this.setState({styleURL})
   }
 
-  handleMenuClick() {
-    this.setState({menuOpen: !this.state.menuOpen})
+  toggleMenu = () => {
+    this.setState({ isOpen: !this.state.isOpen })
   }
 
   downloadMap = () => {
@@ -158,7 +160,7 @@ export default class Map extends React.Component<Props, State> {
           onDidFinishLoadingStyle={this.onDidFinishLoadingStyle}
           onMapChange={this.onMapChange}
           onToggleInfo={this.onToggleInfo}
-          handleMenuClick={this.handleMenuClick}
+          toggleMenu={this.toggleMenu}
         />
         {this.downloadMap()}
       </View>
