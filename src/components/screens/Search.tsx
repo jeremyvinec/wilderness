@@ -51,6 +51,7 @@ class Search extends React.Component<Props, State> {
       <TextInput
         style={styles.inputBox}
         placeholder='Try "Gap"'
+        autoCapitalize='none'
         onChangeText={this.searchedText}
         autoCorrect={false}
       />
@@ -60,8 +61,8 @@ class Search extends React.Component<Props, State> {
   renderItem = ({item}) => {
     return(
       <CitiesItem
-        title={`${item.name.first} ${item.name.last}`}
-        subtitle={item.email}
+        id={item.id}
+        data={item}
       />
     )
   }
@@ -83,7 +84,7 @@ class Search extends React.Component<Props, State> {
         <FlatList
           data={this.state.data}
           renderItem={this.renderItem}
-          keyExtractor={item => item.email}
+          keyExtractor={item => item.id}
           ListHeaderComponent={this.renderHeader}
         />
         {this.displayLoading()}

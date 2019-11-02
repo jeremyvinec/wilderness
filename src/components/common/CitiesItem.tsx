@@ -1,12 +1,36 @@
 import React from 'react'
-import { View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import Pin from '../../assets/svg/Pin'
 
-export default class CitiesItem extends React.Component {
+interface Props {
+  data: String
+}
+
+interface State {
+
+}
+export default class CitiesItem extends React.Component<Props, State> {
   render() {
+    console.log(this.props.data)
+    const { data } = this.props
     return(
-        <View>
-            
-        </View>
+        <TouchableOpacity>
+            <View>
+                <Pin/>
+            </View>
+            <View>e
+              <View>
+                <Text>{data.text}</Text>
+              </View>
+              <View>
+                <Text></Text>
+              </View>
+            </View>
+        </TouchableOpacity>
     )
   }
 }
+
+const styles = StyleSheet.create({
+
+})
