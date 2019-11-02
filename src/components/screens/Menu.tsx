@@ -14,7 +14,7 @@ interface Props {
   onToggleUserLocation: () => void,
   onToggleSearch: () => void,
   onDidFinishLoadingStyle: () => void,
-  onMapChange: () => void,
+  toggleMap: () => void,
   onToggleInfo: () => void,
   toggleMenu: () => void,
 }
@@ -23,7 +23,7 @@ interface State { }
 export default class Menu extends React.Component<Props, State> {
 
   render() {
-    const { onToggleUserLocation, onToggleSearch, onDidFinishLoadingStyle, onMapChange, onToggleInfo, toggleMenu } = this.props
+    const { onToggleUserLocation, onToggleSearch, onDidFinishLoadingStyle, toggleMap, onToggleInfo, toggleMenu } = this.props
     console.log(this.props)
     return(
         <View style={styles.bar}>
@@ -39,7 +39,7 @@ export default class Menu extends React.Component<Props, State> {
           <TouchableOpacity onPress={onDidFinishLoadingStyle} style={styles.toggle}>
             <Download width='22' height='22' fill='#1F3044'/>
           </TouchableOpacity>
-          <TouchableOpacity onPress={onMapChange} style={styles.toggle}>
+          <TouchableOpacity onPress={toggleMap} style={styles.toggle}>
             <Layers width='22' height='22' fill='#1F3044'/>
           </TouchableOpacity>
           <TouchableOpacity onPress={onToggleInfo} style={styles.toggle}>

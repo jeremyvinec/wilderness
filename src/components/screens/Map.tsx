@@ -5,7 +5,7 @@ import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-nati
 import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation'
 import Menu from './Menu'
 
-//icons
+// icons
 import ArrowUp from '../../assets/svg/ArrowUp'
 
 import { onSortOptions } from '../../utils'
@@ -26,6 +26,7 @@ interface State {
   offlineRegion: {},
   offlineRegionStatus: {},
   isOpen: boolean,
+  changeMap: boolean
 }
 export default class Map extends React.Component<Props, State> {
   _mapOptions: string[]
@@ -48,6 +49,7 @@ export default class Map extends React.Component<Props, State> {
       offlineRegionStatus: null,
       StyleURL: this._mapOptions[0].data,
       isOpen: true,
+      changeMap: false,
     }
   }
 
@@ -108,20 +110,28 @@ export default class Map extends React.Component<Props, State> {
     this.props.navigation.navigate('Info')
   }
 
-  onMapChange = (styleURL: any) => {
-    if (this.state.offlineRegionStatus !== null) {
+  onMapChange = () => {
+    if (this.state.changeMap) {
       return(
-        <View style={styles.offlineRegionStatus}>
-          <Text>Type de carte</Text>
-          <Text>Par défault</Text>
+        <View style={styles.changeMap}>
+          <View>
+            <Text>Type de carte</Text>
+          </View>
+          <View>
+            <Text>Par défault</Text>
+          </View>
         </View>
       )
     }
-    this.setState({styleURL})
+    return null
   }
 
   toggleMenu = () => {
     this.setState({ isOpen: !this.state.isOpen })
+  }
+
+  toggleMap = () => {
+    this.setState({ changeMap: !this.state.changeMap })
   }
 
   downloadMap = () => {
@@ -136,8 +146,8 @@ export default class Map extends React.Component<Props, State> {
             <Text>Download Percent: {offlineRegionStatus.percentage} </Text>
           </View>
       )
-      return null
     }
+    return null
   }
 
   Menu = () => {
@@ -147,7 +157,7 @@ export default class Map extends React.Component<Props, State> {
           onToggleUserLocation={this.onToggleUserLocation}
           onToggleSearch={this.onToggleSearch}
           onDidFinishLoadingStyle={this.onDidFinishLoadingStyle}
-          onMapChange={this.onMapChange}
+          toggleMap={this.toggleMap}
           onToggleInfo={this.onToggleInfo}
           toggleMenu={this.toggleMenu}
         />
@@ -227,5 +237,18 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     alignItems: 'center',
-  }
+  },
+  changeMap: {
+    position: 'absolute',
+    bottom: 16,
+    left: 48,
+    right: 48,
+    paddingVertical: 16,
+    width: 250,
+    height: 250,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    borderRadius: 30,
+  },
 })
