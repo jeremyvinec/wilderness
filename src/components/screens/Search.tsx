@@ -2,12 +2,13 @@ import React from 'react'
 import { ActivityIndicator, FlatList, StyleSheet, Text, TextInput, View } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { searchedText } from '../../actions/actionSearch'
+import { searchedText } from '../../actions/actionUser'
 import Api from '../../api/Api'
 
 interface Props {
   searchedText: (search: String) => void,
   search: String,
+  user: String,
 }
 interface State {
   isLoading: boolean,
@@ -30,27 +31,18 @@ class Search extends React.Component<Props, State> {
   }
 
   loadCities = () => {
-    const { search } = this.props
-    if (search.length > 0) {
-      this.setState({ isLoading: true })
-      Api.getCities(search).then((res: any) => {
-        console.log(res)
-        this.setState({ isLoading: false })
+    const { search } = this.props.user
+    this.setState({ isLoading: true })
+    Api.getCities(search).then((res: any) => {
+      console.log(res)
+      this.setState({
+        isLoading: false,
+        data: res.results,
       })
+    })
       .catch((err: any) => {
         console.log(err)
       })
-    }
-  }
-
-  searchFilterFunction = (search: String) => {
-    /*const newData = this.state.searchedText.filter(item => {
-      const itemData = `${item.name.title.toUpperCase()}
-      ${item.name.first.toUpperCase()} ${item.name.last.toUpperCase()}`
-      const textData = text.toUpperCase()
-      return itemData.indexOf(textData) > - 1
-    })
-    this.setState({ data: newData })*/
   }
 
   renderHeader = () => {
@@ -58,7 +50,6 @@ class Search extends React.Component<Props, State> {
       <TextInput
         style={styles.inputBox}
         placeholder='Try "Gap"'
-        value={this.props.search}
         onChangeText={this.searchedText}
         autoCorrect={false}
       />
@@ -85,7 +76,7 @@ class Search extends React.Component<Props, State> {
   }
 
   render() {
-    console.log(this.props.search)
+    console.log(this.props.user.search)
     return(
       <View style={styles.container}>
         <FlatList
@@ -133,7 +124,7 @@ const mapDispatchToProps = (dispatch: any) => {
 
 const mapStateToProps = (state: any) => {
   return{
-    search: state.search,
+    user: state.user,
   }
 }
 

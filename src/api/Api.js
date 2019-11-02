@@ -5,6 +5,7 @@ const KEY = config.get('accessToken')
 class Api {
 
     static getCities(search) {
+      console.log(search)
       return fetch('https://api.mapbox.com/geocoding/v5/mapbox.places/' + search + '.json?access_token=' + KEY, {
       method: 'GET',
       headers: {
