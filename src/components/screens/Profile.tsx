@@ -1,13 +1,14 @@
 import auth from '@react-native-firebase/auth'
 import React from 'react'
-import { Button, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation'
 import { connect } from 'react-redux'
 
+import icon from '../../assets/img/icon.png'
 interface Props {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
   user: String,
-  email: String
+  email: String,
 }
 
 interface State { }
@@ -19,22 +20,46 @@ class Profile extends React.Component<Props, State> {
   }
 
   render() {
+    const { user } = this.props
     return(
-        <View> style={styles.container}
-            <Text>Profile Screen</Text>
-            <Text>{this.props.user.email}</Text>
-            <Button title='Logout' onPress={this.handleSignout}/>
+        <View style={styles.main_container}>
+            <View>
+              <Image source={icon}/>
+            </View>
+           <View style={styles.content_container}>
+            <View style={styles.username_container}>
+              <Text>{user.username}</Text>
+            </View>
+            <View style={styles.email_container}>
+              <Text>{user.email}</Text>
+            </View>
+           </View>
+           <TouchableOpacity onPress={this.handleSignout}>
+
+           </TouchableOpacity>
         </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  main_container: {
+    flexDirection: 'row',
+    marginTop: 15,
+  },
+  content_container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  },
+  username_container: {
+    flexDirection: 'row',
+    marginTop: 1,
+    justifyContent: 'space-between',
+  },
+  email_container: {
+    flexDirection: 'row',
+    marginTop: 1,
+    justifyContent: 'space-between',
+    opacity: 0.4,
   },
 })
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 import icon from '../../assets/img/icon.png'
 export default class CardType extends React.Component {
@@ -24,8 +24,22 @@ export default class CardType extends React.Component {
                         <Text style={styles.text}>Relief</Text>
                     </TouchableOpacity>
                 </View>
-                <View>
-                <Text>Détails de la carte</Text>
+                <View style={styles.title}>
+                    <Text>Détails de la carte</Text>
+                </View>
+                <View style={styles.main_container}>
+                    <TouchableOpacity style={styles.card}>
+                        <Image source={icon}/>
+                        <Text style={styles.text}>Transport</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.card}>
+                        <Image source={icon}/>
+                        <Text style={styles.text}>Traffic</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.card}>
+                        <Image source={icon}/>
+                        <Text style={styles.text}>Vélo</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         </View>
@@ -37,8 +51,7 @@ const styles = StyleSheet.create({
   changeMap: {
     position: 'absolute',
     bottom: '5%',
-    left: 48,
-    right: 48,
+    right: '15%',
     paddingVertical: 16,
     width: 250,
     height: 250,
@@ -46,7 +59,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
   },
   content_container: {
-    marginLeft: 20,
+    marginLeft: 30,
   },
   main_container: {
     flexDirection: 'row',
@@ -55,8 +68,13 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 12,
+    marginTop: 2,
+    textAlign: 'center',
   },
   card: {
     marginRight: 15,
   },
+  title: {
+    marginTop: 15,
+  }
 })
