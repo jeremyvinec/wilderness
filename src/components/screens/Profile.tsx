@@ -5,6 +5,7 @@ import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-n
 import { connect } from 'react-redux'
 
 import icon from '../../assets/img/icon.png'
+import ArrowRight from '../../assets/svg/ArrowRight'
 interface Props {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
   user: String,
@@ -35,7 +36,7 @@ class Profile extends React.Component<Props, State> {
             </View>
            </View>
            <TouchableOpacity onPress={this.handleSignout}>
-
+              <ArrowRight width='22' height='22' fill='#1F3044'/>
            </TouchableOpacity>
         </View>
     )
@@ -45,7 +46,9 @@ class Profile extends React.Component<Props, State> {
 const styles = StyleSheet.create({
   main_container: {
     flexDirection: 'row',
-    marginTop: 15,
+    margin: 15,
+    marginTop: 50,
+    alignItems: 'center',
   },
   content_container: {
     flex: 1,
