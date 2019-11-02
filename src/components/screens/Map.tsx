@@ -28,7 +28,7 @@ interface State {
   offlineRegion: {},
   offlineRegionStatus: {},
   isOpen: boolean,
-  changeMap: boolean
+  changeMap: {}
 }
 export default class Map extends React.Component<Props, State> {
   _mapOptions: string[]
@@ -112,8 +112,9 @@ export default class Map extends React.Component<Props, State> {
     this.props.navigation.navigate('Info')
   }
 
-  onMapChange = () => {
-    if (this.state.changeMap) {
+  changeMap = () => {
+    const { changeMap } = this.state
+    if (changeMap) {
       return(
         <CardType/>
       )
@@ -181,6 +182,7 @@ export default class Map extends React.Component<Props, State> {
           />
         </MapboxGL.MapView>
         {this.Menu()}
+        {this.changeMap()}
         {this.downloadMap()}
       </View>
     )
