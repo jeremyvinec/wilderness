@@ -3,7 +3,9 @@ import MapboxGL from '@react-native-mapbox-gl/maps'
 import React from 'react'
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation'
+import CardType from '../common/CardType'
 import Menu from './Menu'
+import OfflineRegion from '../common/OfflineRegion'
 
 // icons
 import ArrowUp from '../../assets/svg/ArrowUp'
@@ -91,7 +93,7 @@ export default class Map extends React.Component<Props, State> {
     })
   }
 
-  _getRegionDownloadState = (downloadState: any) => {
+  getRegionDownloadState = (downloadState: any) => {
     switch (downloadState) {
       case MapboxGL.OfflinePackDownloadState.Active:
         return 'Active'
@@ -113,14 +115,7 @@ export default class Map extends React.Component<Props, State> {
   onMapChange = () => {
     if (this.state.changeMap) {
       return(
-        <View style={styles.changeMap}>
-          <View>
-            <Text>Type de carte</Text>
-          </View>
-          <View>
-            <Text>Par défault</Text>
-          </View>
-        </View>
+        <CardType/>
       )
     }
     return null
@@ -138,13 +133,10 @@ export default class Map extends React.Component<Props, State> {
     const { offlineRegionStatus } = this.state
     if (offlineRegionStatus !== null) {
       return(
-          <View style={styles.offlineRegionStatus}>
-            <Text>
-              Download State:{' '}
-              {this._getRegionDownloadState(offlineRegionStatus.state)}
-            </Text>
-            <Text>Download Percent: {offlineRegionStatus.percentage} </Text>
-          </View>
+          <OfflineRegion
+            offlineRegionStatus={offlineRegionStatus}
+            getRegionDownloadState={this.getRegionDownloadState}
+          />
       )
     }
     return null
@@ -216,18 +208,6 @@ const styles = StyleSheet.create({
     padding: 8,
     textAlign: 'center',
   },
-  offlineRegionStatus: {
-    position: 'absolute',
-    bottom: 16,
-    left: 48,
-    right: 48,
-    paddingVertical: 16,
-    minHeight: 60,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'white',
-    borderRadius: 30,
-  },
   arrowUp: {
     backgroundColor: '#fff',
     borderRadius: 10,
@@ -237,18 +217,5 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     alignItems: 'center',
-  },
-  changeMap: {
-    position: 'absolute',
-    bottom: 16,
-    left: 48,
-    right: 48,
-    paddingVertical: 16,
-    width: 250,
-    height: 250,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'white',
-    borderRadius: 30,
   },
 })
