@@ -42,6 +42,9 @@ const StackNavigator = createStackNavigator({
       title: 'Info',
     },
   },
+  Profile: {
+    screen: AuthSwitchNavigator,
+  },
 })
 
 export default createAppContainer(StackNavigator)
