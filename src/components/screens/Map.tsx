@@ -1,17 +1,9 @@
 import geoViewport from '@mapbox/geo-viewport'
 import MapboxGL from '@react-native-mapbox-gl/maps'
 import React from 'react'
-import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Dimensions, StyleSheet, Text, View } from 'react-native'
 import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation'
-
-// Icons
-import ArrowDown from '../../assets/svg/ArrowDown'
-import Compass from '../../assets/svg/Compass'
-import Download from '../../assets/svg/Download'
-import Geolocate from '../../assets/svg/Geolocate'
-import Info from '../../assets/svg/Info'
-import Layers from '../../assets/svg/Layers'
-import Search from '../../assets/svg/Search'
+import Menu from './Menu'
 
 import { onSortOptions } from '../../utils'
 import config from '../../utils/config.js'
@@ -36,7 +28,6 @@ export default class Map extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props)
-
     this._mapOptions = Object.keys(MapboxGL.StyleURL)
       .map(key => {
         return {
@@ -53,16 +44,14 @@ export default class Map extends React.Component<Props, State> {
       offlineRegionStatus: null,
       StyleURL: this._mapOptions[0].data,
     }
-    this.onMapChange = this.onMapChange.bind(this)
   }
 
   componentWillUnmount() {
     MapboxGL.offlineManager.deletePack(this.state.name)
     MapboxGL.offlineManager.unsubscribe('test')
   }
-
   onToggleUserLocation = () => {
-    this.setState({followUserLocation: !this.state.followUserLocation})
+    this.setState({followUserLocation: !this.props.followUserLocation})
   }
 
   onDidFinishLoadingStyle = () => {
@@ -114,57 +103,26 @@ export default class Map extends React.Component<Props, State> {
     this.props.navigation.navigate('Info')
   }
 
-  onMapChange = (index: any, styleURL: any) => {
-    return(
-      <View style={styles.offlineRegionStatus}>
-        <Text>Type de carte</Text>
-        <Text>Par défault</Text>
-      </View>
-    )
-    // this.setState({styleURL})
+  onMapChange = (styleURL: any) => {
+    const { offlineRegionStatus } = this.state
+    if (offlineRegionStatus !== null) {
+      return(
+        <View style={styles.offlineRegionStatus}>
+          <Text>Type de carte</Text>
+          <Text>Par défault</Text>
+        </View>
+      )
+    }
+    this.setState({styleURL})
   }
 
-  render() {
-    const { followUserLocation, offlineRegionStatus } = this.state
-    return (
-      <View style={styles.map}>
-        <MapboxGL.MapView
-          style={styles.map}
-          styleURL={MapboxGL.StyleURL.Outdoors}
-          // compassEnabled={false}
-        >
-          <MapboxGL.UserLocation visible={followUserLocation}/>
-          <MapboxGL.Camera
-              zoomLevel={12}
-              followUserLocation={followUserLocation}
-              centerCoordinate={CENTER_COORD}
-              followUserMode={MapboxGL.UserTrackingModes.FollowWithHeading}
-          />
-        </MapboxGL.MapView>
-        <View style={styles.bar}>
-          <TouchableOpacity onPress={this.onToggleUserLocation} style={styles.toggle}>
-            <Compass width='22' height='22' fill='#1F3044'/>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={this.onToggleUserLocation} style={styles.toggle}>
-            <Geolocate width='22' height='22' fill='#1F3044'/>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={this.onToggleSearch} style={styles.toggle}>
-            <Search width='22' height='22' fill='#1F3044'/>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={this.onDidFinishLoadingStyle} style={styles.toggle}>
-            <Download width='22' height='22' fill='#1F3044'/>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={this.onMapChange} style={styles.toggle}>
-            <Layers width='22' height='22' fill='#1F3044'/>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={this.onToggleInfo} style={styles.toggle}>
-            <Info width='22' height='22' fill='#1F3044'/>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={this.onClose} style={styles.toggle}>
-            <ArrowDown width='22' height='22' fill='#1F3044'/>
-          </TouchableOpacity>
-        </View>
-        { offlineRegionStatus !== null ? (
+  handleMenuClick() {
+    this.setState({menuOpen: !this.state.menuOpen})
+  }
+
+  downloadMap = () => {
+    if (this.state.offlineRegionStatus !== null) {
+      return(
           <View style={styles.offlineRegionStatus}>
             <Text>
               Download State:{' '}
@@ -172,7 +130,38 @@ export default class Map extends React.Component<Props, State> {
             </Text>
             <Text>Download Percent: {offlineRegionStatus.percentage} </Text>
           </View>
-        ) : null }
+      )
+      return null
+    }
+  }
+
+  render() {
+    const { followUserLocation } = this.state
+    const { navigation } = this.props
+    return (
+      <View style={styles.map}>
+        <MapboxGL.MapView
+          style={styles.map}
+          styleURL={MapboxGL.StyleURL.Outdoors}
+        >
+          <MapboxGL.UserLocation visible={followUserLocation}/>
+          <MapboxGL.Camera
+              zoomLevel={12}
+              followUserLocation={followUserLocation}
+              centerCoordinate={CENTER_COORD}
+              followUserMode={MapboxGL.UserTrackingModes.FollowWithHeading}
+              compassEnabled={false}
+          />
+        </MapboxGL.MapView>
+        <Menu
+          onToggleUserLocation={this.onToggleUserLocation}
+          onToggleSearch={this.onToggleSearch}
+          onDidFinishLoadingStyle={this.onDidFinishLoadingStyle}
+          onMapChange={this.onMapChange}
+          onToggleInfo={this.onToggleInfo}
+          handleMenuClick={this.handleMenuClick}
+        />
+        {this.downloadMap()}
       </View>
     )
   }

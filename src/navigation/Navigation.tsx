@@ -1,4 +1,3 @@
-import React from 'react'
 import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 
@@ -6,6 +5,7 @@ import { createStackNavigator } from 'react-navigation-stack'
 import Info from '../components/screens/Info'
 import Login from '../components/screens/Login'
 import Map from '../components/screens/Map'
+import Menu from '../components/screens/Menu'
 import Profile from '../components/screens/Profile'
 import Search from '../components/screens/Search'
 import Signup from '../components/screens/Signup'
@@ -43,8 +43,11 @@ const StackNavigator = createStackNavigator({
     },
   },
   Profile: {
-    screen: AuthSwitchNavigator,
+    screen: Profile,
   },
+  Menu: {
+    screen: Menu,
+  }
 })
 
 export default createAppContainer(StackNavigator)
