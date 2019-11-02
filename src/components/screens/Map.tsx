@@ -1,9 +1,12 @@
 import geoViewport from '@mapbox/geo-viewport'
 import MapboxGL from '@react-native-mapbox-gl/maps'
 import React from 'react'
-import { Dimensions, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation'
 import Menu from './Menu'
+
+//icons
+import ArrowUp from '../../assets/svg/ArrowUp'
 
 import { onSortOptions } from '../../utils'
 import config from '../../utils/config.js'
@@ -44,7 +47,7 @@ export default class Map extends React.Component<Props, State> {
       offlineRegion: null,
       offlineRegionStatus: null,
       StyleURL: this._mapOptions[0].data,
-      isOpen: false,
+      isOpen: true,
     }
   }
 
@@ -137,6 +140,27 @@ export default class Map extends React.Component<Props, State> {
     }
   }
 
+  Menu = () => {
+    if (this.state.isOpen) {
+      return(
+        <Menu
+          onToggleUserLocation={this.onToggleUserLocation}
+          onToggleSearch={this.onToggleSearch}
+          onDidFinishLoadingStyle={this.onDidFinishLoadingStyle}
+          onMapChange={this.onMapChange}
+          onToggleInfo={this.onToggleInfo}
+          toggleMenu={this.toggleMenu}
+        />
+      )
+    } else {
+      return(
+        <TouchableOpacity onPress={this.toggleMenu} style={styles.arrowUp}>
+          <ArrowUp width='22' height='22' fill='#1F3044'/>
+        </TouchableOpacity>
+      )
+    }
+  }
+
   render() {
     const { followUserLocation } = this.state
     return (
@@ -154,14 +178,7 @@ export default class Map extends React.Component<Props, State> {
               compassEnabled={false}
           />
         </MapboxGL.MapView>
-        <Menu
-          onToggleUserLocation={this.onToggleUserLocation}
-          onToggleSearch={this.onToggleSearch}
-          onDidFinishLoadingStyle={this.onDidFinishLoadingStyle}
-          onMapChange={this.onMapChange}
-          onToggleInfo={this.onToggleInfo}
-          toggleMenu={this.toggleMenu}
-        />
+        {this.Menu()}
         {this.downloadMap()}
       </View>
     )
@@ -201,4 +218,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 30,
   },
+  arrowUp: {
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    position: 'absolute',
+    bottom: '5%',
+    right: '5%',
+    width: 30,
+    height: 30,
+    alignItems: 'center',
+  }
 })
