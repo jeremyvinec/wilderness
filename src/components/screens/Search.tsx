@@ -76,7 +76,6 @@ class Search extends React.Component<Props, State> {
   }
 
   render() {
-    console.log(this.props.user.search)
     return(
       <View style={styles.container}>
         <FlatList
@@ -96,12 +95,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
   },
   inputBox: {
-    width: '85%',
+    width: 250,
     margin: 10,
-    padding: 15,
     fontSize: 16,
     borderColor: '#d3d3d3',
     borderBottomWidth: 1,

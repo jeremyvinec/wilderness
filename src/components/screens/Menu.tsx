@@ -10,7 +10,14 @@ import Info from '../../assets/svg/Info'
 import Layers from '../../assets/svg/Layers'
 import Search from '../../assets/svg/Search'
 
-interface Props { }
+interface Props {
+  onToggleUserLocation: () => void,
+  onToggleSearch: () => void,
+  onDidFinishLoadingStyle: () => void,
+  onMapChange: () => void,
+  onToggleInfo: () => void,
+  handleMenuClick: () => void,
+}
 
 interface State { }
 

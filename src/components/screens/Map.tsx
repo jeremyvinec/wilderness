@@ -137,7 +137,6 @@ export default class Map extends React.Component<Props, State> {
 
   render() {
     const { followUserLocation } = this.state
-    const { navigation } = this.props
     return (
       <View style={styles.map}>
         <MapboxGL.MapView
