@@ -51,7 +51,7 @@ export default class Map extends React.Component<Props, State> {
     MapboxGL.offlineManager.unsubscribe('test')
   }
   onToggleUserLocation = () => {
-    this.setState({followUserLocation: !this.props.followUserLocation})
+    this.setState({followUserLocation: !this.state.followUserLocation})
   }
 
   onDidFinishLoadingStyle = () => {
@@ -104,8 +104,7 @@ export default class Map extends React.Component<Props, State> {
   }
 
   onMapChange = (styleURL: any) => {
-    const { offlineRegionStatus } = this.state
-    if (offlineRegionStatus !== null) {
+    if (this.state.offlineRegionStatus !== null) {
       return(
         <View style={styles.offlineRegionStatus}>
           <Text>Type de carte</Text>
@@ -121,7 +120,8 @@ export default class Map extends React.Component<Props, State> {
   }
 
   downloadMap = () => {
-    if (this.state.offlineRegionStatus !== null) {
+    const { offlineRegionStatus } = this.state
+    if (offlineRegionStatus !== null) {
       return(
           <View style={styles.offlineRegionStatus}>
             <Text>

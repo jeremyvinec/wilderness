@@ -53,6 +53,6 @@ const styles = StyleSheet.create({
     marginTop: '10%',
   },
   text: {
-    marginTop: 15,
+    marginTop: 30,
   }
 })
