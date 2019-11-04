@@ -22,28 +22,38 @@ class Profile extends React.Component<Props, State> {
 
   render() {
     const { user } = this.props
+    console.log(user)
     return(
-        <View style={styles.main_container}>
-            <View>
-              <Image source={icon}/>
+        <View style={styles.container}>
+            <View style={styles.main_container}>
+              <View>
+                <Image source={icon}/>
+              </View>
+              <View style={styles.content_container}>
+                <View style={styles.username_container}>
+                  <Text>{user.username}</Text>
+                </View>
+                <View style={styles.email_container}>
+                  <Text>{user.email}</Text>
+                </View>
+              </View>
+              <TouchableOpacity onPress={this.handleSignout}>
+                  <ArrowRight width='22' height='22' fill='#1F3044'/>
+              </TouchableOpacity>
             </View>
-           <View style={styles.content_container}>
-            <View style={styles.username_container}>
-              <Text>{user.username}</Text>
+            <View style={styles.activities}>
+              <Text>My activities</Text>
             </View>
-            <View style={styles.email_container}>
-              <Text>{user.email}</Text>
-            </View>
-           </View>
-           <TouchableOpacity onPress={this.handleSignout}>
-              <ArrowRight width='22' height='22' fill='#1F3044'/>
-           </TouchableOpacity>
         </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
   main_container: {
     flexDirection: 'row',
     margin: 15,
@@ -55,14 +65,18 @@ const styles = StyleSheet.create({
   },
   username_container: {
     flexDirection: 'row',
+    marginLeft: 5,
     marginTop: 1,
-    justifyContent: 'space-between',
   },
   email_container: {
     flexDirection: 'row',
+    marginLeft: 5,
     marginTop: 1,
-    justifyContent: 'space-between',
     opacity: 0.4,
+  },
+  activities: {
+    marginTop: 50,
+    marginLeft: 20,
   },
 })
 

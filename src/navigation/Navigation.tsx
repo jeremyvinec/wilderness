@@ -28,19 +28,29 @@ const StackNavigator = createStackNavigator({
     screen: Info,
     navigationOptions: {
       title: 'Info',
+      //header: null,
     },
   },
   Profile: {
     screen: Profile,
+    navigationOptions: {
+      //header: null,
+    },
   },
   Menu: {
     screen: Menu,
   },
   Login: {
     screen: Login,
+    navigationOptions: {
+      //header: null,
+    },
   },
   Signup: {
     screen: Signup,
+    navigationOptions: {
+      //header: null,
+    },
   },
 })
 

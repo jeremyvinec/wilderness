@@ -28,25 +28,25 @@ export default class Menu extends React.Component<Props, State> {
     return(
         <View style={styles.bar}>
           <TouchableOpacity onPress={onToggleUserLocation} style={styles.toggle}>
-            <Compass width='22' height='22' fill='#1F3044'/>
+            <Compass width='22' height='22' fill='rgba(0,0,0,0.7)'/>
           </TouchableOpacity>
           <TouchableOpacity onPress={onToggleUserLocation} style={styles.toggle}>
-            <Geolocate width='22' height='22' fill='#1F3044'/>
+            <Geolocate width='22' height='22' fill='rgba(0,0,0,0.7)'/>
           </TouchableOpacity>
           <TouchableOpacity onPress={onToggleSearch} style={styles.toggle}>
-            <Search width='22' height='22' fill='#1F3044'/>
+            <Search width='22' height='22' fill='rgba(0,0,0,0.7)'/>
           </TouchableOpacity>
           <TouchableOpacity onPress={onDidFinishLoadingStyle} style={styles.toggle}>
-            <Download width='22' height='22' fill='#1F3044'/>
+            <Download width='22' height='22' fill='rgba(0,0,0,0.7)'/>
           </TouchableOpacity>
           <TouchableOpacity onPress={toggleMap} style={styles.toggle}>
-            <Layers width='22' height='22' fill='#1F3044'/>
+            <Layers width='22' height='22' fill='rgba(0,0,0,0.7)'/>
           </TouchableOpacity>
           <TouchableOpacity onPress={onToggleInfo} style={styles.toggle}>
-            <Info width='22' height='22' fill='#1F3044'/>
+            <Info width='22' height='22' fill='rgba(0,0,0,0.7)'/>
           </TouchableOpacity>
           <TouchableOpacity onPress={toggleMenu} style={styles.toggle}>
-            <ArrowDown width='22' height='22' fill='#1F3044'/>
+            <ArrowDown width='22' height='22' fill='rgba(0,0,0,0.7)'/>
           </TouchableOpacity>
         </View>
     )
@@ -55,7 +55,7 @@ export default class Menu extends React.Component<Props, State> {
 
 const styles = StyleSheet.create({
   bar: {
-    backgroundColor: '#fff',
+    backgroundColor: 'rgba(255,255,255, 0.5)',
     borderRadius: 10,
     position: 'absolute',
     bottom: '5%',
