@@ -4,7 +4,7 @@ import { LOGIN, SEARCHED_TEXT, SIGNUP, UPDATE_EMAIL, UPDATE_PASSWORD, UPDATE_USE
 
 export const updateUsername = (username: String) => {
   return {
-    type: UPDATE_PASSWORD,
+    type: UPDATE_USERNAME,
     playload: username,
   }
 }
@@ -59,12 +59,13 @@ export const getUser = (uid: any) => {
 export const signup = () => {
   return async (dispatch: any, getState: any) => {
     try {
-      const { email, password } = getState().user
+      const { email, password, username } = getState().user
       const response = await auth().createUserWithEmailAndPassword(email, password)
       if (response.user.uid) {
         const user = {
           uid: response.user.uid,
           email,
+          username,
         }
 
         firestore().collection('users')

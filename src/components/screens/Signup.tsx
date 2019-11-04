@@ -40,7 +40,6 @@ class Signup extends React.Component<Props, State> {
   }
 
   render() {
-    console.log(this.props.user)
     const { user } = this.props
     return(
       <View style={styles.container}>

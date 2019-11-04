@@ -4,11 +4,12 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation'
 import { connect } from 'react-redux'
 
-import icon from '../../assets/img/icon.png'
+import profile from '../../assets/img/profile.png'
 import ArrowRight from '../../assets/svg/ArrowRight'
 interface Props {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
   user: String,
+  username: String,
   email: String,
 }
 
@@ -27,7 +28,7 @@ class Profile extends React.Component<Props, State> {
         <View style={styles.container}>
             <View style={styles.main_container}>
               <View>
-                <Image source={icon}/>
+                <Image source={profile}/>
               </View>
               <View style={styles.content_container}>
                 <View style={styles.username_container}>
@@ -62,6 +63,7 @@ const styles = StyleSheet.create({
   },
   content_container: {
     flex: 1,
+    marginLeft: 15,
   },
   username_container: {
     flexDirection: 'row',
@@ -79,8 +81,8 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
   signOut: {
-    padding: 10
-  }
+    padding: 10,
+  },
 })
 
 const mapStateToProps = (state: any) => {
