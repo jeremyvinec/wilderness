@@ -51,6 +51,7 @@ class Login extends React.Component<Props, State> {
   }
 
   render() {
+    const { user } = this.props
     return(
         <View style={styles.container}>
             <View style={styles.input_content}>
@@ -58,7 +59,7 @@ class Login extends React.Component<Props, State> {
                 <Person width='22' height='22' fill='#1F3044'/>
                 <TextInput
                   style={styles.inputBox}
-                  value={this.props.user.email}
+                  value={user.email}
                   onChangeText={this.updateEmail}
                   placeholder='Email'
                   autoCapitalize='none'
@@ -68,7 +69,7 @@ class Login extends React.Component<Props, State> {
                 <Edit width='22' height='22' fill='#1F3044'/>
                 <TextInput
                   style={styles.inputBox}
-                  value={this.props.user.password}
+                  value={user.password}
                   onChangeText={this.updatePassword}
                   placeholder='Password'
                   secureTextEntry={true}
