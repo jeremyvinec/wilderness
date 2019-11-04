@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 
 interface Props {
   offlineRegionStatus: {},
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     right: '15%',
     paddingVertical: 16,
     width: 250,
-    height: 100,
+    height: 50,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'rgba(255,255,255, 0.5)',

@@ -46,7 +46,7 @@ class Map extends React.Component<Props, State> {
       }).sort(onSortOptions)
 
     this.state = {
-      followUserLocation: false,
+      followUserLocation: true,
       name: `${Date.now()}`,
       offlineRegion: null,
       offlineRegionStatus: null,
@@ -58,10 +58,17 @@ class Map extends React.Component<Props, State> {
     this.styleMap = this.styleMap.bind(this)
   }
 
+  componentDidMount() {
+    if (this.props.location !== null) {
+      this.setState({ followUserLocation: false})
+    }
+  }
+
   componentWillUnmount() {
     MapboxGL.offlineManager.deletePack(this.state.name)
     MapboxGL.offlineManager.unsubscribe('test')
   }
+  
   onToggleUserLocation = () => {
     this.setState({followUserLocation: !this.state.followUserLocation})
   }
@@ -78,7 +85,7 @@ class Map extends React.Component<Props, State> {
 
     const options = {
       name: this.state.name,
-      styleURL: MapboxGL.StyleURL.Street,
+      styleURL: this.state.styleURL,
       bounds: [[bounds[0], bounds[1]], [bounds[2], bounds[3]]],
       minZoom: 10,
       maxZoom: 20,
@@ -203,10 +210,6 @@ class Map extends React.Component<Props, State> {
 const styles = StyleSheet.create({
   map: {
     flex: 1,
-  },
-  percentageText: {
-    padding: 8,
-    textAlign: 'center',
   },
   arrowUp: {
     backgroundColor: 'rgba(255,255,255, 0.5)',

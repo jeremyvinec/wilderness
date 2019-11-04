@@ -35,7 +35,6 @@ class Search extends React.Component<Props, State> {
     const { search } = this.props.user
     this.setState({ isLoading: true })
     Api.getCities(search).then((res: any) => {
-      console.log(res)
       this.setState({
         isLoading: false,
         data: res.features,
