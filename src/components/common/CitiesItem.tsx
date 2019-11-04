@@ -1,9 +1,11 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation'
 import { connect } from 'react-redux'
 
 import Pin from '../../assets/svg/Pin'
 interface Props {
+  navigation: NavigationScreenProp<NavigationState, NavigationParams>,
   data: {},
   dispatch: () => void,
 }
@@ -15,6 +17,7 @@ class CitiesItem extends React.Component<Props, State> {
     const { center } = this.props.data
     const locationAction = { type: 'UPDATE_LOCATION', playload: center }
     this.props.dispatch(locationAction)
+    this.props.navigation.navigate('Map')
   }
 
   render() {

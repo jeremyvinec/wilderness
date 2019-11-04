@@ -1,5 +1,5 @@
 import React from 'react'
-import { ActivityIndicator, FlatList, StyleSheet, Text, TextInput, View } from 'react-native'
+import { ActivityIndicator, FlatList, StyleSheet, TextInput, View } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { searchedText } from '../../actions/actionUser'
@@ -59,10 +59,12 @@ class Search extends React.Component<Props, State> {
   }
 
   renderItem = ({item}) => {
+    const { navigation } = this.props
     return(
       <CitiesItem
         id={item.id}
         data={item}
+        navigation={navigation}
       />
     )
   }
@@ -78,7 +80,6 @@ class Search extends React.Component<Props, State> {
   }
 
   render() {
-    console.log(this.props.user.search)
     return(
       <View style={styles.container}>
         <FlatList

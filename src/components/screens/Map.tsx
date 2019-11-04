@@ -1,12 +1,12 @@
 import geoViewport from '@mapbox/geo-viewport'
 import MapboxGL from '@react-native-mapbox-gl/maps'
 import React from 'react'
-import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation'
-import CardType from '../common/CardType'
-import Menu from './Menu'
-import OfflineRegion from '../common/OfflineRegion'
 import { connect } from 'react-redux'
+import CardType from '../common/CardType'
+import OfflineRegion from '../common/OfflineRegion'
+import Menu from './Menu'
 
 // icons
 import ArrowUp from '../../assets/svg/ArrowUp'
@@ -16,11 +16,12 @@ import config from '../../utils/config.js'
 
 MapboxGL.setAccessToken(config.get('accessToken'))
 
-const CENTER_COORD = [-73.970895, 40.723279]
+//const CENTER_COORD = [-73.970895, 40.723279]
 const MAPBOX_VECTOR_TILE_SIZE = 512
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
+  location: [],
 }
 
 interface State {
@@ -45,7 +46,7 @@ class Map extends React.Component<Props, State> {
       }).sort(onSortOptions)
 
     this.state = {
-      followUserLocation: true,
+      followUserLocation: false,
       name: `${Date.now()}`,
       offlineRegion: null,
       offlineRegionStatus: null,
@@ -66,9 +67,10 @@ class Map extends React.Component<Props, State> {
   }
 
   onDidFinishLoadingStyle = () => {
+    const { location } = this.props.user
     const {width, height} = Dimensions.get('window')
     const bounds = geoViewport.bounds(
-      CENTER_COORD,
+      location,
       12,
       [width, height],
       MAPBOX_VECTOR_TILE_SIZE,
@@ -174,7 +176,7 @@ class Map extends React.Component<Props, State> {
 
   render() {
     const { followUserLocation, styleURL } = this.state
-    console.log(this.props)
+    const { location } = this.props.user
     return (
       <View style={styles.map}>
         <MapboxGL.MapView
@@ -185,7 +187,7 @@ class Map extends React.Component<Props, State> {
           <MapboxGL.Camera
               zoomLevel={12}
               followUserLocation={followUserLocation}
-              centerCoordinate={CENTER_COORD}
+              centerCoordinate={location}
               followUserMode={MapboxGL.UserTrackingModes.FollowWithHeading}
               compassEnabled={false}
           />
