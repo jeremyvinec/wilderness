@@ -28,30 +28,29 @@ interface State {
   offlineRegion: {},
   offlineRegionStatus: {},
   isOpen: boolean,
-  changeMap: {}
+  onMapChange: {}
+  styleURL: {},
 }
 export default class Map extends React.Component<Props, State> {
-  _mapOptions: string[]
 
   constructor(props: Props) {
     super(props)
-    this._mapOptions = Object.keys(MapboxGL.StyleURL)
-      .map(key => {
+
+    this._mapOptions = Object.keys(MapboxGL.StyleURL).map(key => {
         return {
           label: key,
           data: MapboxGL.StyleURL[key],
         }
-      })
-      .sort(onSortOptions)
+      }).sort(onSortOptions)
 
     this.state = {
       followUserLocation: true,
       name: `${Date.now()}`,
       offlineRegion: null,
       offlineRegionStatus: null,
-      StyleURL: this._mapOptions[0].data,
       isOpen: true,
-      changeMap: false,
+      onMapChange: false,
+      styleURL: this._mapOptions[0].data,
     }
   }
 
@@ -112,9 +111,9 @@ export default class Map extends React.Component<Props, State> {
     this.props.navigation.navigate('Info')
   }
 
-  changeMap = () => {
-    const { changeMap } = this.state
-    if (changeMap) {
+  onMapChange = () => {
+    const { onMapChange } = this.state
+    if (onMapChange) {
       return(
         <CardType/>
       )
@@ -127,7 +126,7 @@ export default class Map extends React.Component<Props, State> {
   }
 
   toggleMap = () => {
-    this.setState({ changeMap: !this.state.changeMap })
+    this.setState({ onMapChange: !this.state.onMapChange })
   }
 
   downloadMap = () => {
@@ -165,12 +164,12 @@ export default class Map extends React.Component<Props, State> {
   }
 
   render() {
-    const { followUserLocation } = this.state
+    const { followUserLocation, styleURL } = this.state
     return (
       <View style={styles.map}>
         <MapboxGL.MapView
           style={styles.map}
-          styleURL={MapboxGL.StyleURL.Outdoors}
+          styleURL={styleURL}
         >
           <MapboxGL.UserLocation visible={followUserLocation}/>
           <MapboxGL.Camera
@@ -182,7 +181,7 @@ export default class Map extends React.Component<Props, State> {
           />
         </MapboxGL.MapView>
         {this.Menu()}
-        {this.changeMap()}
+        {this.onMapChange()}
         {this.downloadMap()}
       </View>
     )

@@ -2,7 +2,15 @@ import React from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 import icon from '../../assets/img/icon.png'
-export default class CardType extends React.Component {
+
+interface Props {
+  updateStyle: (style: String) => void,
+  style: String
+}
+
+interface State { }
+export default class CardType extends React.Component<Props, State> {
+
   render() {
     return(
         <View style={styles.changeMap}>
@@ -11,13 +19,13 @@ export default class CardType extends React.Component {
                     <Text>Type de carte</Text>
                 </View>
                 <View style={styles.main_container}>
-                    <TouchableOpacity style={styles.card}>
+                    <TouchableOpacity style={styles.card} onPress={this.outdoors}>
                         <Image source={icon}/>
                         <Text style={styles.text}>Par défault</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.card}>
+                    <TouchableOpacity style={styles.card} onPress={this.street}>
                         <Image source={icon}/>
-                        <Text style={styles.text}>Satellite</Text>
+                        <Text style={styles.text}>Street</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.card}>
                         <Image source={icon}/>
@@ -55,7 +63,7 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     width: 250,
     height: 250,
-    backgroundColor: 'white',
+    backgroundColor: 'rgba(255,255,255, 0.5)',
     borderRadius: 30,
   },
   content_container: {
@@ -76,5 +84,5 @@ const styles = StyleSheet.create({
   },
   title: {
     marginTop: 15,
-  }
+  },
 })
