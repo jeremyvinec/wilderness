@@ -16,7 +16,6 @@ import config from '../../utils/config.js'
 
 MapboxGL.setAccessToken(config.get('accessToken'))
 
-//const CENTER_COORD = [-73.970895, 40.723279]
 const MAPBOX_VECTOR_TILE_SIZE = 512
 
 interface Props {
@@ -68,7 +67,7 @@ class Map extends React.Component<Props, State> {
     MapboxGL.offlineManager.deletePack(this.state.name)
     MapboxGL.offlineManager.unsubscribe('test')
   }
-  
+
   onToggleUserLocation = () => {
     this.setState({followUserLocation: !this.state.followUserLocation})
   }
@@ -189,6 +188,10 @@ class Map extends React.Component<Props, State> {
         <MapboxGL.MapView
           style={styles.map}
           styleURL={styleURL}
+          localizeLabels={true}
+          logoEnabled={false}
+          compassEnabled={false}
+          attributionEnabled={false}
         >
           <MapboxGL.UserLocation visible={followUserLocation}/>
           <MapboxGL.Camera
@@ -196,7 +199,6 @@ class Map extends React.Component<Props, State> {
               followUserLocation={followUserLocation}
               centerCoordinate={location}
               followUserMode={MapboxGL.UserTrackingModes.FollowWithHeading}
-              compassEnabled={false}
           />
         </MapboxGL.MapView>
         {this.Menu()}
