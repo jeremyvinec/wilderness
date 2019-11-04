@@ -1,14 +1,14 @@
 import React from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
-
 // Icons
 import ArrowDown from '../../assets/svg/ArrowDown'
-import Compass from '../../assets/svg/Compass'
+import CompassIcon from '../../assets/svg/CompassIcon'
 import Download from '../../assets/svg/Download'
 import Geolocate from '../../assets/svg/Geolocate'
 import Info from '../../assets/svg/Info'
 import Layers from '../../assets/svg/Layers'
 import Search from '../../assets/svg/Search'
+import Compass from '../common/Compass'
 
 interface Props {
   onToggleUserLocation: () => void,
@@ -29,8 +29,9 @@ export default class Menu extends React.Component<Props, State> {
     console.log(this.props)
     return(
         <View style={styles.bar}>
+          <Compass/>
           <TouchableOpacity onPress={onToggleUserLocation} style={styles.toggle}>
-            <Compass width='22' height='22' fill='rgba(0,0,0,0.7)'/>
+            <CompassIcon width='22' height='22' fill='rgba(0,0,0,0.7)'/>
           </TouchableOpacity>
           <TouchableOpacity onPress={onToggleUserLocation} style={styles.toggle}>
             <Geolocate width='22' height='22' fill='rgba(0,0,0,0.7)'/>

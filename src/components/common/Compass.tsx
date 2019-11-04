@@ -1,15 +1,15 @@
 import React from 'react'
-import {Text, View, Image, Dimensions} from "react-native"
-import {magnetometer, SensorTypes, setUpdateIntervalForType} from "react-native-sensors"
+import {Dimensions, Image, StyleSheet, Text, View} from 'react-native'
+import {magnetometer, SensorTypes, setUpdateIntervalForType} from 'react-native-sensors'
 
-const {height, width} = Dimensions.get("window")
+const {height, width} = Dimensions.get('window')
 
 interface Props {
 
 }
 
 interface State {
-  magnetometer: String
+  magnetometer: String,
 }
 
 export default class Compass extends React.Component<Props, State> {
@@ -38,30 +38,30 @@ export default class Compass extends React.Component<Props, State> {
   }
 
   _subscribe = async () => {
-    setUpdateIntervalForType(SensorTypes.magnetometer, 100);
+    setUpdateIntervalForType(SensorTypes.magnetometer, 100)
     this._subscription = magnetometer.subscribe(
       sensorData => this.setState({magnetometer: this._angle(sensorData)}),
-      error => console.log("The sensor is not available"),
-    );
-  };
+      error => console.log('The sensor is not available'),
+    )
+  }
 
   _unsubscribe = () => {
     this._subscription && this._subscription.unsubscribe()
     this._subscription = null
-  };
+  }
 
   _angle = (magnetometer: number) => {
     let angle = 0
     if (magnetometer) {
-      let {x, y} = magnetometer
+      const {x, y} = magnetometer
       if (Math.atan2(y, x) >= 0) {
         angle = Math.atan2(y, x) * (180 / Math.PI)
       } else {
         angle = (Math.atan2(y, x) + 2 * Math.PI) * (180 / Math.PI)
       }
     }
-    return Math.round(angle);
-  };
+    return Math.round(angle)
+  }
 
   _direction = (degree: number) => {
     if (degree >= 22.5 && degree < 67.5) {
@@ -90,10 +90,21 @@ export default class Compass extends React.Component<Props, State> {
   }
 
   render() {
+    const { magnetometer } = this.state
     return(
         <View>
-
+            <Text syle={styles.direction}>
+                {this._direction(this._degree(magnetometer))}
+            </Text>
         </View>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  direction: {
+    color: '#fff',
+    fontSize: height / 26,
+    fontWeight: 'bold',
+  },
+})
