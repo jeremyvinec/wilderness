@@ -111,11 +111,17 @@ export default class Map extends React.Component<Props, State> {
     this.props.navigation.navigate('Info')
   }
 
+  styleMap = (index, styleURL) => {
+    this.setState({styleURL})
+  }
+
   onMapChange = () => {
     const { onMapChange } = this.state
     if (onMapChange) {
       return(
-        <CardType/>
+        <CardType
+          styleMap={this.styleMap}
+        />
       )
     }
     return null

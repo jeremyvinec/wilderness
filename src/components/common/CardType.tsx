@@ -4,14 +4,14 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import icon from '../../assets/img/icon.png'
 
 interface Props {
-  updateStyle: (style: String) => void,
-  style: String
+  styleMap: () => void,
 }
 
 interface State { }
 export default class CardType extends React.Component<Props, State> {
 
   render() {
+    const { styleMap } = this.props
     return(
         <View style={styles.changeMap}>
             <View style={styles.content_container}>
@@ -19,15 +19,15 @@ export default class CardType extends React.Component<Props, State> {
                     <Text>Type de carte</Text>
                 </View>
                 <View style={styles.main_container}>
-                    <TouchableOpacity style={styles.card} onPress={this.outdoors}>
+                    <TouchableOpacity style={styles.card} onPress={styleMap}>
                         <Image source={icon}/>
                         <Text style={styles.text}>Par défault</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.card} onPress={this.street}>
+                    <TouchableOpacity style={styles.card} onPress={styleMap}>
                         <Image source={icon}/>
                         <Text style={styles.text}>Street</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.card}>
+                    <TouchableOpacity style={styles.card} onPress={styleMap}>
                         <Image source={icon}/>
                         <Text style={styles.text}>Relief</Text>
                     </TouchableOpacity>
@@ -36,15 +36,15 @@ export default class CardType extends React.Component<Props, State> {
                     <Text>Détails de la carte</Text>
                 </View>
                 <View style={styles.main_container}>
-                    <TouchableOpacity style={styles.card}>
+                    <TouchableOpacity style={styles.card} onPress={styleMap}>
                         <Image source={icon}/>
                         <Text style={styles.text}>Transport</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.card}>
+                    <TouchableOpacity style={styles.card} onPress={styleMap}>
                         <Image source={icon}/>
                         <Text style={styles.text}>Traffic</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.card}>
+                    <TouchableOpacity style={styles.card} onPress={styleMap}>
                         <Image source={icon}/>
                         <Text style={styles.text}>Vélo</Text>
                     </TouchableOpacity>
