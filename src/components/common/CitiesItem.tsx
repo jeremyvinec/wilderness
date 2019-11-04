@@ -1,16 +1,20 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import Pin from '../../assets/svg/Pin'
+import { connect } from 'react-redux'
 
+import Pin from '../../assets/svg/Pin'
 interface Props {
   data: {},
+  dispatch: () => void,
 }
 
 interface State { }
-export default class CitiesItem extends React.Component<Props, State> {
+class CitiesItem extends React.Component<Props, State> {
 
   onLocation = () => {
-    console.log(this.props.data.center)
+    const { center } = this.props.data
+    const locationAction = { type: 'UPDATE_LOCATION', playload: center }
+    this.props.dispatch(locationAction)
   }
 
   render() {
@@ -55,3 +59,11 @@ const styles = StyleSheet.create({
     opacity: 0.4,
   },
 })
+
+const mapStateToProps = (state: any) => {
+  return{
+    user: state.user,
+  }
+}
+
+export default connect(mapStateToProps)(CitiesItem)

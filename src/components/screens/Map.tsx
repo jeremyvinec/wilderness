@@ -6,6 +6,7 @@ import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-n
 import CardType from '../common/CardType'
 import Menu from './Menu'
 import OfflineRegion from '../common/OfflineRegion'
+import { connect } from 'react-redux'
 
 // icons
 import ArrowUp from '../../assets/svg/ArrowUp'
@@ -31,7 +32,7 @@ interface State {
   onMapChange: {}
   styleURL: {},
 }
-export default class Map extends React.Component<Props, State> {
+class Map extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props)
@@ -173,6 +174,7 @@ export default class Map extends React.Component<Props, State> {
 
   render() {
     const { followUserLocation, styleURL } = this.state
+    console.log(this.props)
     return (
       <View style={styles.map}>
         <MapboxGL.MapView
@@ -216,3 +218,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 })
+
+const mapStateToProps = (state: any) => {
+  return{
+    user: state.user,
+  }
+}
+
+export default connect(mapStateToProps)(Map)
