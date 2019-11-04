@@ -6,16 +6,19 @@ interface Props {
   data: {},
 }
 
-interface State {
-
-}
+interface State { }
 export default class CitiesItem extends React.Component<Props, State> {
+
+  onLocation = () => {
+    console.log(this.props.data.center)
+  }
+
   render() {
     const { data } = this.props
     return(
-        <TouchableOpacity style={styles.main_container}>
+        <TouchableOpacity style={styles.main_container} onPress={this.onLocation}>
             <View>
-                <Pin width='22' height='22' fill='#1F3044'/>
+                <Pin width='22' height='22' fill='rgba(0,0,0,0.7)'/>
             </View>
             <View style={styles.content_container}>
               <View style={styles.citie_container}>
@@ -34,9 +37,11 @@ const styles = StyleSheet.create({
   main_container: {
     flexDirection: 'row',
     marginTop: 15,
+    alignItems: 'center',
   },
   content_container: {
     flex: 1,
+    marginLeft: 10,
   },
   citie_container: {
     flexDirection: 'row',

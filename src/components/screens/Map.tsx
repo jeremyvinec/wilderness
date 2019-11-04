@@ -52,6 +52,8 @@ export default class Map extends React.Component<Props, State> {
       onMapChange: false,
       styleURL: this._mapOptions[0].data,
     }
+
+    this.styleMap = this.styleMap.bind(this)
   }
 
   componentWillUnmount() {
@@ -163,7 +165,7 @@ export default class Map extends React.Component<Props, State> {
     } else {
       return(
         <TouchableOpacity onPress={this.toggleMenu} style={styles.arrowUp}>
-          <ArrowUp width='22' height='22' fill='#1F3044'/>
+          <ArrowUp width='22' height='22' fill='rgba(0,0,0,0.7)'/>
         </TouchableOpacity>
       )
     }
@@ -198,25 +200,12 @@ const styles = StyleSheet.create({
   map: {
     flex: 1,
   },
-  bar: {
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    position: 'absolute',
-    bottom: '5%',
-    right: '5%',
-    width: 30,
-    height: 268,
-    alignItems: 'center',
-  },
-  toggle: {
-    marginTop: 15,
-  },
   percentageText: {
     padding: 8,
     textAlign: 'center',
   },
   arrowUp: {
-    backgroundColor: '#fff',
+    backgroundColor: 'rgba(255,255,255, 0.5)',
     borderRadius: 10,
     position: 'absolute',
     bottom: '5%',
