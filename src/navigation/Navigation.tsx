@@ -52,6 +52,10 @@ const StackNavigator = createStackNavigator({
       //header: null,
     },
   },
+}, {
+  //mode: 'modal',
+  //cardStyle: {backgroundColor: 'rgba(255,255,255, 0.6)', backdropFilter: 'blur(10px)', opacity: 1},
+  //transparentCard: true,
 })
 
 export default createAppContainer(StackNavigator)

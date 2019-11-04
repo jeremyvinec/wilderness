@@ -1,4 +1,4 @@
-import { LOGIN, SEARCHED_TEXT, SIGNUP, UPDATE_EMAIL, UPDATE_PASSWORD } from '../../actions/actionTypes'
+import { LOGIN, SEARCHED_TEXT, SIGNUP, UPDATE_EMAIL, UPDATE_PASSWORD, UPDATE_USERNAME } from '../../actions/actionTypes'
 
 const user = (state = {}, action: any) => {
   switch (action.type) {
@@ -6,6 +6,8 @@ const user = (state = {}, action: any) => {
       return action.playload
     case SIGNUP:
       return action.playload
+    case UPDATE_USERNAME:
+      return { ...state, username: action.playload }
     case UPDATE_EMAIL:
       return { ...state, email: action.playload }
     case UPDATE_PASSWORD:

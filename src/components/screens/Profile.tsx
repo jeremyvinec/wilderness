@@ -37,8 +37,8 @@ class Profile extends React.Component<Props, State> {
                   <Text>{user.email}</Text>
                 </View>
               </View>
-              <TouchableOpacity onPress={this.handleSignout}>
-                  <ArrowRight width='22' height='22' fill='#1F3044'/>
+              <TouchableOpacity onPress={this.handleSignout} style={styles.signOut}>
+                  <ArrowRight width='22' height='22' fill='rgba(0,0,0,0.7)'/>
               </TouchableOpacity>
             </View>
             <View style={styles.activities}>
@@ -78,6 +78,9 @@ const styles = StyleSheet.create({
     marginTop: 50,
     marginLeft: 20,
   },
+  signOut: {
+    padding: 10
+  }
 })
 
 const mapStateToProps = (state: any) => {

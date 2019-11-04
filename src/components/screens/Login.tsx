@@ -89,6 +89,8 @@ class Login extends React.Component<Props, State> {
 const styles = StyleSheet.create({
   main_container: {
     flexDirection: 'row',
+    backgroundColor: 'rgba(255,255,255, 0.5)',
+    alignItems: 'center',
   },
   content_container: {
     flex: 1,
