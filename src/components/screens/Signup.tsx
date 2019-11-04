@@ -5,8 +5,8 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { signup, updateEmail, updatePassword, updateUsername } from '../../actions/actionUser'
 
-import Person from '../../assets/svg/Person'
 import Edit from '../../assets/svg/Edit'
+import Person from '../../assets/svg/Person'
 interface Props {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
   signup: () => void,

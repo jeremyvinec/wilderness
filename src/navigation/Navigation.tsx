@@ -28,13 +28,13 @@ const StackNavigator = createStackNavigator({
     screen: Info,
     navigationOptions: {
       title: 'Info',
-      //header: null,
+      // header: null,
     },
   },
   Profile: {
     screen: Profile,
     navigationOptions: {
-      //header: null,
+      // header: null,
     },
   },
   Menu: {
@@ -43,19 +43,19 @@ const StackNavigator = createStackNavigator({
   Login: {
     screen: Login,
     navigationOptions: {
-      //header: null,
+      // header: null,
     },
   },
   Signup: {
     screen: Signup,
     navigationOptions: {
-      //header: null,
+      // header: null,
     },
   },
 }, {
-  //mode: 'modal',
-  //cardStyle: {backgroundColor: 'rgba(255,255,255, 0.6)', backdropFilter: 'blur(10px)', opacity: 1},
-  //transparentCard: true,
+  // mode: 'modal',
+  // cardStyle: {backgroundColor: 'rgba(255,255,255, 0.6)', backdropFilter: 'blur(10px)', opacity: 1},
+  // transparentCard: true,
 })
 
 export default createAppContainer(StackNavigator)

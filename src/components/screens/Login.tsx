@@ -6,8 +6,8 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { getUser, login, updateEmail, updatePassword } from '../../actions/actionUser'
 
-import Person from '../../assets/svg/Person'
 import Edit from '../../assets/svg/Edit'
+import Person from '../../assets/svg/Person'
 interface Props {
   getUser: (user: String) => void,
   login: () => void,

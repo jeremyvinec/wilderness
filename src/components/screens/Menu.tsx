@@ -22,7 +22,7 @@ interface Props {
 interface State { }
 export default class Menu extends React.Component<Props, State> {
 
-  componentDidMount(){}
+  componentDidMount() {}
 
   render() {
     const { onToggleUserLocation, onToggleSearch, onDidFinishLoadingStyle, toggleMap, onToggleInfo, toggleMenu } = this.props
