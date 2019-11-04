@@ -190,7 +190,7 @@ class Map extends React.Component<Props, State> {
           styleURL={styleURL}
           localizeLabels={true}
           logoEnabled={false}
-          compassEnabled={false}
+          //compassEnabled={false}
           attributionEnabled={false}
         >
           <MapboxGL.UserLocation visible={followUserLocation}/>

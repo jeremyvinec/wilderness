@@ -85,7 +85,6 @@ class Search extends React.Component<Props, State> {
           style={styles.list}
           data={this.state.data}
           renderItem={this.renderItem}
-          keyExtractor={item => item.id}
           ListHeaderComponent={this.renderHeader}
         />
         {this.displayLoading()}
@@ -97,8 +96,8 @@ class Search extends React.Component<Props, State> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
+    height: '70%',
   },
   inputBox: {
     width: 250,

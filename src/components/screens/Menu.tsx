@@ -22,6 +22,8 @@ interface Props {
 interface State { }
 export default class Menu extends React.Component<Props, State> {
 
+  componentDidMount(){}
+
   render() {
     const { onToggleUserLocation, onToggleSearch, onDidFinishLoadingStyle, toggleMap, onToggleInfo, toggleMenu } = this.props
     console.log(this.props)
