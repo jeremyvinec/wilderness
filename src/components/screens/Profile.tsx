@@ -13,31 +13,67 @@ interface Props {
   email: String,
 }
 
-interface State { }
+interface State { 
+  login: boolean,
+  activities: String,
+}
 class Profile extends React.Component<Props, State> {
+
+  constructor(props: Props){
+    super(props)
+    this.state = {
+      login: true,
+      activities: '',
+    }
+  }
 
   handleSignout = () => {
     auth().signOut()
     this.props.navigation.navigate('Login')
   }
 
-  render() {
+  toggleLogOut = () => {
+    this.setState({ login: !this.state.login })
+  }
+
+  logOut = () => {
     const { user } = this.props
-    console.log(user)
+    if (this.state.login) {
+      return (
+        <View>
+          <View style={styles.username_container}>
+            <Text>{user.username}</Text>
+          </View>
+          <View style={styles.email_container}>
+            <Text>{user.email}</Text>
+          </View>
+        </View>
+      )
+    } else {
+      return(
+        <TouchableOpacity style={styles.email_container} onPress={this.handleSignout}>
+          <Text style={{ color: '#D22D2D' }}>Log Out</Text>
+        </TouchableOpacity>
+      )
+    }
+  }
+
+  updateActivities = (activities: String) => {
+    this.setState({ activities })
+  }
+
+  render() {
+    const { activities } = this.state
+    const { user } = this.props
     return(
         <View style={styles.container}>
             <View style={styles.main_container}>
               <View>
                 <Image source={profile}/>
               </View>
-              <View style={styles.content_container}>
-                <View style={styles.username_container}>
-                  <Text>{user.username}</Text>
-                </View>
-                <View style={styles.email_container}>
-                  <Text>{user.email}</Text>
-                </View>
-              </View>
+              <TouchableOpacity style={styles.content_container} onPress={this.toggleLogOut}>
+                {this.logOut()}
+              </TouchableOpacity>
               <TouchableOpacity onPress={this.handleSignout} style={styles.signOut}>
                   <ArrowRight width='22' height='22' fill='rgba(0,0,0,0.7)'/>
               </TouchableOpacity>
@@ -47,8 +83,10 @@ class Profile extends React.Component<Props, State> {
               <View>
                 <Picker
                   style={styles.picker}
+                  selectedValue={activities}
+                  onValueChange={this.updateActivities}
                 >
-                  <Picker.Item label='cyclisme' value='cyclisme'/>
+                  <Picker.Item label='Cyclisme' value='cyclisme'/>
                   <Picker.Item label='course à pied' value='course à pied'/>
                 </Picker>
               </View>
@@ -92,8 +130,10 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   picker: {
-    width: 100,
+    margin: 0,
+    width: '80%',
     height: 50,
+    opacity: 0.4,
   },
 })
 

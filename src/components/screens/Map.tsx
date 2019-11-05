@@ -11,7 +11,6 @@ import Menu from './Menu'
 // icons
 import ArrowUp from '../../assets/svg/ArrowUp'
 
-import { onSortOptions } from '../../utils'
 import config from '../../utils/config.js'
 
 MapboxGL.setAccessToken(config.get('accessToken'))
@@ -29,21 +28,12 @@ interface State {
   offlineRegion: {},
   offlineRegionStatus: {},
   isOpen: boolean,
-  onMapChange: {}
-  styleURL: {},
+  onMapChange: boolean,
 }
 class Map extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props)
-
-    this._mapOptions = Object.keys(MapboxGL.StyleURL).map(key => {
-        return {
-          label: key,
-          data: MapboxGL.StyleURL[key],
-        }
-      }).sort(onSortOptions)
-
     this.state = {
       followUserLocation: true,
       name: `${Date.now()}`,
@@ -51,10 +41,7 @@ class Map extends React.Component<Props, State> {
       offlineRegionStatus: null,
       isOpen: true,
       onMapChange: false,
-      styleURL: this._mapOptions[0].data,
     }
-
-    this.styleMap = this.styleMap.bind(this)
   }
 
   componentDidMount() {
@@ -77,7 +64,7 @@ class Map extends React.Component<Props, State> {
   }
 
   onDidFinishLoadingStyle = () => {
-    const { location } = this.props.user
+    const { location, styleURL } = this.props.user
     const {width, height} = Dimensions.get('window')
     const bounds = geoViewport.bounds(
       location,
@@ -88,7 +75,7 @@ class Map extends React.Component<Props, State> {
 
     const options = {
       name: this.state.name,
-      styleURL: this.state.styleURL,
+      styleURL: styleURL,
       bounds: [[bounds[0], bounds[1]], [bounds[2], bounds[3]]],
       minZoom: 10,
       maxZoom: 20,
@@ -126,20 +113,13 @@ class Map extends React.Component<Props, State> {
     this.props.navigation.navigate('Info')
   }
 
-  styleMap = (index, styleURL) => {
-    this.setState({styleURL})
-  }
-
   onMapChange = () => {
     const { onMapChange } = this.state
     if (onMapChange) {
       return(
-        <CardType
-          styleMap={this.styleMap}
-        />
+        <CardType/>
       )
     }
-    return null
   }
 
   toggleMenu = () => {
@@ -186,8 +166,9 @@ class Map extends React.Component<Props, State> {
   }
 
   render() {
-    const { followUserLocation, styleURL } = this.state
-    const { location } = this.props.user
+    const { followUserLocation } = this.state
+    const { location, styleURL } = this.props.user
+    console.log(styleURL)
     return (
       <View style={styles.map}>
         <MapboxGL.MapView
@@ -204,7 +185,7 @@ class Map extends React.Component<Props, State> {
               zoomLevel={12}
               followUserLocation={followUserLocation}
               centerCoordinate={location}
-              followPitch={50}
+              //followPitch={160}
               followUserMode={MapboxGL.UserTrackingModes.FollowWithHeading}
           />
         </MapboxGL.MapView>
