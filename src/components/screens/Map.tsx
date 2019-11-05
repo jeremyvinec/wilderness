@@ -58,7 +58,7 @@ class Map extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    if (this.props.location !== null) {
+    if (this.props.location !== undefined) {
       this.setState({ followUserLocation: false})
     }
   }

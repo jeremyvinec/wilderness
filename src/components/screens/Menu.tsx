@@ -29,9 +29,8 @@ export default class Menu extends React.Component<Props, State> {
     console.log(this.props)
     return(
         <View style={styles.bar}>
-          <Compass/>
           <TouchableOpacity onPress={onToggleUserLocation} style={styles.toggle}>
-            <CompassIcon width='22' height='22' fill='rgba(0,0,0,0.7)'/>
+            <Compass/>
           </TouchableOpacity>
           <TouchableOpacity onPress={onToggleUserLocation} style={styles.toggle}>
             <Geolocate width='22' height='22' fill='rgba(0,0,0,0.7)'/>

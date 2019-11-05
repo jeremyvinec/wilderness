@@ -4,9 +4,10 @@ import {magnetometer, SensorTypes, setUpdateIntervalForType} from 'react-native-
 
 const {height, width} = Dimensions.get('window')
 
-interface Props {
+import compass from '../../assets/img/compass.png'
+import CompassIcon from '../../assets/svg/CompassIcon'
 
-}
+interface Props { }
 
 interface State {
   magnetometer: String,
@@ -92,9 +93,9 @@ export default class Compass extends React.Component<Props, State> {
   render() {
     const { magnetometer } = this.state
     return(
-        <View>
-            <Text syle={styles.direction}>
-                {this._direction(this._degree(magnetometer))}
+        <View style={styles.compass}>
+            <Text style={styles.direction}>
+              {this._direction(this._degree(magnetometer))}
             </Text>
         </View>
     )
@@ -102,9 +103,16 @@ export default class Compass extends React.Component<Props, State> {
 }
 
 const styles = StyleSheet.create({
+  compass: {
+    width: 20,
+    height: 20,
+    borderWidth: 1.75,
+    borderRadius: 50,
+    borderColor: 'rgba(0,0,0,0.7)',
+  },
   direction: {
-    color: '#fff',
-    fontSize: height / 26,
-    fontWeight: 'bold',
+    fontSize: 8,
+    textAlign: 'center',
+    lineHeight: 15,
   },
 })
