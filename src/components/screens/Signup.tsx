@@ -1,22 +1,33 @@
 import React from 'react'
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import ImagePicker from 'react-native-image-picker'
 import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { signup, updateEmail, updatePassword, updateUsername } from '../../actions/actionUser'
+import { signup, updateEmail, updateImage, updatePassword, updateUsername } from '../../actions/actionUser'
 
 import Edit from '../../assets/svg/Edit'
 import Person from '../../assets/svg/Person'
+
+const options = {
+  title: 'Select Image',
+  storageOptions: {
+    skipBackup: true,
+    path: 'images',
+  },
+}
 interface Props {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
   signup: () => void,
   updateUsername: (username: String) => void,
   updateEmail: (email: String) => void,
   updatePassword: (password: String) => void,
+  updateImage: (image: {}) => void,
   user: String,
   email: String,
   username: String,
-  password: String
+  password: String,
+  image: {},
 }
 
 interface State { }
@@ -37,6 +48,39 @@ class Signup extends React.Component<Props, State> {
 
   private updatePassword = (password: String) => {
     this.props.updatePassword(password)
+  }
+
+  private updateImage = (image) => {
+    this.props.updateImage(image)
+  }
+
+  pickImage = () => {
+    ImagePicker.showImagePicker(options, response => {
+      if (response.didCancel) {
+        alert('You cancelled image picker 😟')
+      } else if (response.error) {
+        alert('And error occured: ', response.error)
+      } else {
+        const image = { uri: response.uri }
+        this.updateImage(image)
+      }
+    })
+  }
+
+  displayImage = () => {
+    const { image } = this.props.user
+    if (image) {
+      return(
+        <Image
+            source={image}
+            style={styles.image}
+        />
+      )
+    } else {
+      return(
+        <Text>Select an Image !</Text>
+      )
+    }
   }
 
   render() {
@@ -75,6 +119,10 @@ class Signup extends React.Component<Props, State> {
             />
           </View>
         </View>
+        <TouchableOpacity style={styles.button} onPress={this.pickImage}>
+          <Text style={styles.buttonText}>Pick image</Text>
+          {this.displayImage()}
+        </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={this.handleSignUp}>
           <Text style={styles.buttonText}>Singup</Text>
         </TouchableOpacity>
@@ -121,6 +169,11 @@ const styles = StyleSheet.create({
   },
   buttonSignup: {
     fontSize: 12,
+  },
+  image: {
+    marginTop: 20,
+    minWidth: 200,
+    height: 200,
   },
 })
 

@@ -1,6 +1,6 @@
 import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore'
-import { LOGIN, SEARCHED_TEXT, SIGNUP, UPDATE_EMAIL, UPDATE_PASSWORD, UPDATE_USERNAME } from './actionTypes'
+import { LOGIN, SEARCHED_TEXT, SIGNUP, UPDATE_EMAIL, UPDATE_IMAGE, UPDATE_PASSWORD, UPDATE_USERNAME } from './actionTypes'
 
 export const updateUsername = (username: String) => {
   return {
@@ -20,6 +20,13 @@ export const updatePassword = (password: String) => {
   return {
     type: UPDATE_PASSWORD,
     playload: password,
+  }
+}
+
+export const updateImage = (image: String) => {
+  return {
+    type: UPDATE_IMAGE,
+    playload: image,
   }
 }
 
