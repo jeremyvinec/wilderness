@@ -68,6 +68,10 @@ class Map extends React.Component<Props, State> {
     MapboxGL.offlineManager.unsubscribe('test')
   }
 
+  onToggleCompass = () => {
+    console.log('ok')
+  }
+
   onToggleUserLocation = () => {
     this.setState({followUserLocation: !this.state.followUserLocation})
   }
@@ -163,6 +167,7 @@ class Map extends React.Component<Props, State> {
     if (this.state.isOpen) {
       return(
         <Menu
+          onToggleCompass={this.onToggleCompass}
           onToggleUserLocation={this.onToggleUserLocation}
           onToggleSearch={this.onToggleSearch}
           onDidFinishLoadingStyle={this.onDidFinishLoadingStyle}

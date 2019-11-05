@@ -2,7 +2,6 @@ import React from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 // Icons
 import ArrowDown from '../../assets/svg/ArrowDown'
-import CompassIcon from '../../assets/svg/CompassIcon'
 import Download from '../../assets/svg/Download'
 import Geolocate from '../../assets/svg/Geolocate'
 import Info from '../../assets/svg/Info'
@@ -11,6 +10,7 @@ import Search from '../../assets/svg/Search'
 import Compass from '../common/Compass'
 
 interface Props {
+  onToggleCompass: () => void,
   onToggleUserLocation: () => void,
   onToggleSearch: () => void,
   onDidFinishLoadingStyle: () => void,
@@ -25,11 +25,11 @@ export default class Menu extends React.Component<Props, State> {
   componentDidMount() {}
 
   render() {
-    const { onToggleUserLocation, onToggleSearch, onDidFinishLoadingStyle, toggleMap, onToggleInfo, toggleMenu } = this.props
+    const { onToggleCompass, onToggleUserLocation, onToggleSearch, onDidFinishLoadingStyle, toggleMap, onToggleInfo, toggleMenu } = this.props
     console.log(this.props)
     return(
         <View style={styles.bar}>
-          <TouchableOpacity onPress={onToggleUserLocation} style={styles.toggle}>
+          <TouchableOpacity onPress={onToggleCompass} style={styles.toggle}>
             <Compass/>
           </TouchableOpacity>
           <TouchableOpacity onPress={onToggleUserLocation} style={styles.toggle}>

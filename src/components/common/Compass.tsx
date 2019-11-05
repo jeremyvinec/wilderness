@@ -1,11 +1,6 @@
 import React from 'react'
-import {Dimensions, Image, StyleSheet, Text, View} from 'react-native'
+import {StyleSheet, Text, View} from 'react-native'
 import {magnetometer, SensorTypes, setUpdateIntervalForType} from 'react-native-sensors'
-
-const {height, width} = Dimensions.get('window')
-
-import compass from '../../assets/img/compass.png'
-import CompassIcon from '../../assets/svg/CompassIcon'
 
 interface Props { }
 
