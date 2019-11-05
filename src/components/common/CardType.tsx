@@ -42,6 +42,11 @@ class CardType extends React.Component<Props, State> {
     this.styleURL()
   }
 
+  dark = () => {
+    this.setState({ styleURL: this._mapOptions[0].data })
+    this.styleURL()
+  }
+
   render() {
     return(
         <View style={styles.changeMap}>
@@ -58,7 +63,7 @@ class CardType extends React.Component<Props, State> {
                         <Image source={icon}/>
                         <Text style={styles.text}>Street</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.card} onPress={this.outdoors}>
+                    <TouchableOpacity style={styles.card} onPress={this.dark}>
                         <Image source={icon}/>
                         <Text style={styles.text}>Relief</Text>
                     </TouchableOpacity>

@@ -64,7 +64,6 @@ class Profile extends React.Component<Props, State> {
 
   render() {
     const { activities } = this.state
-    const { user } = this.props
     return(
         <View style={styles.container}>
             <View style={styles.main_container}>

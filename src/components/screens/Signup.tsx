@@ -49,7 +49,7 @@ class Signup extends React.Component<Props, State> {
             <TextInput
               style={styles.inputBox}
               value={user.username}
-              onChangeText={this.username}
+              onChangeText={this.updateUsername}
               placeholder='Username'
               autoCapitalize='none'
             />
