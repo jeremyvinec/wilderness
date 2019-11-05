@@ -1,6 +1,6 @@
 import auth from '@react-native-firebase/auth'
 import React from 'react'
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, Picker, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation'
 import { connect } from 'react-redux'
 
@@ -44,6 +44,14 @@ class Profile extends React.Component<Props, State> {
             </View>
             <View style={styles.activities}>
               <Text>My activities</Text>
+              <View>
+                <Picker
+                  style={styles.picker}
+                >
+                  <Picker.Item label='cyclisme' value='cyclisme'/>
+                  <Picker.Item label='course à pied' value='course à pied'/>
+                </Picker>
+              </View>
             </View>
         </View>
     )
@@ -82,6 +90,10 @@ const styles = StyleSheet.create({
   },
   signOut: {
     padding: 10,
+  },
+  picker: {
+    width: 100,
+    height: 50,
   },
 })
 

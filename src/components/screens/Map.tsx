@@ -193,6 +193,7 @@ class Map extends React.Component<Props, State> {
         <MapboxGL.MapView
           style={styles.map}
           styleURL={styleURL}
+          animated={true}
           localizeLabels={true}
           logoEnabled={false}
           compassEnabled={false}
@@ -203,6 +204,7 @@ class Map extends React.Component<Props, State> {
               zoomLevel={12}
               followUserLocation={followUserLocation}
               centerCoordinate={location}
+              followPitch={50}
               followUserMode={MapboxGL.UserTrackingModes.FollowWithHeading}
           />
         </MapboxGL.MapView>

@@ -34,7 +34,7 @@ export default class Compass extends React.Component<Props, State> {
   }
 
   _subscribe = async () => {
-    setUpdateIntervalForType(SensorTypes.magnetometer, 100)
+    setUpdateIntervalForType(SensorTypes.magnetometer, 1000)
     this._subscription = magnetometer.subscribe(
       sensorData => this.setState({magnetometer: this._angle(sensorData)}),
       error => console.log('The sensor is not available'),
