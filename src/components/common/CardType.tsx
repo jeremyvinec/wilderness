@@ -6,11 +6,11 @@ import { bindActionCreators } from 'redux'
 import { updateStyleURL } from '../../actions/actionUser'
 import { onSortOptions } from '../../utils'
 
+import dark from '../../assets/img/dark.png'
 import icon from '../../assets/img/icon.png'
 import openstreetmap from '../../assets/img/openstreetmap.png'
-import street from '../../assets/img/street.png'
 import satellite from '../../assets/img/satellite.png'
-import dark from '../../assets/img/dark.png'
+import street from '../../assets/img/street.png'
 import traffic from '../../assets/img/traffic.png'
 
 interface Props {

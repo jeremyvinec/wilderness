@@ -13,12 +13,21 @@ import Signup from '../components/screens/Signup'
 const SwitchNavigator = createSwitchNavigator({
   Login: {
     screen: Login,
+    navigationOptions: {
+      title: 'Login',
+    },
   },
   Signup: {
     screen: Signup,
+    navigationOptions: {
+      title: 'Signup',
+    },
   },
   Profile: {
     screen: Profile,
+    navigationOptions: {
+      title: 'Profile',
+    },
   },
 })
 
@@ -40,22 +49,30 @@ const StackNavigator = createStackNavigator({
     screen: Info,
     navigationOptions: {
       title: 'Info',
-      // header: null,
     },
   },
   Profile: {
     screen: SwitchNavigator,
     navigationOptions: {
-      // header: null,
+      title: 'Profile',
     },
   },
   Menu: {
     screen: Menu,
   },
 }, {
-  // mode: 'modal',
-  // cardStyle: {backgroundColor: 'rgba(255,255,255, 0.6)', backdropFilter: 'blur(10px)', opacity: 1},
-  // transparentCard: true,
+  defaultNavigationOptions: {
+    headerStyle: {
+      backgroundColor: 'transparent',
+      elevation: 0,
+      shadowOpacity: 0,
+    },
+    headerTintColor: '#000',
+    headerTitleStyle: {
+      color: 'black',
+    },
+  },
+  //cardStyle: {backgroundColor: 'rgba(255,255,255, 0.95)', opacity: 1},
 })
 
 export default createAppContainer(StackNavigator)

@@ -50,7 +50,7 @@ class Profile extends React.Component<Props, State> {
       )
     } else {
       return(
-        <TouchableOpacity style={styles.email_container} onPress={this.handleSignout}>
+        <TouchableOpacity style={styles.logOut} onPress={this.handleSignout}>
           <Text style={{ color: '#D22D2D' }}>Log Out</Text>
         </TouchableOpacity>
       )
@@ -120,6 +120,10 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     marginTop: 1,
     opacity: 0.4,
+  },
+  logOut: {
+    marginLeft: 5,
+    padding: 10,
   },
   activities: {
     marginTop: 50,
