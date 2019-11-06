@@ -1,4 +1,4 @@
-import { LOGIN, SEARCHED_TEXT, SIGNUP, UPDATE_AVATAR, UPDATE_EMAIL, UPDATE_LOCATION, UPDATE_PASSWORD, UPDATE_STYLE_URL, UPDATE_USERNAME } from '../../actions/actionTypes'
+import { LOGIN, SIGNUP, UPDATE_AVATAR, UPDATE_EMAIL, UPDATE_LOCATION, UPDATE_PASSWORD, UPDATE_STYLE_URL, UPDATE_USERNAME } from '../../actions/actionTypes'
 
 const user = (state = {}, action: any) => {
   switch (action.type) {
@@ -16,8 +16,6 @@ const user = (state = {}, action: any) => {
       return { ...state, location: action.playload}
     case UPDATE_AVATAR:
       return { ...state, avatar: action.playload}
-    case SEARCHED_TEXT:
-      return { ...state, search: action.playload}
     case UPDATE_STYLE_URL:
       return {...state, styleURL: action.playload}
     default:

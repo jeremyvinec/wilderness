@@ -75,7 +75,7 @@ class Map extends React.Component<Props, State> {
 
     const options = {
       name: this.state.name,
-      styleURL: styleURL,
+      styleURL,
       bounds: [[bounds[0], bounds[1]], [bounds[2], bounds[3]]],
       minZoom: 10,
       maxZoom: 20,
@@ -168,7 +168,7 @@ class Map extends React.Component<Props, State> {
   render() {
     const { followUserLocation } = this.state
     const { location, styleURL } = this.props.user
-    console.log(styleURL)
+    console.log(location)
     return (
       <View style={styles.map}>
         <MapboxGL.MapView

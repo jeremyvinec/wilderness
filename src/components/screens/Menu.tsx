@@ -26,7 +26,6 @@ export default class Menu extends React.Component<Props, State> {
 
   render() {
     const { onToggleCompass, onToggleUserLocation, onToggleSearch, onDidFinishLoadingStyle, toggleMap, onToggleInfo, toggleMenu } = this.props
-    console.log(this.props)
     return(
         <View style={styles.bar}>
           <TouchableOpacity onPress={onToggleCompass} style={styles.toggle}>

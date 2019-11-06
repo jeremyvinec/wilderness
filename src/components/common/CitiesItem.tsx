@@ -9,21 +9,20 @@ import Pin from '../../assets/svg/Pin'
 interface Props {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
   data: [],
-  center: [],
-  updateLocation: (location: []) => void,
-  location: String,
+  updateLocation: (location: String) => void,
 }
 
 interface State { }
 class CitiesItem extends React.Component<Props, State> {
 
-  onSelect = (center: []) => {
-    this.updateLocation(center)
-    this.props.navigation.navigate('Map')
+  private updateLocation = (location: String) => {
+    this.props.updateLocation(location)
   }
 
-  private updateLocation = (location: []) => {
-    this.props.updateLocation(location)
+  onSelect = () => {
+    const { center } = this.props.data
+    this.updateLocation(center)
+    this.props.navigation.navigate('Map')
   }
 
   render() {

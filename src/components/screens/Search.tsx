@@ -2,17 +2,11 @@ import React from 'react'
 import { ActivityIndicator, FlatList, StyleSheet, TextInput, View } from 'react-native'
 import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { searchedText } from '../../actions/actionUser'
 import Api from '../../api/Api'
 import CitiesItem from '../common/CitiesItem'
-import { isTemplateElement } from '@babel/types'
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
-  searchedText: (search: String) => void,
-  search: String,
-  user: String,
 }
 interface State {
   isLoading: boolean,
@@ -20,11 +14,6 @@ interface State {
 }
 
 class Search extends React.Component<Props, State> {
-
-  private searchedText = (search: String) => {
-    this.props.searchedText(search)
-    this.loadCities()
-  }
 
   constructor(props: Props) {
     super(props)
@@ -34,8 +23,7 @@ class Search extends React.Component<Props, State> {
     }
   }
 
-  loadCities = () => {
-    const { search } = this.props.user
+  loadCities = (search: String) => {
     this.setState({ isLoading: true })
     Api.getCities(search).then((res: any) => {
       this.setState({
@@ -54,13 +42,13 @@ class Search extends React.Component<Props, State> {
         style={styles.inputBox}
         placeholder='Try "Gap"'
         autoCapitalize='none'
-        onChangeText={this.searchedText}
+        onChangeText={this.loadCities}
         autoCorrect={false}
       />
     )
   }
 
-  renderItem = ({item}) => {
+  renderItem = ({item}: any) => {
     const { navigation } = this.props
     return(
       <CitiesItem
@@ -125,14 +113,10 @@ const styles = StyleSheet.create({
   },
 })
 
-const mapDispatchToProps = (dispatch: any) => {
-  return bindActionCreators({ searchedText }, dispatch)
-}
-
 const mapStateToProps = (state: any) => {
   return{
     user: state.user,
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Search)
+export default connect(mapStateToProps)(Search)
