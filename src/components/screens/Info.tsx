@@ -17,6 +17,7 @@ export default class Info extends React.Component<Props, State> {
   feddback = () => {
     Linking.openURL('mailto:jeremy.yvinec@gmail.com?subject=Feedback')
   }
+
   render() {
     console.log(this.props)
     return(
@@ -31,12 +32,6 @@ export default class Info extends React.Component<Props, State> {
                 <Text>Learn how use the map</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.text}>
-                <Text>Support</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.text}>
-                <Text>FAQ</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.text}>
                 <Text>Terms & Conditions</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.text}>
@@ -45,6 +40,10 @@ export default class Info extends React.Component<Props, State> {
               <TouchableOpacity style={styles.text}>
                 <Text>Privacy policy</Text>
               </TouchableOpacity>
+              <View style={styles.infoApp}>
+                <Text>Version: 1.0 Production</Text>
+                <Text>SDK: 1.0</Text>
+              </View>
             </View>
     )
   }
@@ -58,5 +57,9 @@ const styles = StyleSheet.create({
   },
   text: {
     marginTop: 30,
+  },
+  infoApp: {
+    marginTop: 100,
+    opacity: 0.4,
   },
 })
