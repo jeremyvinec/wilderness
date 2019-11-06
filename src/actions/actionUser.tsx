@@ -86,3 +86,12 @@ export const signup = () => {
     }
   }
 }
+
+export const uploadImage = () => {
+  return async (dispatch: any, getState: any) => {
+    try {
+      const { imageUri } = getState().user
+      firestore()
+    }
+  }
+}

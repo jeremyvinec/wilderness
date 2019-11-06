@@ -53,6 +53,9 @@ class Signup extends React.Component<Props, State> {
   private updateImage = (image) => {
     this.props.updateImage(image)
   }
+  state = {
+    imgSource: '',
+  }
 
   pickImage = () => {
     ImagePicker.showImagePicker(options, response => {
@@ -60,9 +63,12 @@ class Signup extends React.Component<Props, State> {
         alert('You cancelled image picker 😟')
       } else if (response.error) {
         alert('And error occured: ', response.error)
+        console.log(response.error)
       } else {
-        const image = { uri: response.uri }
-        this.updateImage(image)
+        const source = { uri: response.uri }
+        this.setState({
+          imgSource: source,
+        })
       }
     })
   }
