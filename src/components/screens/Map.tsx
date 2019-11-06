@@ -184,7 +184,7 @@ class Map extends React.Component<Props, State> {
               zoomLevel={12}
               followUserLocation={followUserLocation}
               centerCoordinate={location}
-              //followPitch={160}
+              //followPitch={0}
               followUserMode={MapboxGL.UserTrackingModes.FollowWithHeading}
           />
         </MapboxGL.MapView>

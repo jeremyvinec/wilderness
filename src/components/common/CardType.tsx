@@ -8,6 +8,10 @@ import { onSortOptions } from '../../utils'
 
 import icon from '../../assets/img/icon.png'
 import openstreetmap from '../../assets/img/openstreetmap.png'
+import street from '../../assets/img/street.png'
+import satellite from '../../assets/img/satellite.png'
+import dark from '../../assets/img/dark.png'
+import traffic from '../../assets/img/traffic.png'
 
 interface Props {
   updateStyleURL: (styleURL: String) => void,
@@ -39,8 +43,16 @@ class CardType extends React.Component<Props, State> {
     this.updateStyleURL(this._mapOptions[5].data)
   }
 
+  satellite = () => {
+    this.updateStyleURL(this._mapOptions[4].data)
+  }
+
   dark = () => {
     this.updateStyleURL(this._mapOptions[0].data)
+  }
+
+  traffic = () => {
+    this.updateStyleURL(this._mapOptions[7].data)
   }
 
   render() {
@@ -56,28 +68,28 @@ class CardType extends React.Component<Props, State> {
                         <Text style={styles.text}>Outdoors</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.card} onPress={this.street}>
-                        <Image source={icon}/>
+                        <Image source={street} style={styles.icon}/>
                         <Text style={styles.text}>Street</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.card} onPress={this.dark}>
-                        <Image source={icon}/>
-                        <Text style={styles.text}>Relief</Text>
+                    <TouchableOpacity style={styles.card} onPress={this.satellite}>
+                        <Image source={satellite} style={styles.icon}/>
+                        <Text style={styles.text}>Satellite</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.title}>
                     <Text>Détails de la carte</Text>
                 </View>
                 <View style={styles.main_container}>
-                    <TouchableOpacity style={styles.card} onPress={this.outdoors}>
-                        <Image source={icon}/>
-                        <Text style={styles.text}>Transport</Text>
+                    <TouchableOpacity style={styles.card} onPress={this.dark}>
+                        <Image source={dark} style={styles.icon}/>
+                        <Text style={styles.text}>Dark</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.card} onPress={this.outdoors}>
-                        <Image source={icon}/>
+                    <TouchableOpacity style={styles.card} onPress={this.traffic}>
+                        <Image source={traffic} style={styles.icon}/>
                         <Text style={styles.text}>Traffic</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.card} onPress={this.outdoors}>
-                        <Image source={icon}/>
+                        <Image source={icon} style={styles.icon}/>
                         <Text style={styles.text}>Vélo</Text>
                     </TouchableOpacity>
                 </View>
