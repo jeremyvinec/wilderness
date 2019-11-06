@@ -15,7 +15,7 @@ const user = (state = {}, action: any) => {
     case UPDATE_LOCATION:
       return { ...state, location: action.playload}
     case UPDATE_AVATAR:
-      return { ...state, image: action.playload}
+      return { ...state, avatar: action.playload}
     case SEARCHED_TEXT:
       return { ...state, search: action.playload}
     case STYLE_URL:

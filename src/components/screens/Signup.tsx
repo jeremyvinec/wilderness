@@ -70,6 +70,7 @@ class Signup extends React.Component<Props, State> {
 
   displayAvatar = () => {
     const { avatar } = this.props.user
+    console.log(avatar)
     if (avatar) {
       return(
         <Image
@@ -86,6 +87,7 @@ class Signup extends React.Component<Props, State> {
 
   render() {
     const { user } = this.props
+    console.log(user)
     return(
       <View style={styles.container}>
         <View style={styles.input_content}>
