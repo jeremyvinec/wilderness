@@ -22,12 +22,12 @@ interface Props {
   updateUsername: (username: String) => void,
   updateEmail: (email: String) => void,
   updatePassword: (password: String) => void,
-  updateImage: (image: {}) => void,
+  updateAvatar: (avatar: String) => void,
   user: String,
   email: String,
   username: String,
   password: String,
-  image: {},
+  avatar: String,
 }
 
 interface State { }
@@ -50,8 +50,8 @@ class Signup extends React.Component<Props, State> {
     this.props.updatePassword(password)
   }
 
-  private updateAvatar = (avatar) => {
-    this.props.updateImage(avatar)
+  private updateAvatar = (avatar: String) => {
+    this.props.updateAvatar(avatar)
   }
 
   pickImage = () => {
@@ -68,13 +68,13 @@ class Signup extends React.Component<Props, State> {
     })
   }
 
-  displayImage = () => {
-    const { image } = this.props.user
-    if (image) {
+  displayAvatar = () => {
+    const { avatar } = this.props.user
+    if (avatar) {
       return(
         <Image
-            source={image}
-            style={styles.image}
+            source={avatar}
+            style={styles.avatar}
         />
       )
     } else {
@@ -122,8 +122,8 @@ class Signup extends React.Component<Props, State> {
         </View>
         <TouchableOpacity style={styles.button} onPress={this.pickImage}>
           <Text style={styles.buttonText}>Pick image</Text>
-          {this.displayImage()}
         </TouchableOpacity>
+        {this.displayAvatar()}
         <TouchableOpacity style={styles.button} onPress={this.handleSignUp}>
           <Text style={styles.buttonText}>Singup</Text>
         </TouchableOpacity>
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
   buttonSignup: {
     fontSize: 12,
   },
-  image: {
+  avatar: {
     marginTop: 20,
     minWidth: 200,
     height: 200,
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
 })
 
 const mapDispatchToProps = (dispatch: any) => {
-  return bindActionCreators({ updateEmail, updatePassword, signup, updateUsername }, dispatch)
+  return bindActionCreators({ updateEmail, updatePassword, signup, updateUsername, updateAvatar }, dispatch)
 }
 
 const mapStateToProps = (state: any) => {
