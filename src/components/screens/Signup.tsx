@@ -4,7 +4,7 @@ import ImagePicker from 'react-native-image-picker'
 import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { signup, updateEmail, updateImage, updatePassword, updateUsername } from '../../actions/actionUser'
+import { signup, updateAvatar, updateEmail, updatePassword, updateUsername } from '../../actions/actionUser'
 
 import Edit from '../../assets/svg/Edit'
 import Person from '../../assets/svg/Person'
@@ -50,11 +50,8 @@ class Signup extends React.Component<Props, State> {
     this.props.updatePassword(password)
   }
 
-  private updateImage = (image) => {
-    this.props.updateImage(image)
-  }
-  state = {
-    imgSource: '',
+  private updateAvatar = (avatar) => {
+    this.props.updateImage(avatar)
   }
 
   pickImage = () => {
@@ -65,10 +62,8 @@ class Signup extends React.Component<Props, State> {
         alert('And error occured: ', response.error)
         console.log(response.error)
       } else {
-        const source = { uri: response.uri }
-        this.setState({
-          imgSource: source,
-        })
+        const avatar = { uri: response.uri }
+        this.updateAvatar(avatar)
       }
     })
   }
