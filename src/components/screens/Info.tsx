@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Linking, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation'
 
 interface Props {
@@ -13,6 +13,10 @@ export default class Info extends React.Component<Props, State> {
   account = () => {
     this.props.navigation.navigate('Profile')
   }
+
+  feddback = () => {
+    Linking.openURL('mailto:jeremy.yvinec@gmail.com?subject=Feedback')
+  }
   render() {
     console.log(this.props)
     return(
@@ -20,7 +24,7 @@ export default class Info extends React.Component<Props, State> {
               <TouchableOpacity style={styles.text} onPress={this.account}>
                 <Text>Compte</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.text}>
+              <TouchableOpacity style={styles.text} onPress={this.feddback}>
                 <Text>Give feddback</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.text}>

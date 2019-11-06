@@ -76,6 +76,7 @@ class Search extends React.Component<Props, State> {
         <FlatList
           style={styles.list}
           data={data}
+          initialNumToRender={5}
           extraData={data}
           renderItem={this.renderItem}
           ListHeaderComponent={this.renderHeader}
