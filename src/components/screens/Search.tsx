@@ -1,19 +1,22 @@
 import React from 'react'
 import { ActivityIndicator, FlatList, StyleSheet, TextInput, View } from 'react-native'
+import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { searchedText } from '../../actions/actionUser'
 import Api from '../../api/Api'
 import CitiesItem from '../common/CitiesItem'
+import { isTemplateElement } from '@babel/types'
 
 interface Props {
+  navigation: NavigationScreenProp<NavigationState, NavigationParams>,
   searchedText: (search: String) => void,
   search: String,
   user: String,
 }
 interface State {
   isLoading: boolean,
-  data: []
+  data: [],
 }
 
 class Search extends React.Component<Props, State> {
@@ -79,11 +82,13 @@ class Search extends React.Component<Props, State> {
   }
 
   render() {
+    const { data } = this.state
     return(
       <View style={styles.container}>
         <FlatList
           style={styles.list}
-          data={this.state.data}
+          data={data}
+          extraData={data}
           renderItem={this.renderItem}
           ListHeaderComponent={this.renderHeader}
         />

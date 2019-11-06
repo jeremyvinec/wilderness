@@ -22,12 +22,12 @@ interface Props {
   updateUsername: (username: String) => void,
   updateEmail: (email: String) => void,
   updatePassword: (password: String) => void,
-  updateAvatar: (avatar: String) => void,
+  updateAvatar: (avatar: {}) => void,
   user: String,
   email: String,
   username: String,
   password: String,
-  avatar: String,
+  avatar: {},
 }
 
 interface State { }
@@ -50,7 +50,7 @@ class Signup extends React.Component<Props, State> {
     this.props.updatePassword(password)
   }
 
-  private updateAvatar = (avatar: String) => {
+  private updateAvatar = (avatar: {}) => {
     this.props.updateAvatar(avatar)
   }
 
