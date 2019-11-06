@@ -1,6 +1,8 @@
 import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore'
+import storage from '@react-native-firebase/storage'
 import { LOGIN, SEARCHED_TEXT, SIGNUP, UPDATE_EMAIL, UPDATE_IMAGE, UPDATE_PASSWORD, UPDATE_USERNAME } from './actionTypes'
+import AsyncStorage from '@react-native-community/async-storage'
 
 export const updateUsername = (username: String) => {
   return {
@@ -83,15 +85,6 @@ export const signup = () => {
       }
     } catch (e) {
       console.log(e)
-    }
-  }
-}
-
-export const uploadImage = () => {
-  return async (dispatch: any, getState: any) => {
-    try {
-      const { imageUri } = getState().user
-      firestore()
     }
   }
 }
