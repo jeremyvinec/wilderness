@@ -2,12 +2,15 @@ import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { updateLocation } from '../../actions/actionUser'
 
 import Pin from '../../assets/svg/Pin'
 interface Props {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
-  data: {},
-  dispatch: () => void,
+  data: [],
+  updateLocation: (location: String) => void,
+  location: String,
 }
 
 interface State { }
@@ -15,9 +18,12 @@ class CitiesItem extends React.Component<Props, State> {
 
   onLocation = () => {
     const { center } = this.props.data
-    const locationAction = { type: 'UPDATE_LOCATION', playload: center }
-    this.props.dispatch(locationAction)
+    this.updateLocation(center)
     this.props.navigation.navigate('Map')
+  }
+
+  private updateLocation = (location: String) => {
+    this.props.updateLocation(location)
   }
 
   render() {
@@ -63,10 +69,14 @@ const styles = StyleSheet.create({
   },
 })
 
+const mapDispatchToProps = (dispatch: any) => {
+  return bindActionCreators({ updateLocation }, dispatch)
+}
+
 const mapStateToProps = (state: any) => {
   return{
     user: state.user,
   }
 }
 
-export default connect(mapStateToProps)(CitiesItem)
+export default connect(mapStateToProps, mapDispatchToProps)(CitiesItem)
