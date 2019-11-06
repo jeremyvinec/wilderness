@@ -4,7 +4,6 @@ import { Image, Picker, StyleSheet, Text, TouchableOpacity, View } from 'react-n
 import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation'
 import { connect } from 'react-redux'
 
-import profile from '../../assets/img/profile.png'
 import ArrowRight from '../../assets/svg/ArrowRight'
 interface Props {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
@@ -64,11 +63,12 @@ class Profile extends React.Component<Props, State> {
 
   render() {
     const { activities } = this.state
+    const { user } = this.props
     return(
         <View style={styles.container}>
             <View style={styles.main_container}>
               <View>
-                <Image source={profile}/>
+                <Image source={user.avatar} style={styles.avatar}/>
               </View>
               <TouchableOpacity style={styles.content_container} onPress={this.toggleLogOut}>
                 {this.logOut()}
@@ -133,6 +133,11 @@ const styles = StyleSheet.create({
     width: '80%',
     height: 50,
     opacity: 0.4,
+  },
+  avatar: {
+    width: 60,
+    height: 60,
+    borderRadius: 50,
   },
 })
 

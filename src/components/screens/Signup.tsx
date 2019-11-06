@@ -70,27 +70,30 @@ class Signup extends React.Component<Props, State> {
 
   displayAvatar = () => {
     const { avatar } = this.props.user
-    console.log(avatar)
     if (avatar) {
       return(
-        <Image
+        <View style={styles.content_avatar}>
+          <Image
             source={avatar}
             style={styles.avatar}
-        />
+          />
+        </View>
       )
     } else {
       return(
-        <Text>Select an Image !</Text>
+        <TouchableOpacity style={styles.button} onPress={this.pickImage}>
+          <Text style={styles.buttonText}>Pick image</Text>
+        </TouchableOpacity>
       )
     }
   }
 
   render() {
     const { user } = this.props
-    console.log(user)
     return(
       <View style={styles.container}>
         <View style={styles.input_content}>
+          {this.displayAvatar()}
           <View style={styles.main_container}>
             <Person width='22' height='22' fill='#1F3044'/>
             <TextInput
@@ -122,10 +125,6 @@ class Signup extends React.Component<Props, State> {
             />
           </View>
         </View>
-        <TouchableOpacity style={styles.button} onPress={this.pickImage}>
-          <Text style={styles.buttonText}>Pick image</Text>
-        </TouchableOpacity>
-        {this.displayAvatar()}
         <TouchableOpacity style={styles.button} onPress={this.handleSignUp}>
           <Text style={styles.buttonText}>Singup</Text>
         </TouchableOpacity>
@@ -159,8 +158,7 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 30,
-    marginBottom: 20,
-    paddingVertical: 5,
+    marginBottom: 30,
     alignItems: 'center',
     backgroundColor: 'white',
     borderRadius: 14,
@@ -173,10 +171,14 @@ const styles = StyleSheet.create({
   buttonSignup: {
     fontSize: 12,
   },
+  content_avatar: {
+    alignItems: 'center',
+    marginBottom: 30,
+  },
   avatar: {
-    marginTop: 20,
-    minWidth: 200,
-    height: 200,
+    width: 60,
+    height: 60,
+    borderRadius: 50,
   },
 })
 
