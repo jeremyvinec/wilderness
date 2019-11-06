@@ -2,18 +2,26 @@ import MapboxGL from '@react-native-mapbox-gl/maps'
 import React from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { updateStyleURL } from '../../actions/actionUser'
 import { onSortOptions } from '../../utils'
 
 import icon from '../../assets/img/icon.png'
+import openstreetmap from '../../assets/img/openstreetmap.png'
 
-interface Props { }
-
-interface State {
-  styleURL: {},
+interface Props {
+  updateStyleURL: (styleURL: String) => void,
+  styleURL: String
 }
+
+interface State { }
 class CardType extends React.Component<Props, State> {
 
-  constructor(props: Props){
+  private updateStyleURL = (styleURL: String) => {
+    this.props.updateStyleURL(styleURL)
+  }
+
+  constructor(props: Props) {
     super(props)
     this._mapOptions = Object.keys(MapboxGL.StyleURL).map(key => {
       return {
@@ -21,30 +29,18 @@ class CardType extends React.Component<Props, State> {
         data: MapboxGL.StyleURL[key],
       }
     }).sort(onSortOptions)
-    this.state = {
-      styleURL: this._mapOptions[2].data,
-    }
-  }
-
-  styleURL = () => {
-    console.log(this.state.styleURL)
-    const styleAction = { type: 'STYLE_URL', playload: this.state.styleURL}
-    this.props.dispatch(styleAction)
   }
 
   outdoors = () => {
-    this.setState({ styleURL: this._mapOptions[2].data })
-    this.styleURL()
+    this.updateStyleURL(this._mapOptions[2].data)
   }
 
   street = () => {
-    this.setState({ styleURL: this._mapOptions[5].data })
-    this.styleURL()
+    this.updateStyleURL(this._mapOptions[5].data)
   }
 
   dark = () => {
-    this.setState({ styleURL: this._mapOptions[0].data })
-    this.styleURL()
+    this.updateStyleURL(this._mapOptions[0].data)
   }
 
   render() {
@@ -56,7 +52,7 @@ class CardType extends React.Component<Props, State> {
                 </View>
                 <View style={styles.main_container}>
                     <TouchableOpacity style={styles.card} onPress={this.outdoors}>
-                        <Image source={icon}/>
+                        <Image source={openstreetmap} style={styles.icon}/>
                         <Text style={styles.text}>Outdoors</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.card} onPress={this.street}>
@@ -121,7 +117,15 @@ const styles = StyleSheet.create({
   title: {
     marginTop: 15,
   },
+  icon: {
+    width: 50,
+    height: 50,
+  },
 })
+
+const mapDispatchToProps = (dispatch: any) => {
+  return bindActionCreators({ updateStyleURL }, dispatch)
+}
 
 const mapStateToProps = (state: any) => {
   return{
@@ -129,4 +133,4 @@ const mapStateToProps = (state: any) => {
   }
 }
 
-export default connect(mapStateToProps)(CardType)
+export default connect(mapStateToProps, mapDispatchToProps)(CardType)
