@@ -1,6 +1,9 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
+import ArrowCircleDown from '../../assets/svg/ArrowCircleDown'
+import List from '../../assets/svg/List'
+
 interface Props {
   offlineRegionStatus: {},
   getRegionDownloadState: () => void,
@@ -27,9 +30,11 @@ export default class OfflineRegion extends React.Component<Props, State> {
     return(
       <View style={styles.offlineManager}>
         <TouchableOpacity onPress={this.downloadMap}>
+          <ArrowCircleDown width='22' height='22' fill='rgba(0,0,0,0.7)'/>
           <Text>Download</Text>
         </TouchableOpacity>
         <TouchableOpacity>
+          <List width='22' height='22' fill='rgba(0,0,0,0.7)'/>
           <Text>List</Text>
         </TouchableOpacity>
       </View>
