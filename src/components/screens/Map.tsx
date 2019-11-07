@@ -1,7 +1,7 @@
 import geoViewport from '@mapbox/geo-viewport'
 import MapboxGL from '@react-native-mapbox-gl/maps'
 import React from 'react'
-import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation'
 import { connect } from 'react-redux'
 import CardType from '../common/CardType'
@@ -51,8 +51,9 @@ class Map extends React.Component<Props, State> {
   }
 
   componentWillUnmount() {
-    MapboxGL.offlineManager.deletePack(this.state.name)
-    MapboxGL.offlineManager.unsubscribe('test')
+    const { name } = this.state
+    MapboxGL.offlineManager.deletePack(name)
+    MapboxGL.offlineManager.unsubscribe(name)
   }
 
   onToggleCompass = () => {
