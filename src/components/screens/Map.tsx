@@ -1,7 +1,7 @@
 import geoViewport from '@mapbox/geo-viewport'
 import MapboxGL from '@react-native-mapbox-gl/maps'
 import React from 'react'
-import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation'
 import { connect } from 'react-redux'
 import Altitude from '../common/Altitude'
@@ -75,7 +75,6 @@ class Map extends React.Component<Props, State> {
       [width, height],
       MAPBOX_VECTOR_TILE_SIZE,
     )
-
     const options = {
       name: this.state.name,
       styleURL,

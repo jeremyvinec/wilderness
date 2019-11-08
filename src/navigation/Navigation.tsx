@@ -75,7 +75,6 @@ const StackNavigator = createStackNavigator({
     headerTitleStyle: {
       color: 'black',
     },
-    headerBackImage: <Image source={arrowLeft}/>,
   },
   // cardStyle: {backgroundColor: 'rgba(255,255,255, 0.95)', opacity: 1},
   // transparentCard,

@@ -65,20 +65,4 @@ const styles = StyleSheet.create({
   toggle: {
     marginTop: 15,
   },
-  percentageText: {
-    padding: 8,
-    textAlign: 'center',
-  },
-  offlineRegionStatus: {
-    position: 'absolute',
-    bottom: 16,
-    left: 48,
-    right: 48,
-    paddingVertical: 16,
-    minHeight: 60,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'white',
-    borderRadius: 30,
-  },
 })
