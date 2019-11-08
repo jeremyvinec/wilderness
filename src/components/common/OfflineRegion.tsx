@@ -28,21 +28,31 @@ export default class OfflineRegion extends React.Component<Props, State> {
 
   render() {
     return(
-      <View style={styles.offlineManager}>
-        <TouchableOpacity onPress={this.downloadMap}>
-          <ArrowCircleDown width='22' height='22' fill='rgba(0,0,0,0.7)'/>
-          <Text>Download</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <List width='22' height='22' fill='rgba(0,0,0,0.7)'/>
-          <Text>List</Text>
-        </TouchableOpacity>
+      <View style={styles.container}>
+        <View style={styles.offlineManager}>
+          <TouchableOpacity onPress={this.downloadMap} style={styles.main_container}>
+            <ArrowCircleDown width='22' height='22' fill='rgba(0,0,0,0.7)'/>
+            <Text>Download</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.main_container}>
+            <List width='22' height='22' fill='rgba(0,0,0,0.7)'/>
+            <Text>List</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    bottom: '5%',
+  },
+  main_container: {
+    alignItems: 'center',
+  },
   percentageText: {
     padding: 8,
     textAlign: 'center',
@@ -61,14 +71,12 @@ const styles = StyleSheet.create({
   },
   offlineManager: {
     position: 'absolute',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    bottom: '5%',
-    left: '10%',
-    width: 250,
-    height: 50,
     alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    width: 200,
+    height: 50,
     backgroundColor: 'rgba(255,255,255, 0.5)',
     borderRadius: 30,
-  }
+  },
 })

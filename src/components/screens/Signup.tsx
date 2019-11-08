@@ -92,8 +92,8 @@ class Signup extends React.Component<Props, State> {
     const { user } = this.props
     return(
       <View style={styles.container}>
+        {this.displayAvatar()}
         <View style={styles.input_content}>
-          {this.displayAvatar()}
           <View style={styles.main_container}>
             <Person width='22' height='22' fill='#1F3044'/>
             <TextInput

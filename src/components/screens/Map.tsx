@@ -25,6 +25,7 @@ interface Props {
 interface State {
   followUserLocation: boolean,
   name: {},
+  user: {},
   offlineRegion: {},
   offlineRegionStatus: {},
   isOpen: boolean,

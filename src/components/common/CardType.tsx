@@ -15,7 +15,6 @@ import traffic from '../../assets/img/traffic.png'
 
 interface Props {
   updateStyleURL: (styleURL: String) => void,
-  styleURL: String
 }
 
 interface State { }
