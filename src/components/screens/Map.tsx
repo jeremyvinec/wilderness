@@ -149,10 +149,6 @@ class Map extends React.Component<Props, State> {
   Menu = () => {
     if (this.state.isOpen) {
       return(
-        <View>
-          <Altitude
-            MapboxGL={MapboxGL}
-          />
           <Menu
             onToggleCompass={this.onToggleCompass}
             onToggleUserLocation={this.onToggleUserLocation}
@@ -162,7 +158,6 @@ class Map extends React.Component<Props, State> {
             onToggleInfo={this.onToggleInfo}
             toggleMenu={this.toggleMenu}
           />
-        </View>
       )
     } else {
       return(
@@ -197,6 +192,9 @@ class Map extends React.Component<Props, State> {
               followUserMode={MapboxGL.UserTrackingModes.FollowWithHeading}
           />
         </MapboxGL.MapView>
+        <Altitude
+            MapboxGL={MapboxGL}
+        />
         {this.Menu()}
         {this.onMapChange()}
         {this.downloadMap()}
