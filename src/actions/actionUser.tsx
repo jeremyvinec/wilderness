@@ -1,6 +1,6 @@
 import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore'
-//import storage from '@react-native-firebase/storage'
+// import storage from '@react-native-firebase/storage'
 import { LOGIN, SIGNUP, UPDATE_AVATAR, UPDATE_EMAIL, UPDATE_LOCATION, UPDATE_PASSWORD, UPDATE_STYLE_URL, UPDATE_USERNAME } from './actionTypes'
 
 export const updateUsername = (username: String) => {

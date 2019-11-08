@@ -4,6 +4,7 @@ import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 
 import arrowLeft from '../assets/img/arrowLeft.png'
+import ArrowLeft from '../components/screens/ArrowLeft'
 // page
 import Info from '../components/screens/Info'
 import Login from '../components/screens/Login'
@@ -12,7 +13,6 @@ import Menu from '../components/screens/Menu'
 import Profile from '../components/screens/Profile'
 import Search from '../components/screens/Search'
 import Signup from '../components/screens/Signup'
-import ArrowLeft from '../components/screens/ArrowLeft'
 
 const SwitchNavigator = createSwitchNavigator({
   Login: {
@@ -77,8 +77,8 @@ const StackNavigator = createStackNavigator({
     },
     headerBackImage: <Image source={arrowLeft}/>,
   },
-  //cardStyle: {backgroundColor: 'rgba(255,255,255, 0.95)', opacity: 1},
-  //transparentCard,
+  // cardStyle: {backgroundColor: 'rgba(255,255,255, 0.95)', opacity: 1},
+  // transparentCard,
 })
 
 export default createAppContainer(StackNavigator)

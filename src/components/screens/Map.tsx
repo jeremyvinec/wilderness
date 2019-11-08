@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import CardType from '../common/CardType'
 import OfflineRegion from '../common/OfflineRegion'
 import Menu from './Menu'
+import Altitude from '../common/Altitude'
 
 // icons
 import ArrowUp from '../../assets/svg/ArrowUp'
@@ -46,7 +47,7 @@ class Map extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    if (this.props.location === undefined) {
+    if (this.props.location !== undefined) {
       this.setState({ followUserLocation: false})
     }
   }
@@ -148,15 +149,20 @@ class Map extends React.Component<Props, State> {
   Menu = () => {
     if (this.state.isOpen) {
       return(
-        <Menu
-          onToggleCompass={this.onToggleCompass}
-          onToggleUserLocation={this.onToggleUserLocation}
-          onToggleSearch={this.onToggleSearch}
-          onDidFinishLoadingStyle={this.onDidFinishLoadingStyle}
-          toggleMap={this.toggleMap}
-          onToggleInfo={this.onToggleInfo}
-          toggleMenu={this.toggleMenu}
-        />
+        <View>
+          <Menu
+            onToggleCompass={this.onToggleCompass}
+            onToggleUserLocation={this.onToggleUserLocation}
+            onToggleSearch={this.onToggleSearch}
+            onDidFinishLoadingStyle={this.onDidFinishLoadingStyle}
+            toggleMap={this.toggleMap}
+            onToggleInfo={this.onToggleInfo}
+            toggleMenu={this.toggleMenu}
+          />
+          <Altitude
+            MapboxGL={MapboxGL}
+          />
+        </View>
       )
     } else {
       return(
@@ -170,6 +176,7 @@ class Map extends React.Component<Props, State> {
   render() {
     const { followUserLocation } = this.state
     const { location, styleURL } = this.props.user
+    console.log(MapboxGL.locationManager._lastKnownLocation.coords)
     return (
       <View style={styles.map}>
         <MapboxGL.MapView
@@ -183,10 +190,11 @@ class Map extends React.Component<Props, State> {
         >
           <MapboxGL.UserLocation visible={followUserLocation}/>
           <MapboxGL.Camera
+              Mode='flyTo'
               zoomLevel={12}
               followUserLocation={followUserLocation}
               centerCoordinate={location}
-              //followPitch={0}
+              // followPitch={0}
               followUserMode={MapboxGL.UserTrackingModes.FollowWithHeading}
           />
         </MapboxGL.MapView>

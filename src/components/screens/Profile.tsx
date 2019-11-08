@@ -12,13 +12,13 @@ interface Props {
   email: String,
 }
 
-interface State { 
+interface State {
   login: boolean,
   activities: String,
 }
 class Profile extends React.Component<Props, State> {
 
-  constructor(props: Props){
+  constructor(props: Props) {
     super(props)
     this.state = {
       login: true,
