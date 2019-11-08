@@ -29,7 +29,8 @@ interface State {
   user: {},
   offlineRegion: {},
   offlineRegionStatus: {},
-  isOpen: boolean,
+  menuOpen: boolean,
+  downloadOpen: boolean,
   onMapChange: boolean,
 }
 class Map extends React.Component<Props, State> {
@@ -41,7 +42,8 @@ class Map extends React.Component<Props, State> {
       name: `${Date.now()}`,
       offlineRegion: null,
       offlineRegionStatus: null,
-      isOpen: true,
+      menuOpen: true,
+      downloadOpen: false,
       onMapChange: false,
     }
   }
@@ -85,7 +87,6 @@ class Map extends React.Component<Props, State> {
 
     // start download
     MapboxGL.offlineManager.createPack(options, this.onDownloadProgress)
-
   }
 
   onDownloadProgress = (offlineRegion: any, offlineRegionStatus: any) => {
@@ -125,34 +126,25 @@ class Map extends React.Component<Props, State> {
   }
 
   toggleMenu = () => {
-    this.setState({ isOpen: !this.state.isOpen })
+    this.setState({ menuOpen: !this.state.menuOpen })
   }
 
   toggleMap = () => {
     this.setState({ onMapChange: !this.state.onMapChange })
   }
 
-  downloadMap = () => {
-    const { offlineRegionStatus } = this.state
-    if (offlineRegionStatus !== null) {
-      return(
-          <OfflineRegion
-            offlineRegionStatus={offlineRegionStatus}
-            getRegionDownloadState={this.getRegionDownloadState}
-          />
-      )
-    }
-    return null
+  toggleDownload = () => {
+    this.setState({ downloadOpen: !this.state.downloadOpen })
   }
 
   Menu = () => {
-    if (this.state.isOpen) {
+    if (this.state.menuOpen) {
       return(
           <Menu
             onToggleCompass={this.onToggleCompass}
             onToggleUserLocation={this.onToggleUserLocation}
             onToggleSearch={this.onToggleSearch}
-            onDidFinishLoadingStyle={this.onDidFinishLoadingStyle}
+            toggleDownload={this.toggleDownload}
             toggleMap={this.toggleMap}
             onToggleInfo={this.onToggleInfo}
             toggleMenu={this.toggleMenu}
@@ -163,6 +155,18 @@ class Map extends React.Component<Props, State> {
         <TouchableOpacity onPress={this.toggleMenu} style={styles.arrowUp}>
           <ArrowUp width='22' height='22' fill='rgba(0,0,0,0.7)'/>
         </TouchableOpacity>
+      )
+    }
+  }
+
+  downloadMap = () => {
+    const { offlineRegionStatus } = this.state
+    if (this.state.downloadOpen) {
+      return(
+          <OfflineRegion
+            offlineRegionStatus={offlineRegionStatus}
+            getRegionDownloadState={this.getRegionDownloadState}
+          />
       )
     }
   }
@@ -195,8 +199,8 @@ class Map extends React.Component<Props, State> {
             MapboxGL={MapboxGL}
         />
         {this.Menu()}
-        {this.onMapChange()}
         {this.downloadMap()}
+        {this.onMapChange()}
       </View>
     )
   }
