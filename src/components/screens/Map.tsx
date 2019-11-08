@@ -1,7 +1,6 @@
-import geoViewport from '@mapbox/geo-viewport'
 import MapboxGL from '@react-native-mapbox-gl/maps'
 import React from 'react'
-import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation'
 import { connect } from 'react-redux'
 import Altitude from '../common/Altitude'
@@ -16,8 +15,6 @@ import config from '../../utils/config.js'
 
 MapboxGL.setAccessToken(config.get('accessToken'))
 
-const MAPBOX_VECTOR_TILE_SIZE = 512
-
 interface Props {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
   location: [],
@@ -25,10 +22,6 @@ interface Props {
 
 interface State {
   followUserLocation: boolean,
-  name: {},
-  user: {},
-  offlineRegion: {},
-  offlineRegionStatus: {},
   menuOpen: boolean,
   downloadOpen: boolean,
   onMapChange: boolean,
@@ -39,9 +32,6 @@ class Map extends React.Component<Props, State> {
     super(props)
     this.state = {
       followUserLocation: true,
-      name: `${Date.now()}`,
-      offlineRegion: null,
-      offlineRegionStatus: null,
       menuOpen: true,
       downloadOpen: false,
       onMapChange: false,
@@ -54,58 +44,8 @@ class Map extends React.Component<Props, State> {
     }
   }
 
-  componentWillUnmount() {
-    const { name } = this.state
-    MapboxGL.offlineManager.deletePack(name)
-    MapboxGL.offlineManager.unsubscribe(name)
-  }
-
   onToggleCompass = () => {
     console.log('ok')
-  }
-
-  onToggleUserLocation = () => {
-    this.setState({followUserLocation: !this.state.followUserLocation})
-  }
-
-  onDidFinishLoadingStyle = () => {
-    const { location, styleURL } = this.props.user
-    const {width, height} = Dimensions.get('window')
-    const bounds = geoViewport.bounds(
-      location,
-      12,
-      [width, height],
-      MAPBOX_VECTOR_TILE_SIZE,
-    )
-    const options = {
-      name: this.state.name,
-      styleURL,
-      bounds: [[bounds[0], bounds[1]], [bounds[2], bounds[3]]],
-      minZoom: 10,
-      maxZoom: 20,
-    }
-
-    // start download
-    MapboxGL.offlineManager.createPack(options, this.onDownloadProgress)
-  }
-
-  onDownloadProgress = (offlineRegion: any, offlineRegionStatus: any) => {
-    this.setState({
-      name: offlineRegion.name,
-      offlineRegion,
-      offlineRegionStatus,
-    })
-  }
-
-  getRegionDownloadState = (downloadState: any) => {
-    switch (downloadState) {
-      case MapboxGL.OfflinePackDownloadState.Active:
-        return 'Active'
-      case MapboxGL.OfflinePackDownloadState.Complete:
-        return 'Complete'
-      default:
-        return 'Inactive'
-    }
   }
 
   onToggleSearch = () => {
@@ -123,6 +63,10 @@ class Map extends React.Component<Props, State> {
         <CardType/>
       )
     }
+  }
+
+  onToggleUserLocation = () => {
+    this.setState({followUserLocation: !this.state.followUserLocation})
   }
 
   toggleMenu = () => {
@@ -160,12 +104,10 @@ class Map extends React.Component<Props, State> {
   }
 
   downloadMap = () => {
-    const { offlineRegionStatus } = this.state
     if (this.state.downloadOpen) {
       return(
           <OfflineRegion
-            offlineRegionStatus={offlineRegionStatus}
-            getRegionDownloadState={this.getRegionDownloadState}
+            MapboxGL={MapboxGL}
           />
       )
     }
