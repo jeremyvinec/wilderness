@@ -4,10 +4,10 @@ import React from 'react'
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation'
 import { connect } from 'react-redux'
+import Altitude from '../common/Altitude'
 import CardType from '../common/CardType'
 import OfflineRegion from '../common/OfflineRegion'
 import Menu from './Menu'
-import Altitude from '../common/Altitude'
 
 // icons
 import ArrowUp from '../../assets/svg/ArrowUp'
@@ -150,6 +150,9 @@ class Map extends React.Component<Props, State> {
     if (this.state.isOpen) {
       return(
         <View>
+          <Altitude
+            MapboxGL={MapboxGL}
+          />
           <Menu
             onToggleCompass={this.onToggleCompass}
             onToggleUserLocation={this.onToggleUserLocation}
@@ -158,9 +161,6 @@ class Map extends React.Component<Props, State> {
             toggleMap={this.toggleMap}
             onToggleInfo={this.onToggleInfo}
             toggleMenu={this.toggleMenu}
-          />
-          <Altitude
-            MapboxGL={MapboxGL}
           />
         </View>
       )
@@ -176,7 +176,6 @@ class Map extends React.Component<Props, State> {
   render() {
     const { followUserLocation } = this.state
     const { location, styleURL } = this.props.user
-    console.log(MapboxGL.locationManager._lastKnownLocation.coords)
     return (
       <View style={styles.map}>
         <MapboxGL.MapView
