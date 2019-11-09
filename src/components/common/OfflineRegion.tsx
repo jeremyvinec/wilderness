@@ -2,6 +2,7 @@ import geoViewport from '@mapbox/geo-viewport'
 import React from 'react'
 import { Alert, Dimensions, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { connect } from 'react-redux'
+import DownloadItem from './DownloadItem'
 
 import ArrowCircleDown from '../../assets/svg/ArrowCircleDown'
 import List from '../../assets/svg/List'
@@ -134,21 +135,7 @@ class OfflineRegion extends React.Component<Props, State> {
             transparent={true}
             visible={visibleDownload}
           >
-            <View style={styles.modal}>
-              <View style={styles.newRegion}>
-                <Text>Name new region</Text>
-                <TextInput
-                  style={styles.inputBox}
-                  placeholder='Try "Hautes Alpes"'
-                  autoCapitalize='none'
-                  onChangeText={this.loadCities}
-                  autoCorrect={false}
-                />
-                <TouchableOpacity style={styles.button}>
-                  <Text style={styles.buttonText}>Validate</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
+            <DownloadItem/>
           </Modal>
           <Modal
             animationType='slide'
@@ -201,25 +188,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: 'rgba(255,255,255, 0.5)',
     borderRadius: 30,
-  },
-  modal: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  newRegion: {
-    borderRadius: 10,
-    width: 250,
-    height: 150,
-    backgroundColor: 'rgba(255,255,255, 0.5)',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  button: {
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: '#2BB573',
   },
 })
 
