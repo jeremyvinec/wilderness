@@ -1,6 +1,6 @@
 import geoViewport from '@mapbox/geo-viewport'
 import React from 'react'
-import { Alert, Dimensions, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Dimensions, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { connect } from 'react-redux'
 import DownloadItem from './DownloadItem'
 
@@ -13,12 +13,12 @@ interface Props {
   offlineRegionStatus: {},
   getRegionDownloadState: () => void,
   MapboxGL: {},
+  user: { location: [], styleURL: String, name: String },
 }
 
 interface State {
   toggleDownload: boolean,
   toggleList: boolean,
-  name: {},
   offlineRegion: {},
   offlineRegionStatus: {},
   visibleDownload: boolean,
@@ -32,7 +32,6 @@ class OfflineRegion extends React.Component<Props, State> {
     this.state = {
       toggleDownload: false,
       toggleList: false,
-      name: `${Date.now()}`,
       offlineRegion: null,
       offlineRegionStatus: null,
       visibleDownload: false,
@@ -41,7 +40,7 @@ class OfflineRegion extends React.Component<Props, State> {
   }
 
   componentWillUnmount() {
-    const { name } = this.state
+    const { name } = this.props.user
     const { MapboxGL } = this.props
     MapboxGL.offlineManager.deletePack(name)
     MapboxGL.offlineManager.unsubscribe(name)
@@ -56,7 +55,7 @@ class OfflineRegion extends React.Component<Props, State> {
   }
 
   onDidFinishLoadingStyle = () => {
-    const { location, styleURL } = this.props.user
+    const { location, styleURL, name } = this.props.user
     const {width, height} = Dimensions.get('window')
     const { MapboxGL } = this.props
     const bounds = geoViewport.bounds(
@@ -66,7 +65,7 @@ class OfflineRegion extends React.Component<Props, State> {
       MAPBOX_VECTOR_TILE_SIZE,
     )
     const options = {
-      name: this.state.name,
+      name,
       styleURL,
       bounds: [[bounds[0], bounds[1]], [bounds[2], bounds[3]]],
       minZoom: 10,
@@ -79,7 +78,6 @@ class OfflineRegion extends React.Component<Props, State> {
 
   onDownloadProgress = (offlineRegion: any, offlineRegionStatus: any) => {
     this.setState({
-      name: offlineRegion.name,
       offlineRegion,
       offlineRegionStatus,
     })

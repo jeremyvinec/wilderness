@@ -1,13 +1,22 @@
 import React from 'react'
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { updateNameRegion } from '../../actions/actionUser'
 
 interface Props {
   setModalVisibleDownload: () => void,
+  updateNameRegion: (name: String) => void,
 }
 
 interface State { }
 
-export default class DownloadItem extends React.Component<Props, State> {
+class DownloadItem extends React.Component<Props, State> {
+
+  updateNameRegion = (name: String) => {
+    this.props.updateNameRegion(name)
+  }
+
   render() {
     const { setModalVisibleDownload } = this.props
     return(
@@ -19,7 +28,7 @@ export default class DownloadItem extends React.Component<Props, State> {
                 style={styles.inputBox}
                 placeholder='Try "Hautes Alpes"'
                 autoCapitalize='none'
-                onChangeText={this.loadCities}
+                onChangeText={this.updateNameRegion}
                 autoCorrect={false}
               />
             </View>
@@ -27,7 +36,7 @@ export default class DownloadItem extends React.Component<Props, State> {
               <TouchableOpacity style={styles.button} onPress={setModalVisibleDownload}>
                 <Text style={styles.buttonText}>Cancel</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.button}>
+              <TouchableOpacity style={styles.button} onPress={setModalVisibleDownload}>
                 <Text style={styles.buttonText}>Validate</Text>
               </TouchableOpacity>
             </View>
@@ -63,3 +72,15 @@ const styles = StyleSheet.create({
     color: '#2BB573',
   },
 })
+
+const mapDispatchToProps = (dispatch: any) => {
+  return bindActionCreators({ updateNameRegion }, dispatch)
+}
+
+const mapStateToProps = (state: any) => {
+  return{
+    user: state.user,
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DownloadItem)
