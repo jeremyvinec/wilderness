@@ -117,7 +117,7 @@ class OfflineRegion extends React.Component<Props, State> {
   }
 
   setModalVisibleDownload = () => {
-    this.setState({ visibleDownload: true })
+    this.setState({ visibleDownload: !this.state.visibleDownload })
   }
 
   render() {
@@ -131,11 +131,14 @@ class OfflineRegion extends React.Component<Props, State> {
               <List width='22' height='22' fill='rgba(0,0,0,0.7)'/>
           </TouchableOpacity>
           <Modal
+            onRequestClose={this.setModalVisibleDownload}
             animationType='fade'
             transparent={true}
             visible={visibleDownload}
           >
-            <DownloadItem/>
+            <DownloadItem
+              setModalVisibleDownload={this.setModalVisibleDownload}
+            />
           </Modal>
           <Modal
             animationType='slide'
