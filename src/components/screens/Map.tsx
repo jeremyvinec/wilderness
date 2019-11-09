@@ -3,6 +3,8 @@ import React from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { updateLocation } from '../../actions/actionUser'
 import Altitude from '../common/Altitude'
 import CardType from '../common/CardType'
 import OfflineRegion from '../common/OfflineRegion'
@@ -18,6 +20,7 @@ MapboxGL.setAccessToken(config.get('accessToken'))
 interface Props {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
   location: [],
+  updateLocation: (location: String) => void,
 }
 
 interface State {
@@ -27,6 +30,10 @@ interface State {
   onMapChange: boolean,
 }
 class Map extends React.Component<Props, State> {
+
+  private updateLocation = (location: String) => {
+    this.props.updateLocation(location)
+  }
 
   constructor(props: Props) {
     super(props)
@@ -38,10 +45,15 @@ class Map extends React.Component<Props, State> {
     }
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     if (this.props.location !== undefined) {
       this.setState({ followUserLocation: false})
     }
+  }
+
+  onRegionDidChange = (regionFeature) => {
+    const location = regionFeature.geometry.coordinates
+    this.updateLocation(location)
   }
 
   onToggleCompass = () => {
@@ -116,6 +128,8 @@ class Map extends React.Component<Props, State> {
   render() {
     const { followUserLocation } = this.state
     const { location, styleURL } = this.props.user
+    console.log(location)
+    //console.log(MapboxGL)
     return (
       <View style={styles.map}>
         <MapboxGL.MapView
@@ -126,6 +140,7 @@ class Map extends React.Component<Props, State> {
           logoEnabled={false}
           compassEnabled={false}
           attributionEnabled={false}
+          onRegionDidChange={this.onRegionDidChange}
         >
           <MapboxGL.UserLocation visible={followUserLocation}/>
           <MapboxGL.Camera
@@ -165,10 +180,14 @@ const styles = StyleSheet.create({
   },
 })
 
+const mapDispatchToProps = (dispatch: any) => {
+  return bindActionCreators({ updateLocation }, dispatch)
+}
+
 const mapStateToProps = (state: any) => {
   return{
     user: state.user,
   }
 }
 
-export default connect(mapStateToProps)(Map)
+export default connect(mapStateToProps, mapDispatchToProps)(Map)

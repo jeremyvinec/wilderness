@@ -9,13 +9,13 @@ import Pin from '../../assets/svg/Pin'
 interface Props {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
   data: [],
-  updateLocation: (location: String) => void,
+  updateLocation: (location: []) => void,
 }
 
 interface State { }
 class CitiesItem extends React.Component<Props, State> {
 
-  private updateLocation = (location: String) => {
+  private updateLocation = (location: []) => {
     this.props.updateLocation(location)
   }
 

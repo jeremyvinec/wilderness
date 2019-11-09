@@ -1,6 +1,7 @@
 import geoViewport from '@mapbox/geo-viewport'
 import React from 'react'
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { connect } from 'react-redux'
 
 import ArrowCircleDown from '../../assets/svg/ArrowCircleDown'
 import List from '../../assets/svg/List'
@@ -17,11 +18,11 @@ interface State {
   toggleDownload: boolean,
   toggleList: boolean,
   name: {},
-  offlineRegion: null,
-  offlineRegionStatus: null,
+  offlineRegion: {},
+  offlineRegionStatus: {},
 }
 
-export default class OfflineRegion extends React.Component<Props, State> {
+class OfflineRegion extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props)
@@ -80,6 +81,7 @@ export default class OfflineRegion extends React.Component<Props, State> {
 
   getRegionDownloadState = (downloadState: any) => {
     const { MapboxGL } = this.props
+    console.log(downloadState)
     switch (downloadState) {
       case MapboxGL.OfflinePackDownloadState.Active:
         return 'Active'
@@ -92,15 +94,15 @@ export default class OfflineRegion extends React.Component<Props, State> {
 
   downloadMap = () => {
     const { offlineRegionStatus } = this.state
-    if (this.state.toggleDownload) {
+    if (this.state.offlineRegionStatus) {
       return(
-        <View style={styles.offlineRegionStatus}>
+          <TouchableOpacity style={styles.offlineRegionStatus}>
               <Text>
               Download State:{' '}
               {this.getRegionDownloadState(offlineRegionStatus.state)}
               </Text>
               <Text style={styles.percentageText}>Download Percent: {offlineRegionStatus.percentage} </Text>
-          </View>
+          </TouchableOpacity>
       )
     }
   }
@@ -108,13 +110,15 @@ export default class OfflineRegion extends React.Component<Props, State> {
   render() {
     return(
       <View style={styles.container}>
-        <TouchableOpacity onPress={this.toggleDownload} style={styles.main_container}>
+        <TouchableOpacity onPress={this.onDidFinishLoadingStyle} style={styles.main_container}>
             <ArrowCircleDown width='22' height='22' fill='rgba(0,0,0,0.7)'/>
           </TouchableOpacity>
           <TouchableOpacity style={styles.main_container}>
             <List width='22' height='22' fill='rgba(0,0,0,0.7)'/>
         </TouchableOpacity>
+        <View>
         {this.downloadMap()}
+        </View>
       </View>
     )
   }
@@ -152,3 +156,11 @@ const styles = StyleSheet.create({
     borderRadius: 30,
   },
 })
+
+const mapStateToProps = (state: any) => {
+  return{
+    user: state.user,
+  }
+}
+
+export default connect(mapStateToProps)(OfflineRegion)
