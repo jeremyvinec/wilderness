@@ -128,8 +128,6 @@ class Map extends React.Component<Props, State> {
   render() {
     const { followUserLocation } = this.state
     const { location, styleURL } = this.props.user
-    console.log(location)
-    //console.log(MapboxGL)
     return (
       <View style={styles.map}>
         <MapboxGL.MapView

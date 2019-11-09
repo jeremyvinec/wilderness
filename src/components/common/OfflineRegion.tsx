@@ -1,6 +1,6 @@
 import geoViewport from '@mapbox/geo-viewport'
 import React from 'react'
-import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, Dimensions, Modal, StyleSheet, Text, TouchableOpacity, View, TextInput } from 'react-native'
 import { connect } from 'react-redux'
 
 import ArrowCircleDown from '../../assets/svg/ArrowCircleDown'
@@ -20,6 +20,8 @@ interface State {
   name: {},
   offlineRegion: {},
   offlineRegionStatus: {},
+  visibleDownload: boolean,
+  visibleList: boolean,
 }
 
 class OfflineRegion extends React.Component<Props, State> {
@@ -32,6 +34,8 @@ class OfflineRegion extends React.Component<Props, State> {
       name: `${Date.now()}`,
       offlineRegion: null,
       offlineRegionStatus: null,
+      visibleDownload: false,
+      visibleList: false,
     }
   }
 
@@ -53,6 +57,7 @@ class OfflineRegion extends React.Component<Props, State> {
   onDidFinishLoadingStyle = () => {
     const { location, styleURL } = this.props.user
     const {width, height} = Dimensions.get('window')
+    const { MapboxGL } = this.props
     const bounds = geoViewport.bounds(
       location,
       12,
@@ -81,7 +86,6 @@ class OfflineRegion extends React.Component<Props, State> {
 
   getRegionDownloadState = (downloadState: any) => {
     const { MapboxGL } = this.props
-    console.log(downloadState)
     switch (downloadState) {
       case MapboxGL.OfflinePackDownloadState.Active:
         return 'Active'
@@ -107,33 +111,63 @@ class OfflineRegion extends React.Component<Props, State> {
     }
   }
 
+  setModalVisibleList = () => {
+    this.setState({ visibleList: true })
+  }
+
+  setModalVisibleDownload = () => {
+    this.setState({ visibleDownload: true })
+  }
+
   render() {
+    const { visibleDownload, visibleList } = this.state
     return(
-      <View style={styles.container}>
-        <TouchableOpacity onPress={this.onDidFinishLoadingStyle} style={styles.main_container}>
-            <ArrowCircleDown width='22' height='22' fill='rgba(0,0,0,0.7)'/>
+        <View style={styles.offlineManager}>
+          <TouchableOpacity style={styles.main_container}  onPress={this.setModalVisibleDownload}>
+              <ArrowCircleDown width='22' height='22' fill='rgba(0,0,0,0.7)'/>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.main_container} onPress={this.setModalVisibleList}>
+              <List width='22' height='22' fill='rgba(0,0,0,0.7)'/>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.main_container}>
-            <List width='22' height='22' fill='rgba(0,0,0,0.7)'/>
-        </TouchableOpacity>
-        <View>
-        {this.downloadMap()}
+          <Modal
+            animationType='fade'
+            transparent={true}
+            visible={visibleDownload}
+          >
+            <View style={styles.modal}>
+              <View style={styles.newRegion}>
+                <Text>Name new region</Text>
+                <TextInput
+                  style={styles.inputBox}
+                  placeholder='Try "Hautes Alpes"'
+                  autoCapitalize='none'
+                  onChangeText={this.loadCities}
+                  autoCorrect={false}
+                />
+              </View>
+            </View>
+          </Modal>
+          <Modal
+            animationType='slide'
+            transparent={false}
+            visible={visibleList}
+          >
+            <TextInput
+              style={styles.inputBox}
+              placeholder='Try "Gap"'
+              autoCapitalize='none'
+              onChangeText={this.loadCities}
+              autoCorrect={false}
+            />
+          </Modal>
         </View>
-      </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'rgba(255,255,255, 0.5)',
-    borderRadius: 10,
-    position: 'absolute',
-    top: '20%',
-    right: '5%',
-    width: 30,
-    height: 90,
-    alignItems: 'center',
+    flex: 1,
   },
   main_container: {
     alignItems: 'center',
@@ -142,6 +176,16 @@ const styles = StyleSheet.create({
   percentageText: {
     padding: 8,
     textAlign: 'center',
+  },
+  offlineManager: {
+    backgroundColor: 'rgba(255,255,255, 0.5)',
+    borderRadius: 10,
+    position: 'absolute',
+    top: '20%',
+    right: '5%',
+    width: 30,
+    height: 90,
+    alignItems: 'center',
   },
   offlineRegionStatus: {
     position: 'absolute',
@@ -154,6 +198,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: 'rgba(255,255,255, 0.5)',
     borderRadius: 30,
+  },
+  modal: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  newRegion: {
+    borderRadius: 10,
+    width: 250,
+    height: 150,
+    backgroundColor: 'rgba(255,255,255, 0.5)',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 })
 
