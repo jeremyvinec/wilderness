@@ -10,7 +10,7 @@ interface State { }
 export default class Altitude extends React.Component<Props, State> {
   render() {
     const { MapboxGL } = this.props
-    //console.log(MapboxGL.locationManager._lastKnownLocation.coords)
+    // console.log(MapboxGL.locationManager._lastKnownLocation.coords)
     return(
         <View style={styles.container}>
             <AltitudeIcon width='22' height='22' fill='rgba(0,0,0,0.7)'/>

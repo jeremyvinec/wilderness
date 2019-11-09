@@ -1,6 +1,6 @@
 import geoViewport from '@mapbox/geo-viewport'
 import React from 'react'
-import { Alert, Dimensions, Modal, StyleSheet, Text, TouchableOpacity, View, TextInput } from 'react-native'
+import { Alert, Dimensions, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { connect } from 'react-redux'
 
 import ArrowCircleDown from '../../assets/svg/ArrowCircleDown'
@@ -144,6 +144,9 @@ class OfflineRegion extends React.Component<Props, State> {
                   onChangeText={this.loadCities}
                   autoCorrect={false}
                 />
+                <TouchableOpacity style={styles.button}>
+                  <Text style={styles.buttonText}>Validate</Text>
+                </TouchableOpacity>
               </View>
             </View>
           </Modal>
@@ -211,6 +214,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255, 0.5)',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  button: {
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#2BB573',
   },
 })
 
