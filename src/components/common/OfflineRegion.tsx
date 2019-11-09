@@ -1,8 +1,9 @@
 import geoViewport from '@mapbox/geo-viewport'
 import React from 'react'
-import { Dimensions, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Dimensions, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { connect } from 'react-redux'
 import DownloadItem from './DownloadItem'
+import ListItem from './ListItem'
 
 import ArrowCircleDown from '../../assets/svg/ArrowCircleDown'
 import List from '../../assets/svg/List'
@@ -139,17 +140,11 @@ class OfflineRegion extends React.Component<Props, State> {
             />
           </Modal>
           <Modal
-            animationType='slide'
-            transparent={false}
+            animationType='fade'
+            transparent={true}
             visible={visibleList}
           >
-            <TextInput
-              style={styles.inputBox}
-              placeholder='Try "Gap"'
-              autoCapitalize='none'
-              onChangeText={this.loadCities}
-              autoCorrect={false}
-            />
+            <ListItem/>
           </Modal>
         </View>
     )
