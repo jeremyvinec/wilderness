@@ -3,7 +3,7 @@ import React from 'react'
 import { Dimensions, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { connect } from 'react-redux'
 import DownloadItem from './DownloadItem'
-import ListItem from './ListItem'
+import DownloadList from './DownloadList'
 
 import ArrowCircleDown from '../../assets/svg/ArrowCircleDown'
 import List from '../../assets/svg/List'
@@ -144,7 +144,9 @@ class OfflineRegion extends React.Component<Props, State> {
             transparent={true}
             visible={visibleList}
           >
-            <ListItem/>
+            <DownloadList
+              setModalVisibleDownload={this.setModalVisibleDownload}
+            />
           </Modal>
         </View>
     )

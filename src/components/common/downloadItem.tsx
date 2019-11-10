@@ -37,7 +37,7 @@ class DownloadItem extends React.Component<Props, State> {
                 <Text style={styles.buttonText}>Cancel</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.button} onPress={setModalVisibleDownload}>
-                <Text style={styles.buttonText}>Validate</Text>
+                <Text style={styles.buttonText}>Download</Text>
               </TouchableOpacity>
             </View>
           </View>
