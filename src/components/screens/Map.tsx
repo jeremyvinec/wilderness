@@ -138,7 +138,7 @@ class Map extends React.Component<Props, State> {
           logoEnabled={false}
           compassEnabled={false}
           attributionEnabled={false}
-          //onRegionDidChange={this.onRegionDidChange}
+          // onRegionDidChange={this.onRegionDidChange}
         >
           <MapboxGL.UserLocation visible={followUserLocation}/>
           <MapboxGL.Camera
