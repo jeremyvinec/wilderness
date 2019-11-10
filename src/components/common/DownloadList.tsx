@@ -21,17 +21,17 @@ class DownloadList extends React.Component<Props, State> {
     }
   }
 
-  selectItem = () => {
+  selectItem(item) {
     this.setState({ isSelected: !this.state.isSelected })
-    this.state.selectedClass = this.state.isSelected ? styles.list : styles.selected
+    this.state.selectedClass = this.state.isSelected ? styles.item : styles.selected
   }
 
   FlatListItemSeparator = () => <View style={styles.line}/>
 
   renderItem = ({index, item}: any) => {
-    console.log(this.state.selectedClass)
     return(
-      <TouchableOpacity onPress={this.selectItem}>
+      // tslint:disable-next-line:jsx-no-lambda
+      <TouchableOpacity onPress={() => this.selectItem(item)}>
         <Text style={[styles.item, this.state.selectedClass]}>{item}</Text>
       </TouchableOpacity>
     )

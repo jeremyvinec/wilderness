@@ -2,7 +2,7 @@ import geoViewport from '@mapbox/geo-viewport'
 import React from 'react'
 import { Dimensions, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { connect } from 'react-redux'
-import DownloadItem from './DownloadItem'
+import NameRegion from './NameRegion'
 import DownloadList from './DownloadList'
 
 import ArrowCircleDown from '../../assets/svg/ArrowCircleDown'
@@ -135,8 +135,18 @@ class OfflineRegion extends React.Component<Props, State> {
             transparent={true}
             visible={visibleDownload}
           >
-            <DownloadItem
+            <NameRegion
               setModalVisibleDownload={this.setModalVisibleDownload}
+              toggleDownload={this.toggleDownload}
+            />
+          </Modal>
+          <Modal
+            animationType='fade'
+            transparent={true}
+            visible={visibleList}
+          >
+            <DownloadList
+              setModalVisibleList={this.setModalVisibleList}
             />
           </Modal>
           <Modal

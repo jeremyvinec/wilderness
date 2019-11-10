@@ -13,7 +13,7 @@ interface State {
   nameRegion: String,
 }
 
-class DownloadItem extends React.Component<Props, State> {
+class NameRegion extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props)
@@ -29,6 +29,8 @@ class DownloadItem extends React.Component<Props, State> {
 
   insertNameRegion = () => {
     this.props.insertNameRegion(this.state.nameRegion)
+    this.props.toggleDownload()
+    this.props.setModalVisibleDownload()
   }
 
   render() {
@@ -37,7 +39,7 @@ class DownloadItem extends React.Component<Props, State> {
         <View style={styles.modal}>
           <View style={styles.newRegion}>
             <View style={styles.header_container}>
-              <Text>Name new region</Text>
+              <Text>Insert new region</Text>
               <TextInput
                 style={styles.inputBox}
                 placeholder='Try "Hautes Alpes"'
@@ -76,8 +78,8 @@ const styles = StyleSheet.create({
   },
   newRegion: {
     borderRadius: 10,
-    width: 250,
-    height: 150,
+    width: 200,
+    height: 100,
     backgroundColor: 'rgba(255,255,255, 0.5)',
     justifyContent: 'center',
   },
@@ -97,4 +99,4 @@ const mapStateToProps = (state: any) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DownloadItem)
+export default connect(mapStateToProps, mapDispatchToProps)(NameRegion)
