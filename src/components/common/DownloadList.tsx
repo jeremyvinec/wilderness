@@ -23,7 +23,7 @@ class DownloadList extends React.Component<Props, State> {
 
   selectItem = () => {
     this.setState({ isSelected: !this.state.isSelected })
-    this.state.selectedClass = this.state.isSelected ? styles.selected : styles.list
+    this.state.selectedClass = this.state.isSelected ? styles.list : styles.selected
   }
 
   FlatListItemSeparator = () => <View style={styles.line}/>
@@ -31,8 +31,8 @@ class DownloadList extends React.Component<Props, State> {
   renderItem = ({index, item}: any) => {
     console.log(this.state.selectedClass)
     return(
-      <TouchableOpacity style={[styles.list, this.state.selectedClass]} onPress={this.selectItem}>
-        <Text style={styles.textItem}>{item}</Text>
+      <TouchableOpacity onPress={this.selectItem}>
+        <Text style={[styles.item, this.state.selectedClass]}>{item}</Text>
       </TouchableOpacity>
     )
   }
@@ -47,7 +47,6 @@ class DownloadList extends React.Component<Props, State> {
                 </View>
                 <View style={styles.main_container}>
                   <FlatList
-                    style={styles.list}
                     data={offlineRegion}
                     ItemSeparatorComponent={this.FlatListItemSeparator}
                     renderItem={this.renderItem}
@@ -94,23 +93,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     textAlign: 'center',
   },
-  list: {
-    flex: 1,
-  },
   buttonText: {
     textAlign: 'center',
     color: '#2BB573',
   },
   item: {
-    alignItems: 'center',
+    textAlign: 'center',
+    textTransform: 'uppercase',
     margin: 5,
   },
-  textItem: {
-    //color: '#fff',
-  },
   selected: {
-    backgroundColor: '#2BB573',
-    borderRadius: 10,
+    color: '#2BB573',
   },
   line: {
     height: 0.5,
