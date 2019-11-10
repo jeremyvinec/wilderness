@@ -22,7 +22,7 @@ class DownloadList extends React.Component<Props, State> {
   }
 
   render() {
-    const { setModalVisibleList } = this.props
+    const { setModalVisibleList, nameRegion } = this.props
     console.log(this.props)
     return(
         <View style={styles.modal}>
@@ -33,7 +33,7 @@ class DownloadList extends React.Component<Props, State> {
                 <View style={styles.main_container}>
                   <FlatList
                     style={styles.list}
-                    data={name}
+                    data={nameRegion}
                     renderItem={this.renderItem}
                   />
                 </View>
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: any) => {
   return{
-    nameRegion: state.nameRegion,
+    offlineRegion: state.offlineRegion,
   }
 }
 

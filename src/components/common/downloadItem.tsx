@@ -9,7 +9,7 @@ interface Props {
   insertNameRegion: (nameRegion: String) => void,
 }
 
-interface State { 
+interface State {
   nameRegion: String,
 }
 
@@ -23,6 +23,7 @@ class DownloadItem extends React.Component<Props, State> {
   }
 
   updateNameRegion = (nameRegion: String) => {
+    console.log(nameRegion)
     this.setState({ nameRegion })
   }
 
@@ -92,7 +93,7 @@ const mapDispatchToProps = (dispatch: any) => {
 
 const mapStateToProps = (state: any) => {
   return{
-    nameRegion: state.nameRegion,
+    offlineRegion: state.offlineRegion,
   }
 }
 
