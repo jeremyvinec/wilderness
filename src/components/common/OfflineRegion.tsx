@@ -3,6 +3,7 @@ import React from 'react'
 import { Dimensions, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { connect } from 'react-redux'
 import DownloadList from './DownloadList'
+import MapSnap from './MapSnap'
 import NameRegion from './NameRegion'
 
 import ArrowCircleDown from '../../assets/svg/ArrowCircleDown'
@@ -45,14 +46,6 @@ class OfflineRegion extends React.Component<Props, State> {
     const { MapboxGL } = this.props
     MapboxGL.offlineManager.deletePack(name)
     MapboxGL.offlineManager.unsubscribe(name)
-  }
-
-  toggleDownload = () => {
-    this.setState({ toggleDownload: !this.state.toggleDownload })
-  }
-
-  toggleList = () => {
-    this.setState({ toggleList: !this.state.toggleList })
   }
 
   onDidFinishLoadingStyle = () => {
@@ -119,8 +112,16 @@ class OfflineRegion extends React.Component<Props, State> {
     this.setState({ visibleDownload: !this.state.visibleDownload })
   }
 
+  toggleDownload = () => {
+    this.setState({ toggleDownload: !this.state.toggleDownload })
+  }
+
+  toggleList = () => {
+    this.setState({ toggleList: !this.state.toggleList })
+  }
+
   render() {
-    const { visibleDownload, visibleList } = this.state
+    const { visibleDownload, visibleList, toggleDownload } = this.state
     return(
         <View style={styles.offlineManager}>
           <TouchableOpacity style={styles.main_container}  onPress={this.setModalVisibleDownload}>
@@ -130,7 +131,6 @@ class OfflineRegion extends React.Component<Props, State> {
               <List width='22' height='22' fill='rgba(0,0,0,0.7)'/>
           </TouchableOpacity>
           <Modal
-            onRequestClose={this.setModalVisibleDownload}
             animationType='fade'
             transparent={true}
             visible={visibleDownload}
@@ -152,10 +152,10 @@ class OfflineRegion extends React.Component<Props, State> {
           <Modal
             animationType='fade'
             transparent={true}
-            visible={visibleList}
+            visible={toggleDownload}
           >
-            <DownloadList
-              setModalVisibleList={this.setModalVisibleList}
+            <MapSnap
+              toggleDownload={this.toggleDownload}
             />
           </Modal>
         </View>

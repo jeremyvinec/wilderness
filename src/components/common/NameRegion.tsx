@@ -6,6 +6,7 @@ import { insertNameRegion } from '../../actions/actionUser'
 
 interface Props {
   setModalVisibleDownload: () => void,
+  toggleDownload: () => void,
   insertNameRegion: (nameRegion: String) => void,
 }
 
