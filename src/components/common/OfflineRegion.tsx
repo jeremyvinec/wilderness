@@ -112,7 +112,7 @@ class OfflineRegion extends React.Component<Props, State> {
   }
 
   setModalVisibleList = () => {
-    this.setState({ visibleList: true })
+    this.setState({ visibleList: !this.state.visibleList })
   }
 
   setModalVisibleDownload = () => {
@@ -145,7 +145,7 @@ class OfflineRegion extends React.Component<Props, State> {
             visible={visibleList}
           >
             <DownloadList
-              setModalVisibleDownload={this.setModalVisibleDownload}
+              setModalVisibleList={this.setModalVisibleList}
             />
           </Modal>
         </View>

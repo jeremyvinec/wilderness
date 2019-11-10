@@ -3,7 +3,8 @@ import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native
 import { connect } from 'react-redux'
 
 interface Props {
-  user: { name: String },
+  setModalVisibleList: () => void,
+  nameRegion: [],
 }
 
 interface State {
@@ -11,14 +12,18 @@ interface State {
 }
 class DownloadList extends React.Component<Props, State> {
 
-  renderItem = ({item}: any) => {
+  renderItem = ({index, item}: any) => {
+    console.log(item)
     return(
-      <Text></Text>
+      <TouchableOpacity style={styles.item}>
+        <Text style={styles.textItem}>{item}</Text>
+      </TouchableOpacity>
     )
   }
 
   render() {
-    const { name } = this.props.user
+    const { setModalVisibleList } = this.props
+    console.log(this.props)
     return(
         <View style={styles.modal}>
             <View style={styles.newRegion}>
@@ -32,14 +37,14 @@ class DownloadList extends React.Component<Props, State> {
                     renderItem={this.renderItem}
                   />
                 </View>
-                <View>
-                  <TouchableOpacity style={styles.button} onPress={setModalVisibleDownload}>
+                <View style={styles.main_container}>
+                  <TouchableOpacity style={styles.button} onPress={setModalVisibleList}>
                     <Text style={styles.buttonText}>Delete</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.button} onPress={setModalVisibleDownload}>
+                  <TouchableOpacity style={styles.button} onPress={setModalVisibleList}>
                     <Text style={styles.buttonText}>Cancel</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.button} onPress={setModalVisibleDownload}>
+                  <TouchableOpacity style={styles.button} onPress={setModalVisibleList}>
                     <Text style={styles.buttonText}>Navigate to</Text>
                   </TouchableOpacity>
                 </View>
@@ -55,29 +60,38 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  main_container: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
   newRegion: {
     borderRadius: 10,
     width: 200,
     height: 150,
     backgroundColor: 'rgba(255,255,255, 0.5)',
-    //justifyContent: 'center',
+    justifyContent: 'space-around',
   },
   header_container: {
     alignItems: 'center',
     textAlign: 'center',
   },
-  main_container: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
   list: {
     flex: 1,
+  },
+  buttonText: {
+    textAlign: 'center',
+    color: '#2BB573',
+  },
+  item: {
+    alignItems: 'center',
+  },
+  textItem: {
   },
 })
 
 const mapStateToProps = (state: any) => {
   return{
-    user: state.user,
+    nameRegion: state.nameRegion,
   }
 }
 

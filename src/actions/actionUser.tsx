@@ -1,7 +1,7 @@
 import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore'
 // import storage from '@react-native-firebase/storage'
-import { LOGIN, SIGNUP, UPDATE_AVATAR, UPDATE_EMAIL, UPDATE_LOCATION, UPDATE_NAME_REGION, UPDATE_PASSWORD, UPDATE_STYLE_URL, UPDATE_USERNAME } from './actionTypes'
+import { INSERT_NAME_REGION, LOGIN, SIGNUP, UPDATE_AVATAR, UPDATE_EMAIL, UPDATE_LOCATION, UPDATE_PASSWORD, UPDATE_STYLE_URL, UPDATE_USERNAME } from './actionTypes'
 
 export const updateUsername = (username: String) => {
   return {
@@ -45,10 +45,10 @@ export const updateLocation = (location: String) => {
   }
 }
 
-export const updateNameRegion = (name: String) => {
+export const insertNameRegion = (nameRegion: String) => {
   return{
-    type: UPDATE_NAME_REGION,
-    playload: name,
+    type: INSERT_NAME_REGION,
+    playload: nameRegion,
   }
 }
 

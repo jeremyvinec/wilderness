@@ -2,19 +2,32 @@ import React from 'react'
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { updateNameRegion } from '../../actions/actionUser'
+import { insertNameRegion } from '../../actions/actionUser'
 
 interface Props {
   setModalVisibleDownload: () => void,
-  updateNameRegion: (name: String) => void,
+  insertNameRegion: (nameRegion: String) => void,
 }
 
-interface State { }
+interface State { 
+  nameRegion: String,
+}
 
 class DownloadItem extends React.Component<Props, State> {
 
-  updateNameRegion = (name: String) => {
-    this.props.updateNameRegion(name)
+  constructor(props: Props) {
+    super(props)
+    this.state = {
+      nameRegion: '',
+    }
+  }
+
+  updateNameRegion = (nameRegion: String) => {
+    this.setState({ nameRegion })
+  }
+
+  insertNameRegion = () => {
+    this.props.insertNameRegion(this.state.nameRegion)
   }
 
   render() {
@@ -36,7 +49,7 @@ class DownloadItem extends React.Component<Props, State> {
               <TouchableOpacity style={styles.button} onPress={setModalVisibleDownload}>
                 <Text style={styles.buttonText}>Cancel</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.button} onPress={setModalVisibleDownload}>
+              <TouchableOpacity style={styles.button} onPress={this.insertNameRegion}>
                 <Text style={styles.buttonText}>Download</Text>
               </TouchableOpacity>
             </View>
@@ -74,12 +87,12 @@ const styles = StyleSheet.create({
 })
 
 const mapDispatchToProps = (dispatch: any) => {
-  return bindActionCreators({ updateNameRegion }, dispatch)
+  return bindActionCreators({ insertNameRegion }, dispatch)
 }
 
 const mapStateToProps = (state: any) => {
   return{
-    user: state.user,
+    nameRegion: state.nameRegion,
   }
 }
 
