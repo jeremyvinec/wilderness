@@ -4,26 +4,41 @@ import { connect } from 'react-redux'
 
 interface Props {
   setModalVisibleList: () => void,
-  nameRegion: [],
+  offlineRegion: [],
 }
 
 interface State {
-  dataSource: {},
+  isSelected: boolean,
+  selectedClass: {},
 }
 class DownloadList extends React.Component<Props, State> {
 
+  constructor(props: Props) {
+    super(props)
+    this.state = {
+      isSelected: false,
+      selectedClass: {},
+    }
+  }
+
+  selectItem = () => {
+    this.setState({ isSelected: !this.state.isSelected })
+    this.state.selectedClass = this.state.isSelected ? styles.selected : styles.list
+  }
+
+  FlatListItemSeparator = () => <View style={styles.line}/>
+
   renderItem = ({index, item}: any) => {
-    console.log(item)
+    console.log(this.state.selectedClass)
     return(
-      <TouchableOpacity style={styles.item}>
+      <TouchableOpacity style={[styles.list, this.state.selectedClass]} onPress={this.selectItem}>
         <Text style={styles.textItem}>{item}</Text>
       </TouchableOpacity>
     )
   }
 
   render() {
-    const { setModalVisibleList, nameRegion } = this.props
-    console.log(this.props)
+    const { setModalVisibleList, offlineRegion } = this.props
     return(
         <View style={styles.modal}>
             <View style={styles.newRegion}>
@@ -33,8 +48,11 @@ class DownloadList extends React.Component<Props, State> {
                 <View style={styles.main_container}>
                   <FlatList
                     style={styles.list}
-                    data={nameRegion}
+                    data={offlineRegion}
+                    ItemSeparatorComponent={this.FlatListItemSeparator}
                     renderItem={this.renderItem}
+                    // tslint:disable-next-line:jsx-no-lambda
+                    keyExtractor={(item, index) => index.toString()}
                   />
                 </View>
                 <View style={styles.main_container}>
@@ -62,6 +80,7 @@ const styles = StyleSheet.create({
   },
   main_container: {
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-around',
   },
   newRegion: {
@@ -84,8 +103,19 @@ const styles = StyleSheet.create({
   },
   item: {
     alignItems: 'center',
+    margin: 5,
   },
   textItem: {
+    //color: '#fff',
+  },
+  selected: {
+    backgroundColor: '#2BB573',
+    borderRadius: 10,
+  },
+  line: {
+    height: 0.5,
+    width: '100%',
+    backgroundColor: 'rgba(255,255,255,0.5)',
   },
 })
 
