@@ -28,6 +28,7 @@ interface State {
   toggleList: boolean,
   offlineRegion: {},
   offlineRegionStatus: {},
+  name: {},
 }
 
 class OfflineRegion extends React.Component<Props, State> {
@@ -39,6 +40,7 @@ class OfflineRegion extends React.Component<Props, State> {
       toggleList: false,
       offlineRegion: null,
       offlineRegionStatus: null,
+      name: props.offlineRegion[props.offlineRegion.length - 1],
     }
   }
 
@@ -50,25 +52,23 @@ class OfflineRegion extends React.Component<Props, State> {
   }
 
   componentWillUnmount() {
-    const { name } = this.props.user
     const { MapboxGL } = this.props
-    MapboxGL.offlineManager.deletePack(name)
+    MapboxGL.offlineManager.deletePack(this.state.name)
     MapboxGL.offlineManager.unsubscribe(name)
   }
 
   onDidFinishLoadingStyle = () => {
     const { location, styleURL } = this.props.user
     const {width, height} = Dimensions.get('window')
-    const { MapboxGL, offlineRegion } = this.props
+    const { MapboxGL } = this.props
     const bounds = geoViewport.bounds(
       location,
       12,
       [width, height],
       MAPBOX_VECTOR_TILE_SIZE,
     )
-    const name = offlineRegion[offlineRegion.length - 1]
     const options = {
-      name,
+      name: this.state.name,
       styleURL,
       bounds: [[bounds[0], bounds[1]], [bounds[2], bounds[3]]],
       minZoom: 10,
@@ -103,13 +103,13 @@ class OfflineRegion extends React.Component<Props, State> {
     if (offlineRegionStatus !== null) {
       console.log('ok')
       return(
-          <TouchableOpacity style={styles.offlineRegionStatus}>
+          <View>
               <Text>
               Download State:{' '}
               {this.getRegionDownloadState(offlineRegionStatus.state)}
               </Text>
               <Text style={styles.percentageText}>Download Percent: {offlineRegionStatus.percentage} </Text>
-          </TouchableOpacity>
+          </View>
       )
     }
   }
@@ -160,6 +160,18 @@ const styles = StyleSheet.create({
     bottom: '5%',
     width: '80%',
     justifyContent: 'space-evenly',
+  },
+  offlineRegionStatus: {
+    position: 'absolute',
+    bottom: 16,
+    left: 48,
+    right: 48,
+    paddingVertical: 16,
+    minHeight: 60,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    borderRadius: 30,
   },
   button: {
     alignItems: 'center',
