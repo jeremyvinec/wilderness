@@ -6,7 +6,7 @@ import { insertNameRegion } from '../../actions/actionUser'
 
 interface Props {
   toggleNameRegion: () => void,
-  toggleDownload: () => void,
+  startDownload: () => void,
   insertNameRegion: (nameRegion: String) => void,
 }
 
@@ -30,8 +30,8 @@ class NameRegion extends React.Component<Props, State> {
 
   insertNameRegion = () => {
     this.props.insertNameRegion(this.state.nameRegion)
-    this.props.toggleDownload()
     this.props.toggleNameRegion()
+    this.props.startDownload()
   }
 
   render() {

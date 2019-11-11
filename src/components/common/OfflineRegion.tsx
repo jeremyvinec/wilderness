@@ -17,6 +17,8 @@ interface Props {
   toggleDownload: () => void,
   insertNameRegion: () => void,
   toggleNameRegion: () => void,
+  startDownload: () => void,
+  offlineRegion: [],
   MapboxGL: {},
   user: { location: [], styleURL: String, name: String },
 }
@@ -40,6 +42,13 @@ class OfflineRegion extends React.Component<Props, State> {
     }
   }
 
+  componentDidMount() {
+    if (this.props.startDownload) {
+      console.log('start')
+      this.onDidFinishLoadingStyle()
+    }
+  }
+
   componentWillUnmount() {
     const { name } = this.props.user
     const { MapboxGL } = this.props
@@ -48,15 +57,16 @@ class OfflineRegion extends React.Component<Props, State> {
   }
 
   onDidFinishLoadingStyle = () => {
-    const { location, styleURL, name } = this.props.user
+    const { location, styleURL } = this.props.user
     const {width, height} = Dimensions.get('window')
-    const { MapboxGL } = this.props
+    const { MapboxGL, offlineRegion } = this.props
     const bounds = geoViewport.bounds(
       location,
       12,
       [width, height],
       MAPBOX_VECTOR_TILE_SIZE,
     )
+    const name = offlineRegion[offlineRegion.length - 1]
     const options = {
       name,
       styleURL,
@@ -90,7 +100,8 @@ class OfflineRegion extends React.Component<Props, State> {
 
   downloadMap = () => {
     const { offlineRegionStatus } = this.state
-    if (this.state.offlineRegionStatus) {
+    if (offlineRegionStatus !== null) {
+      console.log('ok')
       return(
           <TouchableOpacity style={styles.offlineRegionStatus}>
               <Text>
@@ -109,6 +120,7 @@ class OfflineRegion extends React.Component<Props, State> {
         <View style={styles.container}>
           <View style={styles.area}>
             <Text>Downloading the displayed area</Text>
+            {this.downloadMap()}
           </View>
           <View style={styles.frameTopLeft}>
             <Image source={frameTopLeft}/>
@@ -197,6 +209,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state: any) => {
   return{
     user: state.user,
+    offlineRegion: state.offlineRegion,
   }
 }
 

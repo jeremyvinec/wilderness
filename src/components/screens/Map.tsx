@@ -32,6 +32,7 @@ interface State {
   downloadOpen: boolean,
   onMapChange: boolean,
   toggleNameRegion: boolean,
+  startDownload: boolean,
 }
 class Map extends React.Component<Props, State> {
 
@@ -47,6 +48,7 @@ class Map extends React.Component<Props, State> {
       downloadOpen: false,
       onMapChange: false,
       toggleNameRegion: false,
+      startDownload: false,
     }
   }
 
@@ -89,6 +91,10 @@ class Map extends React.Component<Props, State> {
     this.setState({ downloadOpen: !this.state.downloadOpen })
     this.toggleMenu()
     this.toggleNameRegion()
+  }
+
+  startDownload = () => {
+    this.setState({ startDownload: ! this.state.startDownload })
   }
 
   toggleNameRegion = () => {
@@ -134,6 +140,7 @@ class Map extends React.Component<Props, State> {
             toggleMenu={this.toggleMenu}
             toggleDownload={this.toggleDownload}
             toggleNameRegion={this.toggleNameRegion}
+            startDownload={this.startDownload}
           />
       )
     }
@@ -144,6 +151,7 @@ class Map extends React.Component<Props, State> {
       return(
         <NameRegion
           toggleNameRegion={this.toggleNameRegion}
+          startDownload={this.startDownload}
         />
       )
     }
