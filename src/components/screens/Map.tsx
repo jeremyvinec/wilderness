@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux'
 import { updateLocation } from '../../actions/actionUser'
 import Altitude from '../common/Altitude'
 import CardType from '../common/CardType'
+import MapSnap from '../common/MapSnap'
 import OfflineRegion from '../common/OfflineRegion'
 import Menu from './Menu'
 
@@ -21,6 +22,7 @@ interface Props {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
   location: [],
   updateLocation: (location: String) => void,
+  user: { location: [], styleURL: String },
 }
 
 interface State {
@@ -28,6 +30,7 @@ interface State {
   menuOpen: boolean,
   downloadOpen: boolean,
   onMapChange: boolean,
+  visibleDownload: boolean,
 }
 class Map extends React.Component<Props, State> {
 
@@ -42,6 +45,7 @@ class Map extends React.Component<Props, State> {
       menuOpen: true,
       downloadOpen: false,
       onMapChange: false,
+      visibleDownload: false,
     }
   }
 
@@ -121,6 +125,7 @@ class Map extends React.Component<Props, State> {
           <OfflineRegion
             MapboxGL={MapboxGL}
             toggleMenu={this.toggleMenu}
+            toggleDownload={this.toggleDownload}
           />
       )
     }

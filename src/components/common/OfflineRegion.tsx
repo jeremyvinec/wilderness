@@ -1,13 +1,15 @@
 import geoViewport from '@mapbox/geo-viewport'
 import React from 'react'
-import { Dimensions, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Dimensions, StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native'
 import { connect } from 'react-redux'
 import DownloadList from './DownloadList'
 import MapSnap from './MapSnap'
 import NameRegion from './NameRegion'
 
-import ArrowCircleDown from '../../assets/svg/ArrowCircleDown'
-import List from '../../assets/svg/List'
+import frameBottomLeft from '../../assets/img/frame-bottom-left.png'
+import frameBottomRight from '../../assets/img/frame-bottom-right.png'
+import frameTopLeft from '../../assets/img/frame-top-left.png'
+import frameTopRight from '../../assets/img/frame-top-right.png'
 
 const MAPBOX_VECTOR_TILE_SIZE = 512
 
@@ -143,51 +145,93 @@ class OfflineRegion extends React.Component<Props, State> {
   }
 
   render() {
+    const { toggleDownload, insertNameRegion, toggleMenu } = this.props
     return(
-        <View style={styles.offlineManager}>
-          <TouchableOpacity style={styles.main_container}  onPress={this.setModalVisibleDownload}>
-            <ArrowCircleDown width='22' height='22' fill='rgba(0,0,0,0.7)'/>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.main_container} onPress={this.setModalVisibleList}>
-            <List width='22' height='22' fill='rgba(0,0,0,0.7)'/>
-          </TouchableOpacity>
-          {this.downloadList()}
-          {this.mapSnap()}
+        <View style={styles.container}>
+          <View style={styles.area}>
+            <Text>Downloading the displayed area</Text>
+          </View>
+          <View style={styles.frameTopLeft}>
+            <Image source={frameTopLeft}/>
+          </View>
+          <View style={styles.frameTopRight}>
+            <Image source={frameTopRight}/>
+          </View>
+          <View style={styles.frameBottomLeft}>
+            <Image source={frameBottomLeft}/>
+          </View>
+          <View style={styles.frameBottomRight}>
+            <Image source={frameBottomRight}/>
+          </View>
+          <View style={styles.main_container}>
+            <TouchableOpacity style={styles.button} onPress={toggleDownload}>
+              <Text style={[styles.buttonText, {color: '#D22D2D'}]}>Cancel</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={insertNameRegion}>
+              <Text style={styles.buttonText}>Download</Text>
+            </TouchableOpacity>
+          </View>
         </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
+  container: {
+    position: 'absolute',
+    alignItems: 'center',
+    //justifyContent: 'center',
+    width: '100%',
+    height: '100%',
+  },
   main_container: {
-    alignItems: 'center',
-    marginTop: 15,
-  },
-  percentageText: {
-    padding: 8,
-    textAlign: 'center',
-  },
-  offlineManager: {
     position: 'absolute',
-    backgroundColor: 'rgba(255,255,255, 0.5)',
-    borderRadius: 10,
-    top: '20%',
-    right: '5%',
-    width: 30,
-    height: 90,
-    alignItems: 'center',
-  },
-  offlineRegionStatus: {
-    position: 'absolute',
+    flexDirection: 'row',
+    //justifyContent: 'space-between',
     bottom: '5%',
-    left: '10%',
-    paddingVertical: 16,
-    width: 200,
-    height: 50,
+  },
+  button: {
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'rgba(255,255,255, 0.5)',
-    borderRadius: 30,
+    borderRadius: 14,
+    width: 100,
+    height: 57,
+  },
+  buttonText: {
+    textAlign: 'center',
+    color: '#1F3044',
+  },
+  frameTopLeft: {
+    position: 'absolute',
+    top: '1%',
+    left: '1%',
+  },
+  frameTopRight: {
+    position: 'absolute',
+    top: '1%',
+    right: '1%',
+  },
+  frameBottomLeft: {
+    position: 'absolute',
+    bottom: '1%',
+    left: '1%',
+  },
+  frameBottomRight: {
+    position: 'absolute',
+    bottom: '1%',
+    right: '1%',
+  },
+  area: {
+    position: 'absolute',
+    color: '#1F3044',
+    top: '5%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(255,255,255, 0.5)',
+    borderRadius: 14,
+    width: 250,
+    height: 57,
   },
 })
 

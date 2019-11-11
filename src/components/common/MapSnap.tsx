@@ -16,7 +16,7 @@ export default class MapSnap extends React.Component<Props, State> {
   render() {
     const { toggleDownload, insertNameRegion } = this.props
     return(
-        <View style={styles.modal}>
+        <View style={styles.container}>
             <View style={styles.area}>
               <Text>Downloading the displayed area</Text>
             </View>
@@ -46,13 +46,10 @@ export default class MapSnap extends React.Component<Props, State> {
 }
 
 const styles = StyleSheet.create({
-  modal: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+  container: {
+    position: 'absolute',
   },
   main_container: {
-    position: 'absolute',
     flexDirection: 'row',
     bottom: '5%',
   },
@@ -69,27 +66,22 @@ const styles = StyleSheet.create({
     color: '#1F3044',
   },
   frameTopLeft: {
-    position: 'absolute',
     top: '5%',
     left: '5%',
   },
   frameTopRight: {
-    position: 'absolute',
     top: '5%',
     right: '5%',
   },
   frameBottomLeft: {
-    position: 'absolute',
     bottom: '5%',
     left: '5%',
   },
   frameBottomRight: {
-    position: 'absolute',
     bottom: '5%',
     right: '5%',
   },
   area: {
-    position: 'absolute',
     color: '#1F3044',
     top: '5%',
     alignItems: 'center',
