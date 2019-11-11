@@ -135,8 +135,7 @@ class OfflineRegion extends React.Component<Props, State> {
             transparent={true}
             visible={visibleDownload}
           >
-            <NameRegion
-              setModalVisibleDownload={this.setModalVisibleDownload}
+            <MapSnap
               toggleDownload={this.toggleDownload}
             />
           </Modal>
@@ -147,15 +146,6 @@ class OfflineRegion extends React.Component<Props, State> {
           >
             <DownloadList
               setModalVisibleList={this.setModalVisibleList}
-            />
-          </Modal>
-          <Modal
-            animationType='fade'
-            transparent={true}
-            visible={toggleDownload}
-          >
-            <MapSnap
-              toggleDownload={this.toggleDownload}
             />
           </Modal>
         </View>

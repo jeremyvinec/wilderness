@@ -1,19 +1,45 @@
 import React from 'react'
-import { Image, StyleSheet, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 import frameBottomLeft from '../../assets/img/frame-bottom-left.png'
 import frameBottomRight from '../../assets/img/frame-bottom-right.png'
 import frameTopLeft from '../../assets/img/frame-top-left.png'
 import frameTopRight from '../../assets/img/frame-top-right.png'
 
-export default class MapSnap extends React.Component {
+interface Props {
+  toggleDownload: () => void,
+  insertNameRegion: () => void,
+}
+
+interface State { }
+export default class MapSnap extends React.Component<Props, State> {
   render() {
+    const { toggleDownload, insertNameRegion } = this.props
     return(
         <View style={styles.modal}>
-            <Image source={frameTopLeft} style={styles.frameTopLeft}/>
-            <Image source={frameTopRight} style={styles.frameTopRight}/>
-            <Image source={frameBottomLeft} style={styles.frameBottomLeft}/>
-            <Image source={frameBottomRight} style={styles.frameBottomRight}/>
+            <View style={styles.area}>
+              <Text>Downloading the displayed area</Text>
+            </View>
+            <View style={styles.frameTopLeft}>
+              <Image source={frameTopLeft}/>
+            </View>
+            <View style={styles.frameTopRight}>
+              <Image source={frameTopRight}/>
+            </View>
+            <View style={styles.frameBottomLeft}>
+              <Image source={frameBottomLeft}/>
+            </View>
+            <View style={styles.frameBottomRight}>
+              <Image source={frameBottomRight}/>
+            </View>
+            <View style={styles.main_container}>
+              <TouchableOpacity style={styles.button} onPress={toggleDownload}>
+                <Text style={[styles.buttonText, {color: '#D22D2D'}]}>Cancel</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.button} onPress={insertNameRegion}>
+                <Text style={styles.buttonText}>Download</Text>
+              </TouchableOpacity>
+            </View>
         </View>
     )
   }
@@ -25,20 +51,52 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  main_container: {
+    position: 'absolute',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    bottom: '5%',
+  },
+  button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(255,255,255, 0.5)',
+    borderRadius: 14,
+    width: 100,
+    height: 57,
+  },
+  buttonText: {
+    textAlign: 'center',
+    color: '#2BB573',
+  },
   frameTopLeft: {
-    top: 5,
-    left: 5,
+    position: 'absolute',
+    top: '5%',
+    left: '5%',
   },
   frameTopRight: {
-    top: 5,
-    left: 5,
+    position: 'absolute',
+    top: '5%',
+    right: '5%',
   },
   frameBottomLeft: {
-    top: 5,
-    left: 5,
+    position: 'absolute',
+    bottom: '5%',
+    left: '5%',
   },
   frameBottomRight: {
-    top: 5,
-    left: 5,
+    position: 'absolute',
+    bottom: '5%',
+    right: '5%',
+  },
+  area: {
+    position: 'absolute',
+    top: '5%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(255,255,255, 0.5)',
+    borderRadius: 14,
+    width: 200,
+    height: 57,
   },
 })
