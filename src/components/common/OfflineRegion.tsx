@@ -14,6 +14,7 @@ const MAPBOX_VECTOR_TILE_SIZE = 512
 interface Props {
   offlineRegionStatus: {},
   getRegionDownloadState: () => void,
+  toggleMenu: () => void,
   MapboxGL: {},
   user: { location: [], styleURL: String, name: String },
 }
@@ -104,12 +105,33 @@ class OfflineRegion extends React.Component<Props, State> {
     }
   }
 
+  mapSnap = () => {
+    if (this.state.visibleDownload) {
+      return(
+        <MapSnap
+          setModalVisibleDownload={this.setModalVisibleDownload}
+        />
+      )
+    }
+  }
+
+  downloadList = () => {
+    if (this.state.visibleList) {
+      return(
+        <DownloadList
+          setModalVisibleList={this.setModalVisibleList}
+        />
+      )
+    }
+  }
+
   setModalVisibleList = () => {
     this.setState({ visibleList: !this.state.visibleList })
   }
 
   setModalVisibleDownload = () => {
     this.setState({ visibleDownload: !this.state.visibleDownload })
+    this.props.toggleMenu()
   }
 
   toggleDownload = () => {
@@ -121,42 +143,22 @@ class OfflineRegion extends React.Component<Props, State> {
   }
 
   render() {
-    const { visibleDownload, visibleList, toggleDownload } = this.state
     return(
         <View style={styles.offlineManager}>
           <TouchableOpacity style={styles.main_container}  onPress={this.setModalVisibleDownload}>
-              <ArrowCircleDown width='22' height='22' fill='rgba(0,0,0,0.7)'/>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.main_container} onPress={this.setModalVisibleList}>
-              <List width='22' height='22' fill='rgba(0,0,0,0.7)'/>
+            <ArrowCircleDown width='22' height='22' fill='rgba(0,0,0,0.7)'/>
           </TouchableOpacity>
-          <Modal
-            animationType='fade'
-            transparent={true}
-            visible={visibleDownload}
-          >
-            <MapSnap
-              toggleDownload={this.toggleDownload}
-            />
-          </Modal>
-          <Modal
-            animationType='fade'
-            transparent={true}
-            visible={visibleList}
-          >
-            <DownloadList
-              setModalVisibleList={this.setModalVisibleList}
-            />
-          </Modal>
+          <TouchableOpacity style={styles.main_container} onPress={this.setModalVisibleList}>
+            <List width='22' height='22' fill='rgba(0,0,0,0.7)'/>
+          </TouchableOpacity>
+          {this.downloadList()}
+          {this.mapSnap()}
         </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   main_container: {
     alignItems: 'center',
     marginTop: 15,
@@ -166,9 +168,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   offlineManager: {
+    position: 'absolute',
     backgroundColor: 'rgba(255,255,255, 0.5)',
     borderRadius: 10,
-    position: 'absolute',
     top: '20%',
     right: '5%',
     width: 30,

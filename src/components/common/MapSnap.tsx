@@ -54,7 +54,6 @@ const styles = StyleSheet.create({
   main_container: {
     position: 'absolute',
     flexDirection: 'row',
-    justifyContent: 'space-between',
     bottom: '5%',
   },
   button: {
@@ -67,7 +66,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     textAlign: 'center',
-    color: '#2BB573',
+    color: '#1F3044',
   },
   frameTopLeft: {
     position: 'absolute',
@@ -91,12 +90,13 @@ const styles = StyleSheet.create({
   },
   area: {
     position: 'absolute',
+    color: '#1F3044',
     top: '5%',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'rgba(255,255,255, 0.5)',
     borderRadius: 14,
-    width: 200,
+    width: 250,
     height: 57,
   },
 })

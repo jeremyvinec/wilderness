@@ -120,6 +120,7 @@ class Map extends React.Component<Props, State> {
       return(
           <OfflineRegion
             MapboxGL={MapboxGL}
+            toggleMenu={this.toggleMenu}
           />
       )
     }
