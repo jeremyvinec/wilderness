@@ -87,6 +87,8 @@ class Map extends React.Component<Props, State> {
 
   toggleDownload = () => {
     this.setState({ downloadOpen: !this.state.downloadOpen })
+    this.toggleMenu()
+    this.toggleNameRegion()
   }
 
   toggleNameRegion = () => {
@@ -141,6 +143,7 @@ class Map extends React.Component<Props, State> {
     if (this.state.toggleNameRegion) {
       return(
         <NameRegion
+          toggleNameRegion={this.toggleNameRegion}
         />
       )
     }

@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import { insertNameRegion } from '../../actions/actionUser'
 
 interface Props {
-  setModalVisibleDownload: () => void,
+  toggleNameRegion: () => void,
   toggleDownload: () => void,
   insertNameRegion: (nameRegion: String) => void,
 }
@@ -31,11 +31,11 @@ class NameRegion extends React.Component<Props, State> {
   insertNameRegion = () => {
     this.props.insertNameRegion(this.state.nameRegion)
     this.props.toggleDownload()
-    this.props.setModalVisibleDownload()
+    this.props.toggleNameRegion()
   }
 
   render() {
-    const { setModalVisibleDownload } = this.props
+    const { toggleNameRegion } = this.props
     return(
         <View style={styles.container}>
           <View style={styles.newRegion}>
@@ -50,7 +50,7 @@ class NameRegion extends React.Component<Props, State> {
               />
             </View>
             <View style={styles.main_container}>
-              <TouchableOpacity onPress={setModalVisibleDownload}>
+              <TouchableOpacity onPress={toggleNameRegion}>
                 <Text style={[styles.buttonText, {color: '#D22D2D'}]}>Cancel</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={this.insertNameRegion}>
@@ -81,8 +81,8 @@ const styles = StyleSheet.create({
   },
   newRegion: {
     borderRadius: 10,
-    width: 200,
-    height: 100,
+    width: 250,
+    height: 150,
     backgroundColor: 'rgba(255,255,255, 0.5)',
     justifyContent: 'center',
   },

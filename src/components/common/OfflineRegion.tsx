@@ -16,6 +16,7 @@ interface Props {
   toggleMenu: () => void,
   toggleDownload: () => void,
   insertNameRegion: () => void,
+  toggleNameRegion: () => void,
   MapboxGL: {},
   user: { location: [], styleURL: String, name: String },
 }
@@ -100,16 +101,6 @@ class OfflineRegion extends React.Component<Props, State> {
           </TouchableOpacity>
       )
     }
-  }
-
-  setModalVisibleDownload = () => {
-    this.setState({ visibleDownload: !this.state.visibleDownload })
-    
-  }
-
-  toggleDownload = () => {
-    this.setState({ toggleDownload: !this.state.toggleDownload })
-    this.props.toggleMenu()
   }
 
   render() {
