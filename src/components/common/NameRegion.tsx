@@ -37,7 +37,7 @@ class NameRegion extends React.Component<Props, State> {
   render() {
     const { setModalVisibleDownload } = this.props
     return(
-        <View style={styles.modal}>
+        <View style={styles.container}>
           <View style={styles.newRegion}>
             <View style={styles.header_container}>
               <Text>Insert new region</Text>
@@ -50,10 +50,10 @@ class NameRegion extends React.Component<Props, State> {
               />
             </View>
             <View style={styles.main_container}>
-              <TouchableOpacity style={styles.button} onPress={setModalVisibleDownload}>
-                <Text style={styles.buttonText}>Cancel</Text>
+              <TouchableOpacity onPress={setModalVisibleDownload}>
+                <Text style={[styles.buttonText, {color: '#D22D2D'}]}>Cancel</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.button} onPress={this.insertNameRegion}>
+              <TouchableOpacity onPress={this.insertNameRegion}>
                 <Text style={styles.buttonText}>Download</Text>
               </TouchableOpacity>
             </View>
@@ -64,10 +64,12 @@ class NameRegion extends React.Component<Props, State> {
 }
 
 const styles = StyleSheet.create({
-  modal: {
-    flex: 1,
-    alignItems: 'center',
+  container: {
+    position: 'absolute',
     justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100%',
   },
   main_container: {
     flexDirection: 'row',
@@ -85,8 +87,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   buttonText: {
-    textAlign: 'center',
-    color: '#2BB573',
+    color: '#1F3044',
   },
 })
 

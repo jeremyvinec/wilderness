@@ -21,8 +21,14 @@ interface Props {
 
 interface State { }
 export default class Menu extends React.Component<Props, State> {
+
+  toggleDownload = () => {
+    this.props.toggleDownload()
+    this.props.toggleMenu()
+  }
+
   render() {
-    const { onToggleCompass, onToggleUserLocation, onToggleSearch, toggleDownload, toggleMap, onToggleInfo, toggleMenu } = this.props
+    const { onToggleCompass, onToggleUserLocation, onToggleSearch, toggleMap, onToggleInfo, toggleMenu } = this.props
     return(
         <View style={styles.bar}>
           <TouchableOpacity onPress={onToggleCompass} style={styles.toggle}>
@@ -34,7 +40,7 @@ export default class Menu extends React.Component<Props, State> {
           <TouchableOpacity onPress={onToggleSearch} style={styles.toggle}>
             <Search width='22' height='22' fill='rgba(0,0,0,0.7)'/>
           </TouchableOpacity>
-          <TouchableOpacity onPress={toggleDownload} style={styles.toggle}>
+          <TouchableOpacity onPress={this.toggleDownload} style={styles.toggle}>
             <Download width='22' height='22' fill='rgba(0,0,0,0.7)'/>
           </TouchableOpacity>
           <TouchableOpacity onPress={toggleMap} style={styles.toggle}>

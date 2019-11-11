@@ -15,6 +15,7 @@ import Menu from './Menu'
 import ArrowUp from '../../assets/svg/ArrowUp'
 
 import config from '../../utils/config.js'
+import NameRegion from '../common/NameRegion'
 
 MapboxGL.setAccessToken(config.get('accessToken'))
 
@@ -30,7 +31,7 @@ interface State {
   menuOpen: boolean,
   downloadOpen: boolean,
   onMapChange: boolean,
-  visibleDownload: boolean,
+  toggleNameRegion: boolean,
 }
 class Map extends React.Component<Props, State> {
 
@@ -45,7 +46,7 @@ class Map extends React.Component<Props, State> {
       menuOpen: true,
       downloadOpen: false,
       onMapChange: false,
-      visibleDownload: false,
+      toggleNameRegion: false,
     }
   }
 
@@ -72,15 +73,6 @@ class Map extends React.Component<Props, State> {
     this.props.navigation.navigate('Info')
   }
 
-  onMapChange = () => {
-    const { onMapChange } = this.state
-    if (onMapChange) {
-      return(
-        <CardType/>
-      )
-    }
-  }
-
   onToggleUserLocation = () => {
     this.setState({followUserLocation: !this.state.followUserLocation})
   }
@@ -95,6 +87,10 @@ class Map extends React.Component<Props, State> {
 
   toggleDownload = () => {
     this.setState({ downloadOpen: !this.state.downloadOpen })
+  }
+
+  toggleNameRegion = () => {
+    this.setState({ toggleNameRegion: !this.state.toggleNameRegion })
   }
 
   Menu = () => {
@@ -119,6 +115,15 @@ class Map extends React.Component<Props, State> {
     }
   }
 
+  onMapChange = () => {
+    const { onMapChange } = this.state
+    if (onMapChange) {
+      return(
+        <CardType/>
+      )
+    }
+  }
+
   downloadMap = () => {
     if (this.state.downloadOpen) {
       return(
@@ -126,7 +131,17 @@ class Map extends React.Component<Props, State> {
             MapboxGL={MapboxGL}
             toggleMenu={this.toggleMenu}
             toggleDownload={this.toggleDownload}
+            toggleNameRegion={this.toggleNameRegion}
           />
+      )
+    }
+  }
+
+  nameRegion = () => {
+    if (this.state.toggleNameRegion) {
+      return(
+        <NameRegion
+        />
       )
     }
   }
@@ -162,6 +177,7 @@ class Map extends React.Component<Props, State> {
         {this.Menu()}
         {this.downloadMap()}
         {this.onMapChange()}
+        {this.nameRegion()}
       </View>
     )
   }

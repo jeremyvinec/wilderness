@@ -2,9 +2,6 @@ import geoViewport from '@mapbox/geo-viewport'
 import React from 'react'
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native'
 import { connect } from 'react-redux'
-import DownloadList from './DownloadList'
-import MapSnap from './MapSnap'
-import NameRegion from './NameRegion'
 
 import frameBottomLeft from '../../assets/img/frame-bottom-left.png'
 import frameBottomRight from '../../assets/img/frame-bottom-right.png'
@@ -17,6 +14,8 @@ interface Props {
   offlineRegionStatus: {},
   getRegionDownloadState: () => void,
   toggleMenu: () => void,
+  toggleDownload: () => void,
+  insertNameRegion: () => void,
   MapboxGL: {},
   user: { location: [], styleURL: String, name: String },
 }
@@ -26,8 +25,6 @@ interface State {
   toggleList: boolean,
   offlineRegion: {},
   offlineRegionStatus: {},
-  visibleDownload: boolean,
-  visibleList: boolean,
 }
 
 class OfflineRegion extends React.Component<Props, State> {
@@ -39,8 +36,6 @@ class OfflineRegion extends React.Component<Props, State> {
       toggleList: false,
       offlineRegion: null,
       offlineRegionStatus: null,
-      visibleDownload: false,
-      visibleList: false,
     }
   }
 
@@ -107,45 +102,18 @@ class OfflineRegion extends React.Component<Props, State> {
     }
   }
 
-  mapSnap = () => {
-    if (this.state.visibleDownload) {
-      return(
-        <MapSnap
-          setModalVisibleDownload={this.setModalVisibleDownload}
-        />
-      )
-    }
-  }
-
-  downloadList = () => {
-    if (this.state.visibleList) {
-      return(
-        <DownloadList
-          setModalVisibleList={this.setModalVisibleList}
-        />
-      )
-    }
-  }
-
-  setModalVisibleList = () => {
-    this.setState({ visibleList: !this.state.visibleList })
-  }
-
   setModalVisibleDownload = () => {
     this.setState({ visibleDownload: !this.state.visibleDownload })
-    this.props.toggleMenu()
+    
   }
 
   toggleDownload = () => {
     this.setState({ toggleDownload: !this.state.toggleDownload })
-  }
-
-  toggleList = () => {
-    this.setState({ toggleList: !this.state.toggleList })
+    this.props.toggleMenu()
   }
 
   render() {
-    const { toggleDownload, insertNameRegion, toggleMenu } = this.props
+    const { toggleDownload, toggleNameRegion } = this.props
     return(
         <View style={styles.container}>
           <View style={styles.area}>
@@ -167,7 +135,7 @@ class OfflineRegion extends React.Component<Props, State> {
             <TouchableOpacity style={styles.button} onPress={toggleDownload}>
               <Text style={[styles.buttonText, {color: '#D22D2D'}]}>Cancel</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={insertNameRegion}>
+            <TouchableOpacity style={styles.button} onPress={toggleNameRegion}>
               <Text style={styles.buttonText}>Download</Text>
             </TouchableOpacity>
           </View>
@@ -180,15 +148,15 @@ const styles = StyleSheet.create({
   container: {
     position: 'absolute',
     alignItems: 'center',
-    //justifyContent: 'center',
     width: '100%',
     height: '100%',
   },
   main_container: {
     position: 'absolute',
     flexDirection: 'row',
-    //justifyContent: 'space-between',
     bottom: '5%',
+    width: '80%',
+    justifyContent: 'space-evenly',
   },
   button: {
     alignItems: 'center',
