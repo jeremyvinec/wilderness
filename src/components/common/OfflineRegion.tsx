@@ -54,7 +54,7 @@ class OfflineRegion extends React.Component<Props, State> {
   componentWillUnmount() {
     const { MapboxGL } = this.props
     MapboxGL.offlineManager.deletePack(this.state.name)
-    MapboxGL.offlineManager.unsubscribe(name)
+    MapboxGL.offlineManager.unsubscribe(this.state.name)
   }
 
   onDidFinishLoadingStyle = () => {
@@ -100,15 +100,15 @@ class OfflineRegion extends React.Component<Props, State> {
 
   downloadMap = () => {
     const { offlineRegionStatus } = this.state
+    console.log(offlineRegionStatus)
     if (offlineRegionStatus !== null) {
-      console.log('ok')
       return(
-          <View>
+          <View style={styles.offlineRegionStatus}>
               <Text>
               Download State:{' '}
               {this.getRegionDownloadState(offlineRegionStatus.state)}
               </Text>
-              <Text style={styles.percentageText}>Download Percent: {offlineRegionStatus.percentage} </Text>
+              <Text style={styles.percentageText}>Download Percent: {Math.round(offlineRegionStatus.percentage)} %</Text>
           </View>
       )
     }
@@ -120,8 +120,8 @@ class OfflineRegion extends React.Component<Props, State> {
         <View style={styles.container}>
           <View style={styles.area}>
             <Text>Downloading the displayed area</Text>
-            {this.downloadMap()}
           </View>
+          {this.downloadMap()}
           <View style={styles.frameTopLeft}>
             <Image source={frameTopLeft}/>
           </View>
@@ -160,18 +160,6 @@ const styles = StyleSheet.create({
     bottom: '5%',
     width: '80%',
     justifyContent: 'space-evenly',
-  },
-  offlineRegionStatus: {
-    position: 'absolute',
-    bottom: 16,
-    left: 48,
-    right: 48,
-    paddingVertical: 16,
-    minHeight: 60,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'white',
-    borderRadius: 30,
   },
   button: {
     alignItems: 'center',
@@ -215,6 +203,21 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     width: 250,
     height: 57,
+  },
+  offlineRegionStatus: {
+    position: 'absolute',
+    color: '#1F3044',
+    width: 250,
+    height: 57,
+    top: '15%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(255,255,255, 0.5)',
+    borderRadius: 14,
+  },
+  percentageText: {
+    padding: 8,
+    textAlign: 'center',
   },
 })
 
