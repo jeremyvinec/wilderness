@@ -69,6 +69,7 @@ class Map extends React.Component<Props, State> {
 
   onToggleSearch = () => {
     this.props.navigation.navigate('Search')
+    this.setState({followUserLocation: false})
   }
 
   onToggleInfo = () => {
@@ -161,6 +162,7 @@ class Map extends React.Component<Props, State> {
   render() {
     const { followUserLocation } = this.state
     const { styleURL, location } = this.props.user
+    console.log(followUserLocation)
     return (
       <View style={styles.map}>
         <MapboxGL.MapView

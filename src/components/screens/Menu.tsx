@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     bottom: '5%',
     right: '5%',
     width: 30,
-    height: 300,
+    height: 310,
     alignItems: 'center',
   },
   toggle: {

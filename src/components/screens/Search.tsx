@@ -71,6 +71,7 @@ class Search extends React.Component<Props, State> {
 
   render() {
     const { data } = this.state
+    console.log(this.props)
     return(
       <View style={styles.container}>
         <FlatList

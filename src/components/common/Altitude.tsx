@@ -10,9 +10,11 @@ export default class Altitude extends React.Component<Props, State> {
 
   elevation = () => {
     const { MapboxGL } = this.props
-    return(
-      <Text style={styles.altitude}>{Math.round(MapboxGL.locationManager._lastKnownLocation.coords.altitude)}</Text>
-    )
+    if (MapboxGL.locationManager !== null) {
+      return(
+        <Text style={styles.altitude}>{Math.round(MapboxGL.locationManager._lastKnownLocation.coords.altitude)}</Text>
+      )
+    }
   }
 
   render() {
