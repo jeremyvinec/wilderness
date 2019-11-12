@@ -3,11 +3,8 @@ import React from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { updateLocation } from '../../actions/actionUser'
 import Altitude from '../common/Altitude'
 import CardType from '../common/CardType'
-import MapSnap from '../common/MapSnap'
 import OfflineRegion from '../common/OfflineRegion'
 import Menu from './Menu'
 
@@ -33,12 +30,9 @@ interface State {
   onMapChange: boolean,
   toggleNameRegion: boolean,
   startDownload: boolean,
+  reason: String,
 }
 class Map extends React.Component<Props, State> {
-
-  private updateLocation = (location: String) => {
-    this.props.updateLocation(location)
-  }
 
   constructor(props: Props) {
     super(props)
@@ -49,18 +43,27 @@ class Map extends React.Component<Props, State> {
       onMapChange: false,
       toggleNameRegion: false,
       startDownload: false,
+      reason: '',
     }
   }
 
   componentDidMount = () => {
-    if (this.props.location !== undefined) {
+    if (this.props.user.location !== undefined) {
       this.setState({ followUserLocation: false})
     }
   }
 
+  onRegionWillChange = (regionFeature) => {
+    this.setState({reason: 'will change', regionFeature});
+  }
+
+  onRegionIsChanging = (regionFeature) => {
+    this.setState({reason: 'is changing', regionFeature})
+  }
+
   onRegionDidChange = (regionFeature) => {
-    const location = regionFeature.geometry.coordinates
-    this.updateLocation(location)
+    //console.log(regionFeature)
+    this.setState({ reason: 'did change', regionFeature})
   }
 
   onToggleCompass = () => {
@@ -158,8 +161,7 @@ class Map extends React.Component<Props, State> {
 
   render() {
     const { followUserLocation } = this.state
-    const { location, styleURL } = this.props.user
-    console.log(this.state.startDownload)
+    const { styleURL, location } = this.props.user
     return (
       <View style={styles.map}>
         <MapboxGL.MapView
@@ -170,11 +172,13 @@ class Map extends React.Component<Props, State> {
           logoEnabled={false}
           compassEnabled={false}
           attributionEnabled={false}
-          // onRegionDidChange={this.onRegionDidChange}
+          onRegionWillChange={this.onRegionWillChange}
+          onRegionIsChanging={this.onRegionIsChanging}
+          onRegionDidChange={this.onRegionDidChange}
         >
           <MapboxGL.UserLocation visible={followUserLocation}/>
           <MapboxGL.Camera
-              Mode='flyTo'
+              animationMode='flyTo'
               zoomLevel={12}
               followUserLocation={followUserLocation}
               centerCoordinate={location}
@@ -211,14 +215,10 @@ const styles = StyleSheet.create({
   },
 })
 
-const mapDispatchToProps = (dispatch: any) => {
-  return bindActionCreators({ updateLocation }, dispatch)
-}
-
 const mapStateToProps = (state: any) => {
   return{
     user: state.user,
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Map)
+export default connect(mapStateToProps)(Map)

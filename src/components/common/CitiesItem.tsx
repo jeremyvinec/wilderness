@@ -8,7 +8,7 @@ import { updateLocation } from '../../actions/actionUser'
 import Pin from '../../assets/svg/Pin'
 interface Props {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
-  data: [],
+  data: { center: [], text: String, place_name: String },
   updateLocation: (location: []) => void,
 }
 

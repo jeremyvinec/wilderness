@@ -116,6 +116,7 @@ class OfflineRegion extends React.Component<Props, State> {
 
   render() {
     const { toggleDownload, toggleNameRegion } = this.props
+    console.log(this.props.MapboxGL)
     return(
         <View style={styles.container}>
           <View style={styles.area}>
