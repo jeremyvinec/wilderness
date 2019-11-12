@@ -3,7 +3,6 @@ import React from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation'
 import { connect } from 'react-redux'
-import Altitude from '../common/Altitude'
 import CardType from '../common/CardType'
 import OfflineRegion from '../common/OfflineRegion'
 import Menu from './Menu'
@@ -31,6 +30,7 @@ interface State {
   toggleNameRegion: boolean,
   startDownload: boolean,
   reason: String,
+  zoomLevel: number,
 }
 class Map extends React.Component<Props, State> {
 
@@ -44,17 +44,12 @@ class Map extends React.Component<Props, State> {
       toggleNameRegion: false,
       startDownload: false,
       reason: '',
-    }
-  }
-
-  componentDidMount = () => {
-    if (this.props.user.location !== undefined) {
-      this.setState({ followUserLocation: false})
+      zoomLevel: 12,
     }
   }
 
   onRegionWillChange = (regionFeature) => {
-    this.setState({reason: 'will change', regionFeature});
+    this.setState({reason: 'will change', regionFeature})
   }
 
   onRegionIsChanging = (regionFeature) => {
@@ -62,8 +57,10 @@ class Map extends React.Component<Props, State> {
   }
 
   onRegionDidChange = (regionFeature) => {
-    //console.log(regionFeature)
-    this.setState({ reason: 'did change', regionFeature})
+    this.setState({
+      reason: 'did change', regionFeature,
+      zoomLevel: regionFeature.properties.zoomLevel,
+    })
   }
 
   onToggleCompass = () => {
@@ -114,6 +111,7 @@ class Map extends React.Component<Props, State> {
             toggleMap={this.toggleMap}
             onToggleInfo={this.onToggleInfo}
             toggleMenu={this.toggleMenu}
+            MapboxGL={MapboxGL}
           />
       )
     } else {
@@ -143,6 +141,7 @@ class Map extends React.Component<Props, State> {
             toggleDownload={this.toggleDownload}
             toggleNameRegion={this.toggleNameRegion}
             startDownload={this.state.startDownload}
+            zoomLevel={this.state.zoomLevel}
           />
       )
     }
@@ -182,13 +181,10 @@ class Map extends React.Component<Props, State> {
               zoomLevel={12}
               followUserLocation={followUserLocation}
               centerCoordinate={location}
-              // followPitch={0}
+              followHeading={0}
               followUserMode={MapboxGL.UserTrackingModes.FollowWithHeading}
           />
         </MapboxGL.MapView>
-        <Altitude
-            MapboxGL={MapboxGL}
-        />
         {this.Menu()}
         {this.downloadMap()}
         {this.onMapChange()}

@@ -20,6 +20,7 @@ interface Props {
   startDownload: boolean,
   offlineRegion: [],
   MapboxGL: {},
+  zoomLevel: number,
   user: { location: [], styleURL: String, name: String },
 }
 
@@ -60,13 +61,14 @@ class OfflineRegion extends React.Component<Props, State> {
   onDidFinishLoadingStyle = () => {
     const { location, styleURL } = this.props.user
     const {width, height} = Dimensions.get('window')
-    const { MapboxGL } = this.props
+    const { MapboxGL, zoomLevel } = this.props
     const bounds = geoViewport.bounds(
       location,
-      12,
+      zoomLevel,
       [width, height],
       MAPBOX_VECTOR_TILE_SIZE,
     )
+    console.log()
     const options = {
       name: this.state.name,
       styleURL,
@@ -100,7 +102,6 @@ class OfflineRegion extends React.Component<Props, State> {
 
   downloadMap = () => {
     const { offlineRegionStatus } = this.state
-    console.log(offlineRegionStatus)
     if (offlineRegionStatus !== null) {
       return(
           <View style={styles.offlineRegionStatus}>
@@ -116,7 +117,7 @@ class OfflineRegion extends React.Component<Props, State> {
 
   render() {
     const { toggleDownload, toggleNameRegion } = this.props
-    console.log(this.props.MapboxGL)
+    console.log(this.state.offlineRegionStatus)
     return(
         <View style={styles.container}>
           <View style={styles.area}>
