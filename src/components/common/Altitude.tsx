@@ -1,6 +1,5 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import Triangle from '../../assets/svg/Triangle'
 interface Props {
   MapboxGL: { locationManager: { _lastKnownLocation: { coords: { altitude: number } } } }
 }
@@ -19,7 +18,7 @@ export default class Altitude extends React.Component<Props, State> {
   render() {
     return(
         <View style={styles.container}>
-            <Triangle width='22' height='22' fill='rgba(0,0,0,0.7)'/>
+            <Text>Alt</Text>
             {this.elevation()}
         </View>
     )
@@ -28,11 +27,11 @@ export default class Altitude extends React.Component<Props, State> {
 
 const styles = StyleSheet.create({
   container: {
-    
+    alignItems: 'center',
   },
   altitude: {
     fontSize: 8,
     textAlign: 'center',
-    //lineHeight: 15,
+    marginTop: -5,
   },
 })
