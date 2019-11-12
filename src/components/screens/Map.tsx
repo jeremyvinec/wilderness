@@ -90,7 +90,6 @@ class Map extends React.Component<Props, State> {
   toggleDownload = () => {
     this.setState({ downloadOpen: !this.state.downloadOpen })
     this.toggleMenu()
-    this.toggleNameRegion()
   }
 
   startDownload = () => {
@@ -140,7 +139,7 @@ class Map extends React.Component<Props, State> {
             toggleMenu={this.toggleMenu}
             toggleDownload={this.toggleDownload}
             toggleNameRegion={this.toggleNameRegion}
-            startDownload={this.startDownload}
+            startDownload={this.state.startDownload}
           />
       )
     }
@@ -160,6 +159,7 @@ class Map extends React.Component<Props, State> {
   render() {
     const { followUserLocation } = this.state
     const { location, styleURL } = this.props.user
+    console.log(this.state.startDownload)
     return (
       <View style={styles.map}>
         <MapboxGL.MapView

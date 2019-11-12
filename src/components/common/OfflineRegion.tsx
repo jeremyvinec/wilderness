@@ -17,7 +17,7 @@ interface Props {
   toggleDownload: () => void,
   insertNameRegion: () => void,
   toggleNameRegion: () => void,
-  startDownload: () => void,
+  startDownload: boolean,
   offlineRegion: [],
   MapboxGL: {},
   user: { location: [], styleURL: String, name: String },
@@ -44,9 +44,9 @@ class OfflineRegion extends React.Component<Props, State> {
     }
   }
 
-  componentDidMount() {
-    if (this.props.startDownload) {
-      console.log('start')
+  componentDidUpdate(nextProps) {
+    if (nextProps.startDownload !== this.props.startDownload) {
+      this.setState({ name: nextProps.offlineRegion[nextProps.offlineRegion.length - 1]})
       this.onDidFinishLoadingStyle()
     }
   }
@@ -108,7 +108,7 @@ class OfflineRegion extends React.Component<Props, State> {
               Download State:{' '}
               {this.getRegionDownloadState(offlineRegionStatus.state)}
               </Text>
-              <Text style={styles.percentageText}>Download Percent: {Math.round(offlineRegionStatus.percentage)} %</Text>
+              <Text style={styles.percentageText}>Download Percent: {Math.round(offlineRegionStatus.percentage)}%</Text>
           </View>
       )
     }
