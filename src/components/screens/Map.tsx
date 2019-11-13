@@ -185,15 +185,6 @@ class Map extends React.Component<Props, State> {
               followHeading={0}
               followUserMode={MapboxGL.UserTrackingModes.FollowWithHeading}
           />
-          <MapboxGL.ShapeSource
-          id="earthquakes"
-            url="https://www.strava.com/heatmap#13.52/6.11138/44.55078/purple/ride"
-          >
-            <MapboxGL.HeatmapLayer
-            id="earthquakes"
-            sourceID="earthquakes"
-            />
-          </MapboxGL.ShapeSource>
         </MapboxGL.MapView>
         {this.Menu()}
         {this.downloadMap()}

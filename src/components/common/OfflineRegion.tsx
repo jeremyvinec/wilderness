@@ -2,6 +2,7 @@ import geoViewport from '@mapbox/geo-viewport'
 import React from 'react'
 import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { connect } from 'react-redux'
+import DownloadList from '../common/DownloadList'
 
 import frameBottomLeft from '../../assets/img/frame-bottom-left.png'
 import frameBottomRight from '../../assets/img/frame-bottom-right.png'
@@ -9,8 +10,8 @@ import frameTopLeft from '../../assets/img/frame-top-left.png'
 import frameTopRight from '../../assets/img/frame-top-right.png'
 
 import ArrowCircleDown from '../../assets/svg/ArrowCircleDown'
-import List from '../../assets/svg/List'
 import CloseCircle from '../../assets/svg/CloseCircle'
+import List from '../../assets/svg/List'
 
 const MAPBOX_VECTOR_TILE_SIZE = 512
 
@@ -49,7 +50,7 @@ class OfflineRegion extends React.Component<Props, State> {
     }
   }
 
-  componentDidUpdate(nextProps) {
+  componentDidUpdate(nextProps: any) {
     if (nextProps.startDownload !== this.props.startDownload) {
       this.setState({ name: nextProps.offlineRegion[nextProps.offlineRegion.length - 1]})
       this.onDidFinishLoadingStyle()
@@ -60,6 +61,10 @@ class OfflineRegion extends React.Component<Props, State> {
     const { MapboxGL } = this.props
     MapboxGL.offlineManager.deletePack(this.state.name)
     MapboxGL.offlineManager.unsubscribe(this.state.name)
+  }
+
+  toggleList = () => {
+    this.setState({ toggleList: !this.state.toggleList })
   }
 
   onDidFinishLoadingStyle = () => {
@@ -118,6 +123,16 @@ class OfflineRegion extends React.Component<Props, State> {
     }
   }
 
+  displayList = () => {
+    if (this.state.toggleList) {
+      return(
+        <View>
+          <DownloadList/>
+        </View>
+      )
+    }
+  }
+
   render() {
     const { toggleDownload, toggleNameRegion } = this.props
     return(
@@ -139,16 +154,17 @@ class OfflineRegion extends React.Component<Props, State> {
             <Image source={frameBottomRight}/>
           </View>
           <View style={styles.main_container}>
-            <TouchableOpacity style={[styles.button, {color: '#D22D2D'}]} onPress={toggleDownload}>
+            <TouchableOpacity style={styles.button} onPress={toggleDownload}>
               <CloseCircle width='22' height='22' fill='rgba(0,0,0,0.7)'/>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={toggleDownload}>
+            <TouchableOpacity style={styles.button} onPress={this.toggleList}>
             <List width='22' height='22' fill='rgba(0,0,0,0.7)'/>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button} onPress={toggleNameRegion}>
               <ArrowCircleDown width='22' height='22' fill='rgba(0,0,0,0.7)'/>
             </TouchableOpacity>
           </View>
+          {this.displayList()}
         </View>
     )
   }
@@ -171,8 +187,8 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: 'rgba(255,255,255, 0.5)',
     borderRadius: 10,
-    width: 30,
-    height: 30,
+    width: 40,
+    height: 40,
     alignItems: 'center',
     justifyContent: 'center',
   },
