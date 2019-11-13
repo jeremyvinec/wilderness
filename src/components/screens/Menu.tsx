@@ -19,6 +19,7 @@ interface Props {
   onToggleInfo: () => void,
   toggleMenu: () => void,
   MapboxGL: {},
+  followUserLocation: boolean,
 }
 
 interface State { }
@@ -34,7 +35,9 @@ export default class Menu extends React.Component<Props, State> {
     return(
         <View style={styles.bar}>
           <TouchableOpacity style={styles.toggle}>
-            <Altitude MapboxGL={this.props.MapboxGL}/>
+            <Altitude
+              MapboxGL={this.props.MapboxGL}
+            />
           </TouchableOpacity>
           <TouchableOpacity onPress={onToggleCompass} style={styles.toggle}>
             <Compass/>

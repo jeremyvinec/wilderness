@@ -1,12 +1,16 @@
 import geoViewport from '@mapbox/geo-viewport'
 import React from 'react'
-import { Dimensions, StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native'
+import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { connect } from 'react-redux'
 
 import frameBottomLeft from '../../assets/img/frame-bottom-left.png'
 import frameBottomRight from '../../assets/img/frame-bottom-right.png'
 import frameTopLeft from '../../assets/img/frame-top-left.png'
 import frameTopRight from '../../assets/img/frame-top-right.png'
+
+import ArrowCircleDown from '../../assets/svg/ArrowCircleDown'
+import List from '../../assets/svg/List'
+import CloseCircle from '../../assets/svg/CloseCircle'
 
 const MAPBOX_VECTOR_TILE_SIZE = 512
 
@@ -68,7 +72,6 @@ class OfflineRegion extends React.Component<Props, State> {
       [width, height],
       MAPBOX_VECTOR_TILE_SIZE,
     )
-    console.log()
     const options = {
       name: this.state.name,
       styleURL,
@@ -117,7 +120,6 @@ class OfflineRegion extends React.Component<Props, State> {
 
   render() {
     const { toggleDownload, toggleNameRegion } = this.props
-    console.log(this.state.offlineRegionStatus)
     return(
         <View style={styles.container}>
           <View style={styles.area}>
@@ -137,11 +139,14 @@ class OfflineRegion extends React.Component<Props, State> {
             <Image source={frameBottomRight}/>
           </View>
           <View style={styles.main_container}>
+            <TouchableOpacity style={[styles.button, {color: '#D22D2D'}]} onPress={toggleDownload}>
+              <CloseCircle width='22' height='22' fill='rgba(0,0,0,0.7)'/>
+            </TouchableOpacity>
             <TouchableOpacity style={styles.button} onPress={toggleDownload}>
-              <Text style={[styles.buttonText, {color: '#D22D2D'}]}>Cancel</Text>
+            <List width='22' height='22' fill='rgba(0,0,0,0.7)'/>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button} onPress={toggleNameRegion}>
-              <Text style={styles.buttonText}>Download</Text>
+              <ArrowCircleDown width='22' height='22' fill='rgba(0,0,0,0.7)'/>
             </TouchableOpacity>
           </View>
         </View>
@@ -164,16 +169,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
   },
   button: {
+    backgroundColor: 'rgba(255,255,255, 0.5)',
+    borderRadius: 10,
+    width: 30,
+    height: 30,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255, 0.5)',
-    borderRadius: 14,
-    width: 100,
-    height: 57,
-  },
-  buttonText: {
-    textAlign: 'center',
-    color: '#1F3044',
   },
   frameTopLeft: {
     position: 'absolute',
