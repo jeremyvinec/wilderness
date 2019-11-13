@@ -5,6 +5,8 @@ import { connect } from 'react-redux'
 interface Props {
   setModalVisibleList: () => void,
   offlineRegion: [],
+  MapboxGL: { offlineManager: { _offlinePacks: {} } },
+  toggleList: () => void,
 }
 
 interface State {
@@ -38,7 +40,8 @@ class DownloadList extends React.Component<Props, State> {
   }
 
   render() {
-    const { setModalVisibleList, offlineRegion } = this.props
+    const { toggleList, offlineRegion } = this.props
+    console.log(this.props.MapboxGL.offlineManager._offlinePacks)
     return(
         <View style={styles.modal}>
             <View style={styles.newRegion}>
@@ -55,13 +58,13 @@ class DownloadList extends React.Component<Props, State> {
                   />
                 </View>
                 <View style={styles.main_container}>
-                  <TouchableOpacity style={styles.button} onPress={setModalVisibleList}>
+                  <TouchableOpacity style={styles.button} onPress={toggleList}>
                     <Text style={styles.buttonText}>Delete</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.button} onPress={setModalVisibleList}>
+                  <TouchableOpacity style={styles.button} onPress={toggleList}>
                     <Text style={styles.buttonText}>Cancel</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.button} onPress={setModalVisibleList}>
+                  <TouchableOpacity style={styles.button} onPress={toggleList}>
                     <Text style={styles.buttonText}>Navigate to</Text>
                   </TouchableOpacity>
                 </View>

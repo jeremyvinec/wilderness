@@ -3,6 +3,8 @@ import React from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { updateLocation } from '../../actions/actionUser'
 import CardType from '../common/CardType'
 import OfflineRegion from '../common/OfflineRegion'
 import Menu from './Menu'
@@ -34,6 +36,10 @@ interface State {
 }
 class Map extends React.Component<Props, State> {
 
+  private updateLocation = (location: []) => {
+    this.props.updateLocation(location)
+  }
+
   constructor(props: Props) {
     super(props)
     this.state = {
@@ -48,17 +54,18 @@ class Map extends React.Component<Props, State> {
     }
   }
 
-  onRegionWillChange = (regionFeature) => {
-    this.setState({reason: 'will change', regionFeature})
+  onRegionWillChange = (regionFeature: {}) => {
+    if (this.state.followUserLocation) {
+      this.updateLocation(regionFeature.geometry.coordinates)
+    }
   }
 
-  onRegionIsChanging = (regionFeature) => {
-    this.setState({reason: 'is changing', regionFeature})
+  onRegionIsChanging = (regionFeature: {}) => {
+    //this.setState({reason: 'is changing', regionFeature})
   }
 
-  onRegionDidChange = (regionFeature) => {
+  onRegionDidChange = (regionFeature: {}) => {
     this.setState({
-      reason: 'did change', regionFeature,
       zoomLevel: regionFeature.properties.zoomLevel,
     })
   }
@@ -173,7 +180,7 @@ class Map extends React.Component<Props, State> {
           compassEnabled={false}
           attributionEnabled={false}
           onRegionWillChange={this.onRegionWillChange}
-          onRegionIsChanging={this.onRegionIsChanging}
+          //onRegionIsChanging={this.onRegionIsChanging}
           onRegionDidChange={this.onRegionDidChange}
         >
           <MapboxGL.UserLocation visible={followUserLocation}/>
@@ -212,10 +219,14 @@ const styles = StyleSheet.create({
   },
 })
 
+const mapDispatchToProps = (dispatch: any) => {
+  return bindActionCreators({ updateLocation }, dispatch)
+}
+
 const mapStateToProps = (state: any) => {
   return{
     user: state.user,
   }
 }
 
-export default connect(mapStateToProps)(Map)
+export default connect(mapStateToProps, mapDispatchToProps)(Map)

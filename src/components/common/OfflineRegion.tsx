@@ -127,7 +127,10 @@ class OfflineRegion extends React.Component<Props, State> {
     if (this.state.toggleList) {
       return(
         <View>
-          <DownloadList/>
+          <DownloadList
+            toggleList={this.toggleList}
+            MapboxGL={this.props.MapboxGL}
+          />
         </View>
       )
     }
