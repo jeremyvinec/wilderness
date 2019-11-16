@@ -27,7 +27,7 @@ export const updatePassword = (password: String) => {
 export const updateStyleURL = (styleURL: String) => {
   return{
     type: UPDATE_STYLE_URL,
-    playload: styleURL,
+    playload: styleURL || 'mapbox://styles/mapbox/outdoors-v11',
   }
 }
 

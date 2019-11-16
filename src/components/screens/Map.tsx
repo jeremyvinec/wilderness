@@ -3,6 +3,8 @@ import React from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { updateStyleURL } from '../../actions/actionUser'
 import CardType from '../common/CardType'
 import OfflineRegion from '../common/OfflineRegion'
 import Menu from './Menu'
@@ -18,6 +20,7 @@ MapboxGL.setAccessToken(config.get('accessToken'))
 interface Props {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
   user: { location: [], styleURL: String },
+  updateStyleURL: (styleURL: String) => void,
 }
 
 interface State {
@@ -31,6 +34,10 @@ interface State {
   zoomLevel: number,
 }
 class Map extends React.Component<Props, State> {
+
+  private updateStyleURL = (styleURL: String) => {
+    this.props.updateStyleURL(styleURL)
+  }
 
   constructor(props: Props) {
     super(props)
@@ -46,7 +53,11 @@ class Map extends React.Component<Props, State> {
     }
   }
 
-  onRegionDidChange = (regionFeature: {}) => {
+  componentDidMount() {
+    this.updateStyleURL(MapboxGL.StyleURL.Outdoors)
+  }
+
+  onRegionDidChange = (regionFeature: { properties: { zoomLevel: number } }) => {
     this.setState({
       zoomLevel: regionFeature.properties.zoomLevel,
     })
@@ -199,10 +210,14 @@ const styles = StyleSheet.create({
   },
 })
 
+const mapDispatchToProps = (dispatch: any) => {
+  return bindActionCreators({ updateStyleURL }, dispatch)
+}
+
 const mapStateToProps = (state: any) => {
   return{
     user: state.user,
   }
 }
 
-export default connect(mapStateToProps)(Map)
+export default connect(mapStateToProps, mapDispatchToProps)(Map)
