@@ -8,6 +8,7 @@ import { signup, updateAvatar, updateEmail, updatePassword, updateUsername } fro
 
 import Edit from '../../assets/svg/Edit'
 import Person from '../../assets/svg/Person'
+import Email from '../../assets/svg/Email'
 
 const options = {
   title: 'Select Image',
@@ -82,6 +83,10 @@ class Signup extends React.Component<Props, State> {
     } else {
       return(
         <TouchableOpacity style={styles.button} onPress={this.pickImage}>
+          <Image
+            source={avatar}
+            style={styles.avatar}
+          />
           <Text style={styles.buttonText}>Pick image</Text>
         </TouchableOpacity>
       )
@@ -105,7 +110,7 @@ class Signup extends React.Component<Props, State> {
             />
           </View>
           <View style={styles.main_container}>
-            <Person width='22' height='22' fill='#1F3044'/>
+            <Email width='22' height='22' fill='#1F3044'/>
             <TextInput
               style={styles.inputBox}
               value={user.email}
