@@ -9,6 +9,7 @@ import { signup, updateAvatar, updateEmail, updatePassword, updateUsername } fro
 import Edit from '../../assets/svg/Edit'
 import Person from '../../assets/svg/Person'
 import Email from '../../assets/svg/Email'
+import PersonProfile from '../../assets/svg/PersonProfile'
 
 const options = {
   title: 'Select Image',
@@ -83,11 +84,8 @@ class Signup extends React.Component<Props, State> {
     } else {
       return(
         <TouchableOpacity style={styles.button} onPress={this.pickImage}>
-          <Image
-            source={avatar}
-            style={styles.avatar}
-          />
-          <Text style={styles.buttonText}>Pick image</Text>
+          <PersonProfile width='60' height='60' fill='#1F3044'/>
+          <Text style={[{marginTop: 30},styles.buttonText]}>Pick image</Text>
         </TouchableOpacity>
       )
     }
