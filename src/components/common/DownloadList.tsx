@@ -45,8 +45,8 @@ class DownloadList extends React.Component<Props, State> {
   }
 
   render() {
-    const { toggleList, offlineRegion, MapboxGL } = this.props
-    console.log(MapboxGL.offlineManager)
+    const { MapboxGL, toggleList } = this.props
+    //console.log(MapboxGL.offlineManager)
     return(
         <View style={styles.modal}>
             <View style={styles.newRegion}>

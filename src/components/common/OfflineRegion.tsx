@@ -3,6 +3,7 @@ import React from 'react'
 import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { connect } from 'react-redux'
 import DownloadList from '../common/DownloadList'
+import NameRegion from './NameRegion'
 
 import frameBottomLeft from '../../assets/img/frame-bottom-left.png'
 import frameBottomRight from '../../assets/img/frame-bottom-right.png'
@@ -24,7 +25,17 @@ interface Props {
   toggleNameRegion: () => void,
   startDownload: boolean,
   offlineRegion: [],
-  MapboxGL: {},
+  MapboxGL: {
+    offlineManager: {
+      deletePack: (name: {}) => void,
+      unsubscribe: (name: {}) => void,
+      createPack: (options: {}) => void,
+    }
+    OfflinePackDownloadState: {
+      Active: {},
+      Complete: {},
+    },
+  },
   zoomLevel: number,
   user: { location: [], styleURL: String, name: String },
 }
@@ -32,8 +43,12 @@ interface Props {
 interface State {
   toggleDownload: boolean,
   toggleList: boolean,
+  toggleNameRegion: boolean,
   offlineRegion: {},
-  offlineRegionStatus: {},
+  offlineRegionStatus: {
+    percentage: number,
+    state: String,
+  },
   name: {},
 }
 
@@ -44,6 +59,7 @@ class OfflineRegion extends React.Component<Props, State> {
     this.state = {
       toggleDownload: false,
       toggleList: false,
+      toggleNameRegion: false,
       offlineRegion: null,
       offlineRegionStatus: null,
       name: props.offlineRegion[props.offlineRegion.length - 1],
@@ -59,12 +75,23 @@ class OfflineRegion extends React.Component<Props, State> {
 
   componentWillUnmount() {
     const { MapboxGL } = this.props
-    MapboxGL.offlineManager.deletePack(this.state.name)
-    MapboxGL.offlineManager.unsubscribe(this.state.name)
+    const { name } = this.state
+    MapboxGL.offlineManager.deletePack(name)
+    MapboxGL.offlineManager.unsubscribe(name)
   }
 
   toggleList = () => {
-    this.setState({ toggleList: !this.state.toggleList })
+    this.setState({
+      toggleList: !this.state.toggleList,
+      toggleNameRegion: false,
+    })
+  }
+
+  toggleNameRegion = () => {
+    this.setState({ 
+      toggleNameRegion: !this.state.toggleNameRegion,
+      toggleList: false,
+    })
   }
 
   onDidFinishLoadingStyle = () => {
@@ -128,6 +155,7 @@ class OfflineRegion extends React.Component<Props, State> {
       return(
         <View>
           <DownloadList
+            toggleNameRegion={this.toggleNameRegion}
             toggleList={this.toggleList}
             MapboxGL={this.props.MapboxGL}
           />
@@ -136,8 +164,20 @@ class OfflineRegion extends React.Component<Props, State> {
     }
   }
 
+  nameRegion = () => {
+    if (this.state.toggleNameRegion) {
+      return(
+        <NameRegion
+          toggleNameRegion={this.toggleNameRegion}
+          toggleList={this.toggleList}
+          startDownload={this.props.startDownload}
+        />
+      )
+    }
+  }
+
   render() {
-    const { toggleDownload, toggleNameRegion } = this.props
+    const { toggleDownload } = this.props
     return(
         <View style={styles.container}>
           <View style={styles.area}>
@@ -163,11 +203,12 @@ class OfflineRegion extends React.Component<Props, State> {
             <TouchableOpacity style={styles.button} onPress={this.toggleList}>
               <List width='22' height='22' fill='rgba(0,0,0,0.7)'/>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={toggleNameRegion}>
+            <TouchableOpacity style={styles.button} onPress={this.toggleNameRegion}>
               <ArrowCircleDown width='22' height='22' fill='rgba(0,0,0,0.7)'/>
             </TouchableOpacity>
           </View>
           {this.displayList()}
+          {this.nameRegion()}
         </View>
     )
   }

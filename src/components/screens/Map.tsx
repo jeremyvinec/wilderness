@@ -13,7 +13,6 @@ import Menu from './Menu'
 import ArrowUp from '../../assets/svg/ArrowUp'
 
 import config from '../../utils/config.js'
-import NameRegion from '../common/NameRegion'
 
 MapboxGL.setAccessToken(config.get('accessToken'))
 
@@ -28,7 +27,6 @@ interface State {
   menuOpen: boolean,
   downloadOpen: boolean,
   onMapChange: boolean,
-  toggleNameRegion: boolean,
   startDownload: boolean,
   reason: String,
   zoomLevel: number,
@@ -46,7 +44,6 @@ class Map extends React.Component<Props, State> {
       menuOpen: true,
       downloadOpen: false,
       onMapChange: false,
-      toggleNameRegion: false,
       startDownload: false,
       reason: '',
       zoomLevel: 12,
@@ -97,10 +94,6 @@ class Map extends React.Component<Props, State> {
     this.setState({ startDownload: ! this.state.startDownload })
   }
 
-  toggleNameRegion = () => {
-    this.setState({ toggleNameRegion: !this.state.toggleNameRegion })
-  }
-
   Menu = () => {
     if (this.state.menuOpen) {
       return(
@@ -140,21 +133,9 @@ class Map extends React.Component<Props, State> {
             MapboxGL={MapboxGL}
             toggleMenu={this.toggleMenu}
             toggleDownload={this.toggleDownload}
-            toggleNameRegion={this.toggleNameRegion}
             startDownload={this.state.startDownload}
             zoomLevel={this.state.zoomLevel}
           />
-      )
-    }
-  }
-
-  nameRegion = () => {
-    if (this.state.toggleNameRegion) {
-      return(
-        <NameRegion
-          toggleNameRegion={this.toggleNameRegion}
-          startDownload={this.startDownload}
-        />
       )
     }
   }
@@ -187,7 +168,6 @@ class Map extends React.Component<Props, State> {
         {this.Menu()}
         {this.downloadMap()}
         {this.onMapChange()}
-        {this.nameRegion()}
       </View>
     )
   }
