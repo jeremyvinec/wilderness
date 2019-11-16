@@ -161,7 +161,7 @@ class OfflineRegion extends React.Component<Props, State> {
               <CloseCircle width='22' height='22' fill='rgba(0,0,0,0.7)'/>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button} onPress={this.toggleList}>
-            <List width='22' height='22' fill='rgba(0,0,0,0.7)'/>
+              <List width='22' height='22' fill='rgba(0,0,0,0.7)'/>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button} onPress={toggleNameRegion}>
               <ArrowCircleDown width='22' height='22' fill='rgba(0,0,0,0.7)'/>

@@ -31,6 +31,7 @@ class DownloadList extends React.Component<Props, State> {
   FlatListItemSeparator = () => <View style={styles.line}/>
 
   renderItem = ({index, item}: any) => {
+    console.log(item)
     return(
       // tslint:disable-next-line:jsx-no-lambda
       <TouchableOpacity onPress={() => this.selectItem(item)}>
@@ -39,9 +40,13 @@ class DownloadList extends React.Component<Props, State> {
     )
   }
 
+  deletePack = () => {
+    this.props.MapboxGL.offlineManager.deletePack('logis')
+  }
+
   render() {
-    const { toggleList, offlineRegion } = this.props
-    console.log(this.props.MapboxGL.offlineManager._offlinePacks)
+    const { toggleList, offlineRegion, MapboxGL } = this.props
+    console.log(MapboxGL.offlineManager)
     return(
         <View style={styles.modal}>
             <View style={styles.newRegion}>
@@ -50,7 +55,7 @@ class DownloadList extends React.Component<Props, State> {
                 </View>
                 <View style={styles.main_container}>
                   <FlatList
-                    data={offlineRegion}
+                    data={MapboxGL.offlineManager._offlinePacks}
                     ItemSeparatorComponent={this.FlatListItemSeparator}
                     renderItem={this.renderItem}
                     // tslint:disable-next-line:jsx-no-lambda
@@ -58,7 +63,7 @@ class DownloadList extends React.Component<Props, State> {
                   />
                 </View>
                 <View style={styles.main_container}>
-                  <TouchableOpacity style={styles.button} onPress={toggleList}>
+                  <TouchableOpacity style={styles.button} onPress={this.deletePack}>
                     <Text style={styles.buttonText}>Delete</Text>
                   </TouchableOpacity>
                   <TouchableOpacity style={styles.button} onPress={toggleList}>
