@@ -1,10 +1,6 @@
-import * as React from 'react'
-import { Image } from 'react-native'
 import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 
-import arrowLeft from '../assets/img/arrowLeft.png'
-import ArrowLeft from '../components/screens/ArrowLeft'
 // page
 import Info from '../components/screens/Info'
 import Login from '../components/screens/Login'
@@ -76,8 +72,6 @@ const StackNavigator = createStackNavigator({
       color: 'black',
     },
   },
-  // cardStyle: {backgroundColor: 'rgba(255,255,255, 0.95)', opacity: 1},
-  // transparentCard,
 })
 
 export default createAppContainer(StackNavigator)
