@@ -38,6 +38,10 @@ class Map extends React.Component<Props, State> {
     console.log('ok')
   }
 
+  onToggleAltitude = () => {
+    console.log('ok')
+  }
+
   onToggleSearch = () => {
     this.props.navigation.navigate('Search')
     this.setState({followUserLocation: false})
@@ -65,6 +69,7 @@ class Map extends React.Component<Props, State> {
           <Menu
             onToggleCompass={this.onToggleCompass}
             onToggleUserLocation={this.onToggleUserLocation}
+            onToggleAltitude={this.onToggleAltitude}
             onToggleSearch={this.onToggleSearch}
             toggleMap={this.toggleMap}
             onToggleInfo={this.onToggleInfo}

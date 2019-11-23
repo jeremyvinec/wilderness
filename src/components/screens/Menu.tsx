@@ -12,6 +12,7 @@ import Compass from '../common/Compass'
 interface Props {
   onToggleCompass: () => void,
   onToggleUserLocation: () => void,
+  onToggleAltitude: () => void,
   onToggleSearch: () => void,
   toggleMap: () => void,
   onToggleInfo: () => void,
@@ -24,12 +25,12 @@ interface State { }
 export default class Menu extends React.Component<Props, State> {
 
   render() {
-    const { onToggleCompass, onToggleUserLocation, onToggleSearch, toggleMap, onToggleInfo, toggleMenu } = this.props
+    const { onToggleCompass, onToggleUserLocation, onToggleAltitude, onToggleSearch, toggleMap, onToggleInfo, toggleMenu, MapboxGL } = this.props
     return(
         <View style={styles.bar}>
-          <TouchableOpacity style={styles.toggle}>
+          <TouchableOpacity onPress={onToggleAltitude} style={styles.toggle}>
             <Altitude
-              MapboxGL={this.props.MapboxGL}
+              MapboxGL={MapboxGL}
             />
           </TouchableOpacity>
           <TouchableOpacity onPress={onToggleCompass} style={styles.toggle}>
