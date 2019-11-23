@@ -1,7 +1,7 @@
 import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore'
 // import storage from '@react-native-firebase/storage'
-import { INSERT_NAME_REGION, LOGIN, SIGNUP, UPDATE_AVATAR, UPDATE_EMAIL, UPDATE_LOCATION, UPDATE_PASSWORD, UPDATE_STYLE_URL, UPDATE_USERNAME } from './actionTypes'
+import { LOGIN, SIGNUP, UPDATE_AVATAR, UPDATE_EMAIL, UPDATE_LOCATION, UPDATE_PASSWORD, UPDATE_STYLE_URL, UPDATE_USERNAME } from './actionTypes'
 
 export const updateUsername = (username: String) => {
   return {
@@ -27,7 +27,7 @@ export const updatePassword = (password: String) => {
 export const updateStyleURL = (styleURL: String) => {
   return{
     type: UPDATE_STYLE_URL,
-    playload: styleURL || 'mapbox://styles/mapbox/outdoors-v11',
+    playload: styleURL,
   }
 }
 
@@ -42,13 +42,6 @@ export const updateLocation = (location: String) => {
   return {
     type: UPDATE_LOCATION,
     playload: location,
-  }
-}
-
-export const insertNameRegion = (nameRegion: String) => {
-  return{
-    type: INSERT_NAME_REGION,
-    playload: nameRegion,
   }
 }
 
