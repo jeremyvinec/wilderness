@@ -43,7 +43,7 @@ class CardType extends React.Component<Props, State> {
   }
 
   satellite = () => {
-    this.updateStyleURL(this._mapOptions[4].data)
+    this.updateStyleURL('mapbox://styles/jeremyvinec/ck2mc7qkj0akp1cllonu8xubj')
   }
 
   dark = () => {

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Linking, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation'
+import background from '../../assets/img/background.png'
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
